@@ -12,54 +12,57 @@ app.set('views', 'views')
 // Static route
 app.use(express.static('public'))
 
-app.get('', (req, res) => {
-    res.render('index', {
+app.get('/', (req, res) => {
+    res.render('pages/index', {
         name: 'Salvatore'
     })
 })
-
-app.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About Me',
-        name: 'Salvatore'
-    })
-})
-
-app.get('/help', (req, res) => {
-    res.render('help', {
-        title: 'Help page',
-        helpText: '...',
-        name: 'Salvatore'
-    })
-})
-  
 
 /*
-app.get('/products', (req, res) =>{
-    if (!req.query.search) {
-        return res.send({
-            error: 'You must provide a search term'
+
+    app.get('/about', (req, res) => {
+        res.render('about', {
+            title: 'About Me',
+            name: 'Salvatore'
         })
-    } 
-    console.log(req.query.search);
-    res.send({
-        products: []
+    })
+
+    app.get('/help', (req, res) => {
+        res.render('help', {
+            title: 'Help page',
+            helpText: '...',
+            name: 'Salvatore'
+        })
     })
     
-})
-   */
 
-app.get('/help/*', (req, res) => {
-    res.render('404', {
-        title: "404",
-        name: "Salvatore",
-        errorMessage: "Help article not found."
+
+    app.get('/products', (req, res) =>{
+        if (!req.query.search) {
+            return res.send({
+                error: 'You must provide a search term'
+            })
+        } 
+        console.log(req.query.search);
+        res.send({
+            products: []
+        })
+        
     })
-})
+    
 
+    app.get('/help/*', (req, res) => {
+        res.render('404', {
+            title: "404",
+            name: "Salvatore",
+            errorMessage: "Help article not found."
+        })
+    })
+
+*/
 
 app.get('*', (req, res) => {
-    res.render('404', {
+    res.render('pages/404', {
         title: "404",
         name: "Salvatore",
         errorMessage: "Page not found."
