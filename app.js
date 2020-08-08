@@ -18,6 +18,18 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/login', (req, res) => {
+    res.render('pages/login', {
+        title: ''
+    })
+})
+
+app.get('/register', (req, res) => {
+    res.render('pages/register', {
+        title: ''
+    })
+})
+
 /*
 
     app.get('/about', (req, res) => {
