@@ -1,9 +1,15 @@
-<h1 class="h3 mb-4 text-gray-800">Modulo registrazione clienti</h1>
+<style>
+  #visualizza_cliente_ricercato {
+    display: none;
+  }
+</style>
+
+<h1 class="h3 mb-4 text-gray-800">Registra un nuovo cliente</h1>
 <br />
 <form>
   <div class="row">
     <div class="col">
-      <input type="text" class="form-control" placeholder="Nome" />
+      <input type="text" class="form-control" placeholder="Nome" required="required" />
     </div>
     <div class="col">
       <input type="text" class="form-control" placeholder="Cognome" />
@@ -13,58 +19,97 @@
   <br />
 
   <div class="form-group">
-    <input
-      type="text"
-      id="codicefiscale"
-      placeholder="Codice Fiscale"
-      class="form-control"
-      pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$"
-      required="required"
-    />
+    <input type="text" id="codicefiscale" placeholder="Codice Fiscale" class="form-control"
+      pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" />
   </div>
   <div class="form-group">
-    <input
-      type="text"
-      placeholder="Indirizzo"
-      class="form-control"
-      id="inputAddress"
-    />
+    <input type="text" placeholder="Tessera Sanitaria" class="form-control" id="inputTessera" />
   </div>
   <div class="form-group">
-    <input
-      type="text"
-      placeholder="Indirizzo 2"
-      class="form-control"
-      id="inputAddress2"
-    />
+    <input type="text" placeholder="Indirizzo" class="form-control" id="inputAddress" />
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Città"
-        class="form-control"
-        id="inputCity"
-      />
+      <input type="text" placeholder="Città" class="form-control" id="inputCity" />
     </div>
     <div class="form-group col-md-4">
       <select id="inputState" class="form-control">
         <option selected>Stato...</option>
-        <option>...</option>
+        <option value="italia">Italia</option>
+        <option value="estero">Estero</option>
       </select>
     </div>
     <div class="form-group col-md-2">
       <input type="text" placeholder="CAP" class="form-control" id="inputZip" />
     </div>
     <div class="form-group col-md-12">
-        <input
-          type="email"
-          placeholder="Email"
-          class="form-control"
-          id="inputEmail4"
-        />
-        <br>
-        <button type="submit" class="btn btn-primary">Registra</button>
+      <input type="email" placeholder="Email" class="form-control" id="inputEmail4" />
+      <br>
+      <button type="submit" class="btn btn-primary">Registra</button>
+    </div>
+  </div>
+</form>
+
+<!--      MODULO MODIFICA/CANCELLA CLIENTI-->
+<br />
+<br />
+<h1 class="h3 mb-2 text-gray-800">Modifica</h1>
+<p>Ricerca e modifica un cliente già registrato </p>
+
+<!-- form ricerca cliente -->
+<br>
+<form class="form-inline">
+  <div class="input-group">
+    <input type="text" class="form-control bg-light border-0 small" placeholder="Chi devo cercare?" aria-label="Search"
+      aria-describedby="basic-addon2" />
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button">
+        <i class="fas fa-search fa-sm"></i>
+      </button>
+    </div>
+  </div>
+</form>
+
+<!-- visualizza cliente -->
+<form id="visualizza_cliente_ricercato">
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Nome" required="required" />
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Cognome" />
+    </div>
+  </div>
+  <br />
+
+  <div class="form-group">
+    <input type="text" id="codicefiscale" placeholder="Codice Fiscale" class="form-control"
+      pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" />
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Tessera Sanitaria" class="form-control" id="inputTessera" />
+  </div>
+  <div class="form-group">
+    <input type="text" placeholder="Indirizzo" class="form-control" id="inputAddress" />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="text" placeholder="Città" class="form-control" id="inputCity" />
+    </div>
+    <div class="form-group col-md-4">
+      <select id="inputState" class="form-control">
+        <option selected>Stato...</option>
+        <option value="italia">Italia</option>
+        <option value="estero">Estero</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <input type="text" placeholder="CAP" class="form-control" id="inputZip" />
+    </div>
+    <div class="form-group col-md-12">
+      <input type="email" placeholder="Email" class="form-control" id="inputEmail4" />
+      <br>
+      <button type="submit" class="btn btn-primary">Registra</button>
     </div>
   </div>
 </form>
