@@ -30,6 +30,12 @@ app.get('/register', (req, res) => {
     })
 })
 
+app.get('/clients', (req, res) => {
+    res.render('pages/mod-clients', {
+        title: ''
+    })
+})
+
 /*
 
     app.get('/about', (req, res) => {
