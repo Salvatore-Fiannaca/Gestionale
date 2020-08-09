@@ -30,6 +30,12 @@ app.get('/register', (req, res) => {
     })
 })
 
+app.get('/forgot', (req, res) => {
+    res.render('pages/forgot', {
+        title: ''
+    })
+})
+
 app.get('/clients', (req, res) => {
     res.render('pages/clients', {
         title: ''
