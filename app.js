@@ -31,7 +31,13 @@ app.get('/register', (req, res) => {
 })
 
 app.get('/clients', (req, res) => {
-    res.render('pages/mod-clients', {
+    res.render('pages/clients', {
+        title: ''
+    })
+})
+
+app.get('/practices', (req, res) => {
+    res.render('pages/practices', {
         title: ''
     })
 })
