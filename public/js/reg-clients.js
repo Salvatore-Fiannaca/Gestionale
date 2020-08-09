@@ -1,0 +1,1 @@
+console.log("Js client-side is load");
