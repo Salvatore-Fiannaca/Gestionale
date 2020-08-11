@@ -100,4 +100,4 @@ app.get('*', (req, res) => {
   })
 
 
-app.listen(3001, () => console.log('Server is up on :3000'))
+app.listen(3001, () => console.log('Server is up on :3001'))
