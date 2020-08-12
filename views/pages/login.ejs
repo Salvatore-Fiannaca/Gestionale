@@ -41,12 +41,12 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Bentornato!</h1>
                   </div>
-                  <form class="user">
+                  <form class="user" id="loginForm" method="post" action="">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Indirizzo Email..." required>
+                      <input type="email" class="form-control form-control-user" id="inputEmail" aria-describedby="emailHelp" placeholder="Indirizzo Email..." required>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" required>
+                      <input type="password" class="form-control form-control-user" id="inputPassword" placeholder="Password" required>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -54,9 +54,9 @@
                         <label class="custom-control-label" for="customCheck">Ricordami</label>
                       </div>
                     </div>
-                    <a href="/" class="btn btn-primary btn-user btn-block">
+                    <button class="btn btn-primary btn-user btn-block">
                       Accedi
-                    </a>
+                    </button>
                     <hr>
                   </form>
                   <div class="text-center">
@@ -88,7 +88,7 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Custom scripts -->
-  <script src="js/reg-users"></script>
+  <script src="js/login.js"></script>
 
   </style>
 </body>

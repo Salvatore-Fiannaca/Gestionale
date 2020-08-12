@@ -2,7 +2,7 @@
 // list form
 const regForm = document.querySelector('#regForm')
 
-//send dat to db
+//send data to db
 regForm.addEventListener('submit', (e) => {
     e.preventDefault()
 

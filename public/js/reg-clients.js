@@ -1,30 +1,29 @@
-console.log('Client side javascript file is loaded!')
 
-const clientForm = document.querySelector('#clientForm')
+// list form
+const regForm = document.querySelector('#regForm')
 
-const messageOne = document.querySelector('#message-1')
-const messageTwo = document.querySelector('#message-2')
-
-clientForm.addEventListener('submit', (e) => {
+//send data to db
+regForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const firstName = document.querySelector('#firstName').value
-    const lastName = document.querySelector('#lastName').value
+    const inputName = document.querySelector('#firstName')
+    //const lastName = document.querySelector('#lastName')
+    const inputEmail = document.querySelector('#email')
+    const inputPassword = document.querySelector('#inputPassword')
+    //const repeatPassword = document.querySelector('#repeatPassword')
 
-    messageOne.textContent  = 'Loading...'
-    messageTwo.textContent = ''
-    
-    fetch('http://localhost:3000/tasks').then((response) => {
-    response.json().then((data) => {
-        if (data.error) {
-          messageOne.textContent = data.error
-        } else {
-            messageOne.textContent = "Cliente registrato correttamente"
-          //messageOne.textContent = data.body
-          //messageTwo.textContent = data
-        }
-        }
-    )}
-    )
-  
-})
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: inputName.value,
+        email: inputEmail.value,
+        password: inputPassword.value
+      })
+    }).then(res => {
+      return res.json()
+    }).then(data => console.log(data))
+    .catch(error => console.log('ERROR'))
+ })
