@@ -1,11 +1,10 @@
-//  Node.js     (localhost:3000)
+// Frontend     (localhost:3001)
 const path = require('path')
 const express = require('express')
 const ejs = require('ejs')
 
 const app = express()
 
-// Setup handlebars engine and views location
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 
@@ -14,7 +13,7 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     res.render('pages/index', {
-        name: 'Salvatore'
+        user: ''
     })
 })
 

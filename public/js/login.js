@@ -20,6 +20,9 @@ loginForm.addEventListener('submit', (e) => {
       })
     }).then(res => {
       return res.json()
-    }).then(data => console.log(`Benvenuto ${data.user.name}`))
+    }).then(data => {
+      alert(`Benvenuto ${data.user.name}`)
+      return window.location.href='/'
+    })
     .catch(error => console.log('ERROR'))
  })

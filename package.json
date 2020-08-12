@@ -4,8 +4,10 @@
     "version": "4.1.1",
     "scripts": {
         "startGulp": "node_modules/.bin/gulp watch",
-        "start": "node app.js",
-        "dev": "nodemon app.js -e js,hbs"
+        "startFrontend": "node app.js",
+        "devFrontend": "nodemon app.js",
+        "startBackend": "node src/index.js",
+        "devBackend": "nodemon src/index.js"
     },
     "description": "An open source Bootstrap 4 admin theme.",
     "keywords": [
@@ -43,7 +45,15 @@
         "jquery.easing": "^1.4.1",
         "nodemon": "^2.0.4",
         "request": "^2.88.2",
-        "routes": "^2.1.0"
+        "routes": "^2.1.0",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "jsonwebtoken": "^8.5.1",
+        "mongodb": "^3.6.0",
+        "mongoose": "^5.9.27",
+        "multer": "^1.4.2",
+        "sharp": "^0.25.4",
+        "validator": "^13.1.1"
     },
     "devDependencies": {
         "browser-sync": "^2.26.12",
@@ -56,6 +66,7 @@
         "gulp-rename": "2.0.0",
         "gulp-sass": "4.1.0",
         "gulp-uglify": "3.0.2",
-        "merge-stream": "2.0.0"
+        "merge-stream": "2.0.0",
+        "nodemon": "^2.0.4"
     }
 }

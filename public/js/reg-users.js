@@ -24,6 +24,9 @@ regForm.addEventListener('submit', (e) => {
       })
     }).then(res => {
       return res.json()
-    }).then(data => console.log(data))
+    }).then(data => {
+      alert('Account creato con successo!')
+      return window.location.href='/login'
+    })
     .catch(error => console.log('ERROR'))
  })
