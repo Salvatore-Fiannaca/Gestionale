@@ -1,6 +1,7 @@
 // Frontend     (localhost:3001)
 const path = require('path')
 const express = require('express')
+const session = require('express-session')
 const ejs = require('ejs')
 
 const app = express()
@@ -11,14 +12,31 @@ app.set('views', 'views')
 // Static route
 app.use(express.static('public'))
 
+app.use(session({secret: 'Sssshhhhhh',saveUninitialized: true,resave: true}));
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+var sess; // global session (just for test)
+
 app.get('/', (req, res) => {
+    sess= req.session;
+    if(sess.email) {
+        return res.redirect('/dashboard')
+    }
+
+    res.render('pages/login')
+})
+
+app.get('/dashboard', (req, res) => {
     res.render('pages/index', {
-        user: ''
+        title: ''
     })
 })
 
-app.get('/login', (req, res) => {
-    res.render('pages/login', {
+app.post('/login', (req, res) => {
+    sess = req.session;
+    sess.email = req.body.email;
+    res.render('pages/index', {
         title: ''
     })
 })
