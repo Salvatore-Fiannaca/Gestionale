@@ -6,10 +6,10 @@ const regForm = document.querySelector('#regForm')
 regForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const inputName = document.querySelector('#firstName')
+    const inputName = document.querySelector('#username')
     //const lastName = document.querySelector('#lastName')
     const inputEmail = document.querySelector('#email')
-    const inputPassword = document.querySelector('#inputPassword')
+    const inputPassword = document.querySelector('#password')
     //const repeatPassword = document.querySelector('#repeatPassword')
 
     fetch('http://localhost:3000/users', {

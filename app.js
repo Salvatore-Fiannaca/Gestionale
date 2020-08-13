@@ -1,4 +1,3 @@
-// Frontend     (localhost:3000)
 const path = require('path')
 const express = require('express')
 const session = require('express-session');
@@ -62,31 +61,6 @@ app.use(routes);
 
 // OLD STATIC ROUTES
 /*
-app.get('/', (req, res) => {
-
-    if(req.session.views) {
-        req.session.views++
-        res.redirect('/dashboard')
-    } else {
-        req.session.view = 1;
-        res.render('pages/login')
-    }
-
-})
-
-app.get('/dashboard', (req, res) => {
-    res.render('pages/index', {
-        title: ''
-    })
-})
-
-app.post('/login', (req, res) => {
-    sess = req.session;
-    sess.email = req.body.email;
-    res.render('pages/index', {
-        title: ''
-    })
-})
 
 app.get('/register', (req, res) => {
     res.render('pages/register', {
@@ -154,15 +128,6 @@ app.get('/practices', (req, res) => {
     })
 
 
-
-app.get('*', (req, res) => {
-    res.render('pages/404', {
-        title: "404",
-        name: "Salvatore",
-        errorMessage: "Page not found."
-    })
-  })
-
 */
 
 /**
@@ -175,8 +140,6 @@ app.set('views', 'views')
 
 // Static route
 app.use(express.static('public'))
-
-
 
 
 app.listen(3000, () => console.log('Server is up on :3000'))
