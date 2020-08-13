@@ -5,8 +5,10 @@
 </style>
 
 
-<h1 class="h3 mb-4 text-gray-800" href="#add">Registra un nuovo cliente</h1>
-<br />
+<!--      MODULO MODIFICA/CANCELLA CLIENTI-->
+
+<h1 class="h3 mb-4 text-gray-800">Registra un nuovo cliente</h1>
+
 <!-- FORM REGISTRA CLIENTI -->
 <form action="" id="clientForm">
   <div class="row">
@@ -25,11 +27,11 @@
       pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" />
   </div>
   <div class="form-group">
-    <input type="text" placeholder="Indirizzo" class="form-control" id="inputAddress" />
+    <input type="text" placeholder="Indirizzo" class="form-control" name="client-address" />
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input type="text" placeholder="Città" class="form-control" id="inputCity" />
+      <input type="text" placeholder="Città" class="form-control" name="client-city" />
     </div>
     <div class="form-group col-md-4">
       <select id="inputState" class="form-control">
@@ -40,24 +42,25 @@
       </select>
     </div>
     <div class="form-group col-md-2">
-      <input type="text" placeholder="CAP" class="form-control" id="inputZip" />
+      <input type="text" placeholder="CAP" class="form-control" name="client-zip" />
     </div>
-    <div class="form-group col-md-12">
-      <input type="email" placeholder="Email" class="form-control" id="inputEmail4" />
-      <br>
-      <button type="submit" class="btn btn-primary">Registra</button>
+    <div class="form-group col-md-6">
+      <input type="email" placeholder="Email" class="form-control" name="client-email" />
     </div>
+    <div class="form-group col-md-6"> 
+      <input type="number" placeholder="Telefono" class="form-control" name="client-number" />
+    </div>
+    <button type="submit" class="btn btn-primary">Registra</button>
   </div>
 </form>
-
-<!--      MODULO MODIFICA/CANCELLA CLIENTI-->
-<br />
-<br />
-<h1 class="h3 mb-2 text-gray-800" href="#mod">Modifica</h1>
-<p>Ricerca e modifica un cliente già registrato </p>
+<br>
+<br>
+<br>
+<br>
 
 <!-- form ricerca cliente -->
-<br>
+<h1 class="h3 mb-2 text-gray-800">Ricerca Clienti</h1>
+<p>Trova e modifica un cliente già registrato</p>
 <form class="form-inline">
   <div class="input-group">
     <input type="text" class="form-control bg-light border-0 small" placeholder="Chi stai cercando?" aria-label="Search"
@@ -69,6 +72,8 @@
     </div>
   </div>
 </form>
+
+<br>
 
 <!-- visualizza cliente -->
 <form id="visualizza_cliente_ricercato">
@@ -114,4 +119,3 @@
   </div>
 </form>
 
-<script src="js/reg-clients.js"></script>

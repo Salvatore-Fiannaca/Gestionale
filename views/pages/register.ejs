@@ -30,24 +30,24 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Crea un account amministratore</h1>
                 </div>
-                <form class="user" method="post" action="register" id="regForm">
+                <form class="user" method="POST" action="register" id="regForm">
                   <div class="form-group row">
                     <div class="col-sm-12 mb-3 mb-sm-0">
-                      <input type="text" class="form-control form-control-user" id="username" placeholder="Nome" required>
+                      <input type="text" class="form-control form-control-user" name="nickname" placeholder="Identificativo (Opzionale)">
                     </div>
                   </div>
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-user" id="email" placeholder="Email" required>
+                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username" required>
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="password" class="form-control form-control-user" id="password" placeholder="Password" required>
+                      <input type="password" class="form-control form-control-user" name="password" placeholder="Password" required>
                     </div>
                     <div class="col-sm-6">
                       <input type="password" class="form-control form-control-user" id="password1" placeholder="Ripeti Password" required>
                     </div>
                   </div>
-                  <button class="btn btn-primary btn-user btn-block">
+                  <button type="submit" value="Submit" class="btn btn-primary btn-user btn-block">
                     Registrati
                   </button>
                 </form>
@@ -77,8 +77,6 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Custom scripts -->
-  <script src="js/reg-users.js"></script>
-
 
 </body>
 
