@@ -45,7 +45,6 @@ router.get('/', (req, res, next) => {
 // When you visit http://localhost:3000/register, you will see "Register Page"
 router.get('/register', (req, res, next) => {
     res.render('pages/register')
-    res.redirect('/')
 })
 
 // Visiting this route logs the user out
