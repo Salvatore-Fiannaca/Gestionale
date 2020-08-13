@@ -49,10 +49,15 @@
         "mongoose": "^5.9.27",
         "multer": "^1.4.2",
         "nodemon": "^2.0.4",
+        "passport": "^0.4.1",
         "request": "^2.88.2",
         "routes": "^2.1.0",
         "sharp": "^0.25.4",
-        "validator": "^13.1.1"
+        "validator": "^13.1.1",
+        "bcrypt": "^5.0.0",
+        "connect-mongo": "^3.1.2",
+        "dotenv": "^8.2.0",
+        "passport-local": "^1.0.0"
     },
     "devDependencies": {
         "browser-sync": "^2.26.12",

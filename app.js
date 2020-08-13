@@ -1,9 +1,9 @@
 // Frontend     (localhost:3000)
 const path = require('path')
 const express = require('express')
-const session = require('express-session')
-var passport = require('passport');
-var routes = require('./routes');
+const session = require('express-session');
+const passport = require('passport');
+const routes = require('./routes');
 const ejs = require('ejs')
 const connection = require('./config/database');
 
