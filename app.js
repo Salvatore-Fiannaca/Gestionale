@@ -1,30 +1,77 @@
-// Frontend     (localhost:3001)
+// Frontend     (localhost:3000)
 const path = require('path')
 const express = require('express')
 const session = require('express-session')
+var passport = require('passport');
+var routes = require('./routes');
 const ejs = require('ejs')
+const connection = require('./config/database');
 
-const app = express()
+const MongoStore = require('connect-mongo')(session);
 
-app.set('view engine', 'ejs')
-app.set('views', 'views')
+// Need to require the entire Passport config module so app.js knows about it
+require('./config/passport');
 
-// Static route
-app.use(express.static('public'))
+/**
+ * -------------- GENERAL SETUP ----------------
+ */
 
-app.use(session({secret: 'Sssshhhhhh',saveUninitialized: true,resave: true}));
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+// Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax
+require('dotenv').config();
 
-var sess; // global session (just for test)
+// Create the Express application
+var app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+/**
+ * -------------- SESSION SETUP ----------------
+ */
+
+const sessionStore = new MongoStore({
+    mongooseConnection: connection,
+    collection: 'sessions'
+})
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // Equals 1 day * 24/hr/1day * 60min/1 hr
+    }
+}))
+
+/**
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+/**
+ * -------------- ROUTES ----------------
+ */
+
+// Imports all of the routes from ./routes/index.js
+app.use(routes);
+
+// OLD STATIC ROUTES
+/*
 app.get('/', (req, res) => {
-    sess= req.session;
-    if(sess.email) {
-        return res.redirect('/dashboard')
+
+    if(req.session.views) {
+        req.session.views++
+        res.redirect('/dashboard')
+    } else {
+        req.session.view = 1;
+        res.render('pages/login')
     }
 
-    res.render('pages/login')
 })
 
 app.get('/dashboard', (req, res) => {
@@ -65,7 +112,7 @@ app.get('/practices', (req, res) => {
     })
 })
 
-/*
+
 
     app.get('/about', (req, res) => {
         res.render('about', {
@@ -81,7 +128,7 @@ app.get('/practices', (req, res) => {
             name: 'Salvatore'
         })
     })
-    
+
 
 
     app.get('/products', (req, res) =>{
@@ -89,14 +136,14 @@ app.get('/practices', (req, res) => {
             return res.send({
                 error: 'You must provide a search term'
             })
-        } 
+        }
         console.log(req.query.search);
         res.send({
             products: []
         })
-        
+
     })
-    
+
 
     app.get('/help/*', (req, res) => {
         res.render('404', {
@@ -106,7 +153,7 @@ app.get('/practices', (req, res) => {
         })
     })
 
-*/
+
 
 app.get('*', (req, res) => {
     res.render('pages/404', {
@@ -116,5 +163,20 @@ app.get('*', (req, res) => {
     })
   })
 
+*/
 
-app.listen(3001, () => console.log('Server is up on :3001'))
+/**
+ * -------------- SERVER ----------------
+ */
+
+// setting view engine
+app.set('view engine', 'ejs')
+app.set('views', 'views')
+
+// Static route
+app.use(express.static('public'))
+
+
+
+
+app.listen(3000, () => console.log('Server is up on :3000'))

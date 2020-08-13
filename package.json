@@ -4,10 +4,8 @@
     "version": "4.1.1",
     "scripts": {
         "startGulp": "node_modules/.bin/gulp watch",
-        "startFrontend": "node app.js",
-        "devFrontend": "nodemon app.js",
-        "startBackend": "node src/index.js",
-        "devBackend": "nodemon src/index.js"
+        "start": "node app.js",
+        "dev": "nodemon app.js"
     },
     "description": "An open source Bootstrap 4 admin theme.",
     "keywords": [
@@ -44,6 +42,7 @@
         "ejs": "^3.1.3",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
+        "helmet": "^4.0.0",
         "jquery": "3.5.1",
         "jquery.easing": "^1.4.1",
         "mongodb": "^3.6.0",
