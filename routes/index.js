@@ -8,10 +8,8 @@ const User = connection.models.User;
  * -------------- POST ROUTES ----------------
  */
 
- // TODO
  router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
 
- // TODO
  router.post('/register', async (req, res, next) => {
    const hash =  await genPassword(req.body.password)
 
@@ -26,6 +24,22 @@ const User = connection.models.User;
      })
    res.redirect('/')
  })
+
+ router.post('/client', async (req, res, next) => {
+    const hash =  await genPassword(req.body.password)
+ 
+    const newClient = new Client({
+        username: req.body.username,
+        hash: hash
+    })
+ 
+    newClient.save()
+      .then((user) => {
+          console.log("Clietne aggiunto con successo")
+      })
+    res.redirect('/client')
+  })
+ 
 
 
  /**
