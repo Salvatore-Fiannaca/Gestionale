@@ -75,7 +75,7 @@ router.get('/logout', async(req, res, next) => {
     res.redirect('/');
 });
 
-router.get('/clients', (req, res, next) => {
+router.get('/client', (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
         res.render('pages/clients');
@@ -84,9 +84,18 @@ router.get('/clients', (req, res, next) => {
     }
 })
 
-/* router.get('/moduli', (req, res, next) => { 
-        res.render('pages/clients')
-}) */
+router.get('/clients', (req, res, next) => {
+    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+    if (req.isAuthenticated()) {
+        res.render('pages/show-clients');
+    } else {
+        res.redirect('/');
+    }
+})
+
+router.get('/404', (req, res, next) => {
+    res.render('pages/404')
+})
 
 
 module.exports = router;

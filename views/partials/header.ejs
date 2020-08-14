@@ -30,10 +30,17 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item ">
-        <a class="nav-link" href="/clients">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients">
           <i class="fas fa-fw fa-cog"></i>
           <span>Clienti</span>
         </a>
+        <div id="collapseClients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Gestione Clienti:</h6>
+            <a class="collapse-item" href="/client">Aggiungi</a>
+            <a class="collapse-item" href="/clients">Lista Clienti</a>
+          </div>
+        </div>
       </li>
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
@@ -45,8 +52,8 @@
         <div id="collapseDocuments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Gestione Pratiche:</h6>
-            <a class="collapse-item" href="/practices">Allegati</a>
-            <a class="collapse-item" href="/practices">Modifica</a>
+            <a class="collapse-item" href="/practic">Aggiungi</a>
+            <a class="collapse-item" href="/practices">Lista Pratiche</a>
           </div>
         </div>
       </li>
