@@ -48,7 +48,7 @@ router.get('/register', (req, res, next) => {
 })
 
 // Visiting this route logs the user out
-router.get('/logout', (req, res, next) => {
+router.get('/logout', async(req, res, next) => {
     req.logout();
     res.redirect('/');
 });

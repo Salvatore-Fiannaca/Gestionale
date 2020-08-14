@@ -15,7 +15,6 @@ const verifyCallback = async (username, password, done) => {
   const user = await User.findOne({ username: username})
 
     if (!user) {
-      console.log("!user")
       return done(null, false)
     }
 
@@ -23,10 +22,8 @@ const verifyCallback = async (username, password, done) => {
     const isValid = await validPassword(password, user.hash)
 
     if (isValid) {
-      console.log("Welcome");
       return done(null, user)
     } else {
-      console.log("Try Again...");
       return done(null, false)
     }
 
