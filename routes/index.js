@@ -3,6 +3,8 @@ const passport = require('passport');
 const { genPassword } = require('../lib/passwordUtils');
 const connection = require('../config/database');
 const User = connection.models.User;
+const Client = connection.models.Client;
+
 
 /**
  * -------------- POST ROUTES ----------------
@@ -26,16 +28,22 @@ const User = connection.models.User;
  })
 
  router.post('/client', async (req, res, next) => {
-    const hash =  await genPassword(req.body.password)
- 
-    const newClient = new Client({
-        username: req.body.username,
-        hash: hash
+    const newClient = await new Client({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        fiscalCode: req.body.fiscalCode,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zipCode: req.body.zipCode,
+        email: req.body.email,
+        phone: req.body.phone
     })
+    console.log(newClient)
  
     newClient.save()
       .then((user) => {
-          console.log("Clietne aggiunto con successo")
+          console.log("Cliente aggiunto con successo")
       })
     res.redirect('/client')
   })

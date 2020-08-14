@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator')
 
 require('dotenv').config();
 
@@ -26,8 +27,71 @@ const UserSchema = new mongoose.Schema({
     hash: String
 });
 
-
 const User = connection.model('User', UserSchema);
+
+// Creates schema for Client
+const clientsSchema = new mongoose.Schema({
+    firstName: {
+        type: String,
+        trim: true,
+        required: true 
+    },
+    lastName: {
+        type: String,
+        trim: true
+    },
+    fiscalCode: {
+        type: String,
+        trim: true,
+        unique: true,
+    },
+    address: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    zipCode: {
+        type: Number,
+        trim: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
+    },
+    phone: {
+        type: String,
+        trim: true
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    }
+    }, {
+        attachments: {
+            avatar: {
+                type: Buffer
+            }
+        }
+    },{
+        timestamps: true
+    })
+
+const Client = connection.model('Client', clientsSchema) 
 
 // Expose the connection
 module.exports = connection;
