@@ -5,8 +5,8 @@
   </style>
   
 <!-- form ricerca cliente -->
-<h1 class="h3 mb-2 text-gray-800">Lista Clienti</h1>
-<p>Elenco completo dei clienti registrati</p>
+<h1 class="h3 mb-2 text-gray-800">Lista Pratiche</h1>
+<p>Elenco completo</p>
 <br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -18,34 +18,25 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
+            <th>Categoria</th>
             <th>Nome Completo</th>
-            <th>Anagrafe</th>
-            <th>Pratiche</th>
-            <th>Email</th>
-            <th>Telefono</th>
-            <th>Modifica</th>
+            <th>Pratica</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
+            <th>Categoria</th>
             <th>Nome Completo</th>
-            <th>Anagrafe</th>
-            <th>Pratiche</th>
-            <th>Email</th>
-            <th>Telefono</th>
-            <th>Modifica</th>
+            <th>Pratica</th>
           </tr>
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
+              <td><a href="">Docfa(demo)</a></td>
               <td><%= client.firstName + " " + client.lastName %></td>
               <td><a href="">Mostra</a></td>
-              <td><a href="">Mostra</a></td>
-              <td><%= client.email %></td>
-              <td><%= client.phone %></td>
-              <td><a href="">Modifica</a></td>
             </tr>
             <% }) %> 
         </tbody>
