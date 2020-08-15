@@ -29,22 +29,25 @@ const Client = connection.models.Client;
 
  router.post('/client', async (req, res, next) => {
     const newClient = await new Client({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        fiscalCode: req.body.fiscalCode,
-        address: req.body.address,
-        city: req.body.city,
-        state: req.body.state,
-        zipCode: req.body.zipCode,
-        email: req.body.email,
-        phone: req.body.phone
+        "profile.firstName": req.body.firstName,
+        "profile.lastName": req.body.lastName,
+        "profile.fiscalCode": req.body.fiscalCode,
+        "address.street": req.body.address,
+        "address.city": req.body.city,
+        "address.state": req.body.state,
+        "address.zipCode": req.body.zipCode,
+        "contacts.email": req.body.email,
+        "contacts.phone": req.body.phone,
+        ...req.body,
+        owner: req.user._id,
     })
- 
-    newClient.save()
-      .then((user) => {
-          console.log("Cliente aggiunto con successo")
-      })
-    res.redirect('/client')
+
+    try {
+        await newClient.save()
+        res.redirect('/clients')
+        } catch (e) {
+         console.log(e)
+    }
   })
  
 

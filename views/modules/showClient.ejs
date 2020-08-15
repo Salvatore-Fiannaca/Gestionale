@@ -38,11 +38,11 @@
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
-              <td><%= client.firstName + " " + client.lastName %></td>
+              <td><%= client.profile.firstName + " " + client.profile.lastName %></td>
               <td><a href="">Mostra</a></td>
-              <td><%= client.phone %></td>
+              <td><%= client.contacts.phone %></td>
               <td><a href=""> Mostra</a></td>
-              <td><%= client.email %></td>
+              <td><%= client.contacts.email %></td>
             </tr>
             <% }) %> 
         </tbody>
