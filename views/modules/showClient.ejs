@@ -18,57 +18,52 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Cognome</th>
+            <th>Nome Completo</th>
+            <th>Contatti</th>
             <th>Codice Fiscale</th>
+            <th>Città</th>
             <th>Indirizzo</th>
-            <th>città</th>
-            <th>Telefono</th>
+            <th>CAP</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <th>Nome</th>
-            <th>Cognome</th>
+            <th>Nome Completo</th>
+            <th>Contatti</th>
             <th>Codice Fiscale</th>
+            <th>Città</th>
             <th>Indirizzo</th>
-            <th>città</th>
-            <th>Telefono</th>
+            <th>CAP</th>
           </tr>
         </tfoot>
         <tbody>
           <tr>
-            <td>Jonas Alexander</td>
-            <td>Developer</td>
-            <td>San Francisco</td>
-            <td>30</td>
-            <td>2010/07/14</td>
-            <td>$86,500</td>
-          </tr>
-          <tr>
-            <td>Salvatore</td>
-            <td>Fiannaca</td>
+            <td>Cliente</td>
+            <td>example@gmail.com + cell</td>
             <td>FNNSVT.ect</td>
-            <td>Via ...</td>
-            <td>Agrigento</td>
-            <td>38910....</td>
+            <td>Via 1</td>
+            <td>Palermo</td>
+            <td>00001</td>
           </tr>
           <tr>
-            <td>Michael Bruce</td>
-            <td>Javascript Developer</td>
-            <td>Singapore</td>
-            <td>29</td>
-            <td>2011/06/27</td>
-            <td>$183,000</td>
+            <td>Cliente2</td>
+            <td>example@tiscali.it + cell</td>
+            <td>GNNST.ect</td>
+            <td>Via 2</td>
+            <td>Roma</td>
+            <td>00002</td>
           </tr>
-          <tr>
-            <td>Donna Snider</td>
-            <td>Customer Support</td>
-            <td>New York</td>
-            <td>27</td>
-            <td>2011/01/25</td>
-            <td>$112,000</td>
-          </tr>
+          <!-- LIST CLIENT FROM DB--> 
+            <% clientList.forEach(client => { %>
+            <tr>
+              <td><%= client.firstName + " " + client.lastName %></td>
+              <td><%= client.email + " cell:" + client.phone %></td>
+              <td><%= client.FiscalCode %></td>
+              <td><%= client.city %></td>
+              <td><%= client.address %></td>
+              <td><%= client.zipCode %></td>
+            </tr>
+            <% }) %> 
         </tbody>
       </table>
     </div>

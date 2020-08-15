@@ -39,7 +39,6 @@ const Client = connection.models.Client;
         email: req.body.email,
         phone: req.body.phone
     })
-    console.log(newClient)
  
     newClient.save()
       .then((user) => {
@@ -84,10 +83,11 @@ router.get('/client', (req, res, next) => {
     }
 })
 
-router.get('/clients', (req, res, next) => {
+router.get('/clients', async (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
-        res.render('pages/show-clients');
+        const clientList = await Client.find()
+        res.render('pages/show-clients', {clientList: clientList});
     } else {
         res.redirect('/');
     }
@@ -99,3 +99,4 @@ router.get('/404', (req, res, next) => {
 
 
 module.exports = router;
+
