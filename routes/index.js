@@ -86,11 +86,21 @@ router.get('/client', (req, res, next) => {
     }
 })
 
+
 router.get('/clients', async (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
         const clientList = await Client.find()
         res.render('pages/show-clients', {clientList: clientList});
+    } else {
+        res.redirect('/');
+    }
+})
+
+router.get('/practice', (req, res, next) => {
+    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+    if (req.isAuthenticated()) {
+        res.render('pages/practice');
     } else {
         res.redirect('/');
     }
