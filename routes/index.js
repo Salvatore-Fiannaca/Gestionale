@@ -12,7 +12,7 @@ const Client = connection.models.Client;
 
  router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
 
- router.post('/register', async (req, res, next) => {
+ router.post('/register', async (req, res) => {
    const hash =  await genPassword(req.body.password)
 
    const newUser = new User({
@@ -27,7 +27,7 @@ const Client = connection.models.Client;
    res.redirect('/')
  })
 
- router.post('/client', async (req, res, next) => {
+ router.post('/client', async (req, res) => {
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
@@ -50,13 +50,11 @@ const Client = connection.models.Client;
     }
   })
  
-
-
  /**
  * -------------- GET ROUTES ----------------
  */
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
         res.render('pages/index');
@@ -65,19 +63,16 @@ router.get('/', (req, res, next) => {
     }
 });
 
-// When you visit http://localhost:3000/register, you will see "Register Page"
-router.get('/register', (req, res, next) => {
+router.get('/register', (req, res) => {
     res.render('pages/register')
 })
 
-// Visiting this route logs the user out
-router.get('/logout', async(req, res, next) => {
+router.get('/logout', async(req, res) => {
     req.logout();
     res.redirect('/');
 });
 
-router.get('/client', (req, res, next) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+router.get('/client', (req, res) => {
     if (req.isAuthenticated()) {
         res.render('pages/clients');
     } else {
@@ -85,38 +80,35 @@ router.get('/client', (req, res, next) => {
     }
 })
 
-router.get('/client/:id', async (req, res, next) => {
+router.get('/clients/:id', async (req, res) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
-        const _id = req.params.id
+        //const _id = req.params.id
         try {
-            const client = await Client.findOne({_id: req.params.id})
+            const client = await Client.findOne({_id: "5f38f01c35619b3d1d091641"})
             console.log(client)
 
         } catch (e) {
             console.log(e)
         }
-        res.render('pages/index');
+        res.render('pages/show-clients');
     } else {
         res.redirect('/');
     }
 })
 
-router.get('/clients/:id', async (req, res, next) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+router.get('/clients', async (req, res) => {
     if (req.isAuthenticated()) {
-        /* const clientList = await Client.find()
-        console.log(clientList)
-        res.render('pages/show-clients', {clientList: clientList}); */
-        const filter = await Client.find({owner: req.params.id})
+        //Manual setting owner
+        owner = "5f38f01c35619b3d1d091641"
+        const filter = await Client.find({owner: owner})
         res.render('pages/show-clients', {clientList: filter});
     } else {
         res.redirect('/');
     }
 })
 
-router.get('/practice', (req, res, next) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+router.get('/practice', (req, res) => {
     if (req.isAuthenticated()) {
         res.render('pages/practice');
     } else {
@@ -124,8 +116,7 @@ router.get('/practice', (req, res, next) => {
     }
 })
 
-router.get('/practices', async (req, res, next) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+router.get('/practices', async (req, res) => {
     if (req.isAuthenticated()) {
         const clientList = await Client.find()
         res.render('pages/show-practices', {clientList: clientList});
@@ -134,7 +125,7 @@ router.get('/practices', async (req, res, next) => {
     }
 })
 
-router.get('/404', (req, res, next) => {
+router.get('/404', (req, res) => {
     res.render('pages/404')
 })
 
