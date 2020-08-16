@@ -4,6 +4,7 @@ const { genPassword } = require('../lib/passwordUtils');
 const connection = require('../config/database');
 const User = connection.models.User;
 const Client = connection.models.Client;
+const auth = require('../middleware/auth')
 
 
 /**
@@ -12,7 +13,7 @@ const Client = connection.models.Client;
 
  router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
 
- router.post('/register', async (req, res) => {
+ router.post('/register', auth, async (req, res) => {
    const hash =  await genPassword(req.body.password)
 
    const newUser = new User({
@@ -27,7 +28,7 @@ const Client = connection.models.Client;
    res.redirect('/')
  })
 
- router.post('/client', async (req, res) => {
+ router.post('/client', auth, async (req, res) => {
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
@@ -55,7 +56,6 @@ const Client = connection.models.Client;
  */
 
 router.get('/', (req, res) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
         res.render('pages/index');
     } else {
@@ -67,65 +67,46 @@ router.get('/register', (req, res) => {
     res.render('pages/register')
 })
 
-router.get('/logout', async(req, res) => {
+router.get('/logout', auth, async(req, res) => {
     req.logout();
     res.redirect('/');
 });
 
-router.get('/client', (req, res) => {
-    if (req.isAuthenticated()) {
+router.get('/forgot', (req, res) => {
+    res.render('pages/forgot')
+})
+
+router.get('/client', auth, (req, res) => {
         res.render('pages/clients');
-    } else {
-        res.redirect('/');
-    }
 })
 
-router.get('/clients/:id', async (req, res) => {
-    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
-    if (req.isAuthenticated()) {
-        //const _id = req.params.id
-        try {
-            const client = await Client.findOne({_id: "5f38f01c35619b3d1d091641"})
-            console.log(client)
-
-        } catch (e) {
-            console.log(e)
-        }
-        res.render('pages/show-clients');
-    } else {
-        res.redirect('/');
+router.get('/clients/:id', auth, async (req, res) => {
+    //const _id = req.params.id
+    try {
+        const client = await Client.findOne({_id: "5f38f01c35619b3d1d091641"})
+    } catch (e) {
+        console.log(e)
     }
+    res.render('pages/show-clients');
 })
 
-router.get('/clients', async (req, res) => {
-    if (req.isAuthenticated()) {
-        //Manual setting owner
-        owner = "5f38f01c35619b3d1d091641"
-        const filter = await Client.find({owner: owner})
-        res.render('pages/show-clients', {clientList: filter});
-    } else {
-        res.redirect('/');
-    }
+router.get('/clients', auth, async (req, res) => {
+    //Manual setting owner
+    owner = "5f38f01c35619b3d1d091641"
+    const filter = await Client.find({owner: owner})
+    res.render('pages/show-clients', {clientList: filter});
 })
 
-router.get('/practice', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.render('pages/practice');
-    } else {
-        res.redirect('/');
-    }
+router.get('/practice', auth, (req, res) => {
+    res.render('pages/practice')
 })
 
-router.get('/practices', async (req, res) => {
-    if (req.isAuthenticated()) {
-        const clientList = await Client.find()
-        res.render('pages/show-practices', {clientList: clientList});
-    } else {
-        res.redirect('/');
-    }
+router.get('/practices', auth, async (req, res) => {
+    const clientList = await Client.find()
+    res.render('pages/show-practices', {clientList: clientList});
 })
 
-router.get('/404', (req, res) => {
+router.get('', (req, res) => {
     res.render('pages/404')
 })
 
