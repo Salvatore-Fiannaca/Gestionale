@@ -85,12 +85,12 @@ router.get('/client', (req, res, next) => {
     }
 })
 
-router.get('/clientx', async (req, res, next) => {
+router.get('/client/:id', async (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
-        console.log(req.user._id)
+        const _id = req.params.id
         try {
-            const client = await Client.findOne({_id: "5f380a594147b1186f35304d"})
+            const client = await Client.findOne({_id: req.params.id})
             console.log(client)
 
         } catch (e) {
