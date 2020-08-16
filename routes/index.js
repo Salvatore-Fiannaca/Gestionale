@@ -65,7 +65,6 @@ router.get('/', (req, res, next) => {
     }
 });
 
-
 // When you visit http://localhost:3000/register, you will see "Register Page"
 router.get('/register', (req, res, next) => {
     res.render('pages/register')
@@ -86,6 +85,22 @@ router.get('/client', (req, res, next) => {
     }
 })
 
+router.get('/clientx', async (req, res, next) => {
+    // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
+    if (req.isAuthenticated()) {
+        console.log(req.user._id)
+        try {
+            const client = await Client.findOne({_id: "5f380a594147b1186f35304d"})
+            console.log(client)
+
+        } catch (e) {
+            console.log(e)
+        }
+        res.render('pages/index');
+    } else {
+        res.redirect('/');
+    }
+})
 
 router.get('/clients', async (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant

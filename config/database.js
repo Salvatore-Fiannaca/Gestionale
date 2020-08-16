@@ -45,8 +45,7 @@ const clientsSchema = new mongoose.Schema(
       },
       fiscalCode: {
         type: String,
-        trim: true,
-        unique: true,
+        trim: true
       },
     },
     address: {
@@ -70,7 +69,6 @@ const clientsSchema = new mongoose.Schema(
     contacts: {
       email: {
         type: String,
-        unique: true,
         required: true,
         trim: true,
         lowercase: true,
