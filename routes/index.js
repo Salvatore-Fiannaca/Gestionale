@@ -4,7 +4,7 @@ const { genPassword } = require('../lib/passwordUtils');
 const connection = require('../config/database');
 const User = connection.models.User;
 const Client = connection.models.Client;
-const auth = require('../middleware/auth')
+const auth = require('../config/auth')
 
 
 /**
