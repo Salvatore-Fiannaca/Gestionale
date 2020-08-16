@@ -13,7 +13,7 @@ const auth = require('../middleware/auth')
 
  router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
 
- router.post('/register', auth, async (req, res) => {
+ router.post('/register', async (req, res) => {
    const hash =  await genPassword(req.body.password)
 
    const newUser = new User({
@@ -106,7 +106,7 @@ router.get('/practices', auth, async (req, res) => {
     res.render('pages/show-practices', {clientList: clientList});
 })
 
-router.get('', (req, res) => {
+router.get('/404', (req, res) => {
     res.render('pages/404')
 })
 
