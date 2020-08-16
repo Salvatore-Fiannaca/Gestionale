@@ -42,8 +42,6 @@
           </div>
         </div>
       </li>
-      <!-- Nav Item - Pages Collapse Menu -->
-     
       <!-- Divider -->
       <hr class="sidebar-divider" />
 
@@ -51,14 +49,20 @@
       <div class="sidebar-heading">
         Archivi
       </div>
-
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item ">
-        <a class="nav-link " href="/practices">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDocuments">
           <i class="fas fa-fw fa-folder"></i>
           <span>Lavori</span>
         </a>
-       
+        <div id="collapseDocuments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Gestione Lavori:</h6>
+            <a class="collapse-item" href="/practice">Aggiungi</a>
+            <a class="collapse-item" href="/practices">Lista Completa</a>
+          </div>
+        </div>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider" />
 

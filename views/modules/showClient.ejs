@@ -1,9 +1,3 @@
-<style>
-    #visualizza_cliente_ricercato {
-      display: none;
-    }
-  </style>
-  
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800">Lista Clienti</h1>
 <p>Elenco completo dei clienti registrati</p>
@@ -35,7 +29,7 @@
             <% clientList.forEach(client => { %>
             <tr>
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
-              <td><button type="button" class="btn btn-sm btn-light">Lista Completa</button></td>
+              <td><button type="button" class="btn btn-sm btn-light">Mostra</button></td>
               <td>
                 <div class="dropdown">
                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
