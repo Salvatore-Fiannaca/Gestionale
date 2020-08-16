@@ -89,6 +89,14 @@ router.get('/clients', auth, async (req, res) => {
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
+// TESTING
+router.get('/practices/:code', auth, async (req, res, next) => {
+    code = req.params.code 
+    const clientList = await Client.find({"profile.fiscalCode": code})
+    console.log(clientList)
+    next()
+    //res.render('pages/show-practices', {clientList: clientList});
+})
 
 router.get('/practices', auth, async (req, res) => {
     owner = req.session.passport.user
