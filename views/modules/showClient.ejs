@@ -29,11 +29,14 @@
             <% clientList.forEach(client => { %>
             <tr>
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
-              <td><button type="button" class="btn btn-sm btn-light">Mostra</button></td>
+              <td>
+                <button type="button" onclick="" class="btn btn-sm btn-success">Aggiungi</button>
+                <button type="button" onclick="" class="btn btn-sm btn-primary">Lista</button>
+              </td>
               <td>
                 <div class="dropdown">
-                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Mostra
+                <button type="button" class="btn btn-sm btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Contatti
                 </button>
                 <div class="dropdown-menu">
                   <!-- Dropdown menu links -->
