@@ -145,12 +145,15 @@ const worksSchema = new mongoose.Schema(
         link: {
           type: String,
           required: true
-        },
-        status: {
-          type: String,
-          default: ''
         }
-    }
+      },
+      comments: {
+        type: String
+      },
+      status: {
+        type: String,
+        default: ''
+      }
     }
   },
   {

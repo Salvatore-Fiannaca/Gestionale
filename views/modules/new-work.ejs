@@ -1,0 +1,45 @@
+
+<h1 class="h3 mb-4 text-gray-800">Registra un nuovo lavoro</h1>
+<p>Cliente:  </p>
+<!-- <%= fiscalCode %>  -->
+<!-- FORM REGISTRA LAVORO -->
+<form method="POST" action="client" id="clientForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="text" name="work.title" placeholder="Nome lavoro" class="form-control" required />
+    </div>
+    <div class="form-group col-md-4">
+      <select name="work.folder" class="form-control">
+        <option selected>Cartella...</option>
+        <option value="PROGETTI">PROGETTI</option>
+        <option value="DOCFA">DOCFA</option>
+        <option value="PREGEO">PREGEO</option>
+        <option value="VARIE">VARIE</option>
+        <option value="">...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <input type="number" name="work.nFolder" placeholder="N°" class="form-control" required />
+    </div>
+
+    <div class="form-group col-md-10">
+      <input type="email" name="email" placeholder="Commenti..." class="form-control"  />
+    </div>
+    <div class="form-group col-md-2">
+      <select name="status" class="form-control">
+        <option selected>Stato lavoro...</option>
+        <option value="Concluso">Concluso</option>
+        <option value="Incompleto">Incompleto</option>
+        <option value="Revisionare">Revisionare</option>
+        <option value="">...</option>
+      </select>
+    </div>
+
+    <button type="submit" value="Submit"class="btn btn-primary">Registra</button>
+  </div>
+</form>
+<br>
+<br>
+<br>
+
+

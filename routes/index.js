@@ -12,9 +12,9 @@ const auth = require('../config/auth')
  * -------------- POST ROUTES ----------------
  */
 
- router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
+router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
 
- router.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
    const hash =  await genPassword(req.body.password)
 
    const newUser = new User({
@@ -29,7 +29,7 @@ const auth = require('../config/auth')
    res.redirect('/')
  })
 
- router.post('/client', auth, async (req, res) => {
+router.post('/client', auth, async (req, res) => {
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
@@ -51,15 +51,17 @@ const auth = require('../config/auth')
          console.log(e)
     }
   })
-// TEST      NEW         WORK!!!
-router.get('/test', auth, async (req, res) => {
+  // TEST POST
+router.post('/new-work_:code', auth, async (req, res) => {
     const newWork = await new Work({
-        "client": "TESTVT95R12A089J",
-        "work.title": "Rilievo",
-        "work.folder": "Desktop/ClienteX/Rilievo",
-        "work.file.title": "rilievo",
-        "work.file.link": "Desktop/ClienteX/Atto/rilievo.xml",
-        "work.status": "Incompleto"
+        "client": req.params.code,
+        "work.title": req.body.title,
+        "work.folder.title": req.body.folder,
+        "work.folder.number": req.body.nFolder,
+        "work.comments": req.body.comments,
+        "work.file.title": req.body.titleFile,
+        "work.file.link": req.body.linkFile,
+        "work.status": req.body.status
     })
     try {
         await newWork.save()
@@ -67,6 +69,11 @@ router.get('/test', auth, async (req, res) => {
     } catch (e) {
         res.send('ERROR D:', () => console.log(e))
     }
+})
+
+// TEST    GET
+router.get('/new-work_:code', auth, async (req, res) => {
+    res.render('pages/new-work', {fiscalCode: req.params.code})
 })
  
  /**
@@ -108,11 +115,16 @@ router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
 // TESTING
-router.get('/:code', auth, async (req, res) => {
+router.get('/_:code', auth, async (req, res) => {
     code = req.params.code 
-    const clientList = await Work.find({"client": code})
-    console.log(clientList[0].client)
-    res.render('pages/showForCode', {clientList: clientList});
+    try {
+        const clientList = await Work.find({"client": code})
+        console.log(clientList[0].client)
+        res.render('pages/showForCode', {clientList: clientList});
+    } catch (e) {
+        console.log(e)
+        res.send('User not found')
+    }
 })
 
 router.get('/practices', auth, async (req, res) => {
