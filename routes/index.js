@@ -6,6 +6,7 @@ const User = connection.models.User;
 const Client = connection.models.Client;
 const Work = connection.models.Work;
 const auth = require('../config/auth')
+const multer = require('multer')
 
 
 /**
@@ -51,10 +52,21 @@ router.post('/client', auth, async (req, res) => {
          console.log(e)
     }
   })
-  // TEST POST
-router.post('/new-work_:code', auth, async (req, res) => {
-    console.log(req.body)
-    const newWork = await new Work({
+  // TEST MULTER
+const upload = multer({
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, callback) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+            return callback(new Error('Please upload an image'))
+        }
+        callback(undefined, true)
+    }
+})
+router.post('/new-work_:code', auth, upload.single('allegati'), async (req, res) => {
+    console.log(req.body.linkFile)
+    /* const newWork = await new Work({
         "client": req.params.code,
         "work.title": req.body.title,
         "work.folder.title": req.body.folder,
@@ -63,9 +75,9 @@ router.post('/new-work_:code', auth, async (req, res) => {
         "work.file.title": req.body.titleFile,
         "work.file.link": req.body.linkFile,
         "work.status": req.body.status
-    })
+    }) */
     try {
-        await newWork.save()
+        //await newWork.save()
         res.send('OK!')
     } catch (e) {
         res.send('ERROR D:', () => console.log(e))
