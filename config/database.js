@@ -27,7 +27,6 @@ const UserSchema = new mongoose.Schema({
   username: String,
   hash: String,
 });
-
 const User = connection.model("User", UserSchema);
 
 // Creates schema for Client
@@ -110,8 +109,51 @@ const clientsSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
 const Client = connection.model("Client", clientsSchema);
+
+
+// Creates schema for Work
+const worksSchema = new mongoose.Schema(
+  {
+    client: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    work: {
+      title: {
+        type: String,
+        require: true,
+        trim: true
+      },
+      folder: {
+        type: String,
+        require: true,
+      },
+      file: {
+        title: {
+          type: String,
+          required: true,
+          trim: true
+        },
+        link: {
+          type: String,
+          required: true
+        },
+        status: {
+          type: String,
+          default: ''
+        }
+    }
+    }
+  },
+  {
+    timestamps: true
+  }
+)
+
+const Work = connection.model("Work", worksSchema);
+
 
 // Expose the connection
 module.exports = connection;

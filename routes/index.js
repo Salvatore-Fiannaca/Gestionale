@@ -4,6 +4,7 @@ const { genPassword } = require('../lib/passwordUtils');
 const connection = require('../config/database');
 const User = connection.models.User;
 const Client = connection.models.Client;
+const Work = connection.models.Work;
 const auth = require('../config/auth')
 
 
@@ -50,6 +51,23 @@ const auth = require('../config/auth')
          console.log(e)
     }
   })
+// TEST      NEW         WORK!!!
+router.get('/test', auth, async (req, res) => {
+    const newWork = await new Work({
+        "client": "FNNSVT95R13A089J",
+        "work.title": "Atto Notarile",
+        "work.folder": "Desktop/ClienteX/Atto",
+        "work.file.title": "atto",
+        "work.file.link": "Desktop/ClienteX/Atto/atto.doc",
+        "work.status": ""
+    })
+    try {
+        await newWork.save()
+        res.send('OK!')
+    } catch (e) {
+        res.send('ERROR D:', () => console.log(e))
+    }
+})
  
  /**
  * -------------- GET ROUTES ----------------
