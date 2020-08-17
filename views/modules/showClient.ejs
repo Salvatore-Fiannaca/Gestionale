@@ -30,11 +30,11 @@
             <tr>
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
               <td>
-                <a href="<%= client.profile.fiscalCode %>">
+                <a href="new-work_<%= client.profile.fiscalCode %>">
                   <button type="button" class="btn btn-sm btn-light">Nuovo</button>
                 </a>
 
-                <a href="<%= client.profile.fiscalCode %>">
+                <a href="/_<%= client.profile.fiscalCode %>">
                   <button type="button" class="btn btn-sm btn-light">Elenco lavori</button>
                 </a>
               </td>

@@ -1,15 +1,15 @@
 
 <h1 class="h3 mb-4 text-gray-800">Registra un nuovo lavoro</h1>
-<p>Cliente:  </p>
-<!-- <%= fiscalCode %>  -->
+<p>Cliente: <%= fiscalCode %> </p>
+<!--   -->
 <!-- FORM REGISTRA LAVORO -->
-<form method="POST" action="client" id="clientForm">
+<form method="POST" action="">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input type="text" name="work.title" placeholder="Nome lavoro" class="form-control" required />
+      <input type="text" name="title" placeholder="Nome lavoro" class="form-control" required />
     </div>
     <div class="form-group col-md-4">
-      <select name="work.folder" class="form-control">
+      <select name="folder" class="form-control">
         <option selected>Cartella...</option>
         <option value="PROGETTI">PROGETTI</option>
         <option value="DOCFA">DOCFA</option>
@@ -19,10 +19,10 @@
       </select>
     </div>
     <div class="form-group col-md-2">
-      <input type="number" name="work.nFolder" placeholder="N°" class="form-control" required />
+      <input type="number" name="nFolder" placeholder="N°" class="form-control" required />
     </div>
     <div class="form-group col-md-8">
-      <textarea name="work.comments" placeholder="Spazio per i commenti" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea name="comments" placeholder="Spazio per i commenti" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
     <div class="form-group col-md-2">
       <select name="status" class="form-control">
@@ -33,12 +33,12 @@
         <option value="">...</option>
       </select>
     </div>
-    <div class="form-group">
-      <label name="titleFile">Cartella Locale</label>
-      <input type="file" name="foler" class="form-control-file" webkitdirectory directory multiple>
+    <div class="form-group col-md-6">
+      <input type="text" name="titleFile" class="form-control mb-2" placeholder="Titolo allegato">
+      <input type="file" name="linkFile" class="form-control-file">
     </div>
   </div>
-  <button type="submit" value="Submit"class="btn btn-primary">Registra</button>
+  <button type="submit" value="Submit"class="btn btn-success">Salva</button>
 </form>
 <br>
 <br>

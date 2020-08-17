@@ -118,8 +118,7 @@ const worksSchema = new mongoose.Schema(
   {
     client: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     work: {
       title: {
@@ -139,16 +138,15 @@ const worksSchema = new mongoose.Schema(
       file: {
         title: {
           type: String,
-          required: true,
           trim: true
         },
         link: {
-          type: String,
-          required: true
+          type: Buffer,
         }
       },
       comments: {
-        type: String
+        type: String,
+        default: ''
       },
       status: {
         type: String,

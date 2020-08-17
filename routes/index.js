@@ -53,6 +53,7 @@ router.post('/client', auth, async (req, res) => {
   })
   // TEST POST
 router.post('/new-work_:code', auth, async (req, res) => {
+    console.log(req.body)
     const newWork = await new Work({
         "client": req.params.code,
         "work.title": req.body.title,
@@ -119,7 +120,7 @@ router.get('/_:code', auth, async (req, res) => {
     code = req.params.code 
     try {
         const clientList = await Work.find({"client": code})
-        console.log(clientList[0].client)
+        console.log(clientList[0])
         res.render('pages/showForCode', {clientList: clientList});
     } catch (e) {
         console.log(e)

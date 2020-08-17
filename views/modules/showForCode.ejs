@@ -14,29 +14,34 @@
           <tr>
             <th>Numero</th>
             <th>Cartella</th>
-            <th>Lavoro</th>
+            <th>Titolo</th>
             <th>Documenti</th>
+            <th>Stato</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Numero</th>
             <th>Cartella</th>
-            <th>Lavoro</th>
+            <th>Titolo</th>
             <th>Documenti</th>
+            <th>Stato</th>
           </tr>
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
-              <td>13</td>
-              <td> PREGEO  </td>
-              <td> ATTO NOTARILE</td>
+              <td> <%= clientList[0].work.folder.number %> </td>
+              <td> <%= clientList[0].work.folder.title %></td>
+              <td> <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= clientList[0].work.comments %>">
+                <%= clientList[0].work.title %>
+                </button>
+              </td>
               <td>
                 <button class="btn btn-sm btn-light" href="#">Anteprima</button>
-                <button class="btn btn-sm btn-light" href="#">Apri Cartella</button>
               </td>
+              <td> <%= clientList[0].work.status %> </td>
             </tr>
             <% }) %> 
         </tbody>
