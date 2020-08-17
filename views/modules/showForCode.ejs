@@ -1,0 +1,48 @@
+<!-- form ricerca cliente -->
+<h1 class="h3 mb-2 text-gray-800">Singoli Lavori</h1>
+<p>Codice fiscale: <%= clientList[0].client %> </p>
+<br>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Database</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Numero</th>
+            <th>Cartella</th>
+            <th>Lavoro</th>
+            <th>Documenti</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Numero</th>
+            <th>Cartella</th>
+            <th>Lavoro</th>
+            <th>Documenti</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <!-- LIST CLIENT FROM DB--> 
+            <% clientList.forEach(client => { %>
+            <tr>
+              <td>13</td>
+              <td> PREGEO  </td>
+              <td> ATTO NOTARILE</td>
+              <td>
+                <button class="btn btn-sm btn-light" href="#">Anteprima</button>
+                <button class="btn btn-sm btn-light" href="#">Apri Cartella</button>
+              </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>

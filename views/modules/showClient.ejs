@@ -30,13 +30,17 @@
             <tr>
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
               <td>
-                <a href="practices/<%= client.profile.fiscalCode %>" >
-                  <button type="button" onclick="" class="btn btn-sm btn-light">Elenco lavori</button>
+                <a href="/<%= client.profile.fiscalCode %>">
+                  <button type="button" class="btn btn-sm btn-light">Nuovo</button>
+                </a>
+
+                <a href="/<%= client.profile.fiscalCode %>">
+                  <button type="button" class="btn btn-sm btn-light">Elenco lavori</button>
                 </a>
               </td>
               <td>
                 <div class="dropdown">
-                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Contatti
                 </button>
                 <div class="dropdown-menu">

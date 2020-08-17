@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const { isNumeric } = require("jquery");
 
 require("dotenv").config();
 
@@ -127,8 +128,13 @@ const worksSchema = new mongoose.Schema(
         trim: true
       },
       folder: {
-        type: String,
-        require: true,
+        title: {
+          type: String,
+          require: true
+        },
+        number: {
+          type: Number
+        }
       },
       file: {
         title: {

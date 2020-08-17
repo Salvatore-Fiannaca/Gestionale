@@ -54,12 +54,12 @@ const auth = require('../config/auth')
 // TEST      NEW         WORK!!!
 router.get('/test', auth, async (req, res) => {
     const newWork = await new Work({
-        "client": "FNNSVT95R13A089J",
-        "work.title": "Atto Notarile",
-        "work.folder": "Desktop/ClienteX/Atto",
-        "work.file.title": "atto",
-        "work.file.link": "Desktop/ClienteX/Atto/atto.doc",
-        "work.status": ""
+        "client": "TESTVT95R12A089J",
+        "work.title": "Rilievo",
+        "work.folder": "Desktop/ClienteX/Rilievo",
+        "work.file.title": "rilievo",
+        "work.file.link": "Desktop/ClienteX/Atto/rilievo.xml",
+        "work.status": "Incompleto"
     })
     try {
         await newWork.save()
@@ -108,12 +108,11 @@ router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
 // TESTING
-router.get('/practices/:code', auth, async (req, res, next) => {
+router.get('/:code', auth, async (req, res) => {
     code = req.params.code 
-    const clientList = await Client.find({"profile.fiscalCode": code})
-    console.log(clientList)
-    next()
-    //res.render('pages/show-practices', {clientList: clientList});
+    const clientList = await Work.find({"client": code})
+    console.log(clientList[0].client)
+    res.render('pages/showForCode', {clientList: clientList});
 })
 
 router.get('/practices', auth, async (req, res) => {
