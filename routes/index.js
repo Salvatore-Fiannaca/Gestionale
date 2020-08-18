@@ -78,7 +78,7 @@ router.post('/new-work_:code', auth, async (req, res) => {
   // TEST MULTER
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
-        callback(null, 'upload/img')
+        callback(null, 'upload')
     },
     filename: function(req, file, callback) {
         const parts = file.mimetype.split("/");
