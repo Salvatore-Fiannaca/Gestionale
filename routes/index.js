@@ -54,8 +54,17 @@ router.post('/client', auth, async (req, res) => {
   })
   // TEST MULTER
 const upload = multer({
+    storage: multer.diskStorage({
+        destination: function(req,file,next) {
+            next(null, './public/img')
+            }
+        }
+    ),
     limits: {
         fileSize: 1000000
+    },
+    filename: function(req,file, next) {
+        console.log(file);
     },
     fileFilter(req, file, callback) {
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)){
@@ -65,8 +74,7 @@ const upload = multer({
     }
 })
 router.post('/new-work_:code', auth, upload.single('allegati'), async (req, res) => {
-    console.log(req.body.linkFile)
-    /* const newWork = await new Work({
+    const newWork = await new Work({
         "client": req.params.code,
         "work.title": req.body.title,
         "work.folder.title": req.body.folder,
@@ -75,21 +83,34 @@ router.post('/new-work_:code', auth, upload.single('allegati'), async (req, res)
         "work.file.title": req.body.titleFile,
         "work.file.link": req.body.linkFile,
         "work.status": req.body.status
-    }) */
+    })
     try {
-        //await newWork.save()
+        await newWork.save()
         res.send('OK!')
     } catch (e) {
         res.send('ERROR D:', () => console.log(e))
     }
 })
 
-// TEST    GET
-router.get('/new-work_:code', auth, async (req, res) => {
-    res.render('pages/new-work', {fiscalCode: req.params.code})
+router.post('/test', auth, upload.single('allegati'), async (req, res) => {
+    file = req.file
+    if (file) {
+        console.log(req.file);
+    }else {
+        res.redirect('/test')
+    }
 })
- 
- /**
+
+router.get('/test', auth, async (req, res) => {
+    res.render('test')
+})
+
+
+
+
+
+
+/**
  * -------------- GET ROUTES ----------------
  */
 //  LOGIN / DASHBOARD
@@ -115,7 +136,7 @@ router.get('/forgot', (req, res) => {
 })
 
 router.get('/client', auth, (req, res) => {
-        res.render('pages/clients');
+    res.render('pages/clients');
 })
 
 router.get('/clients', auth, async (req, res) => {
@@ -127,7 +148,6 @@ router.get('/clients', auth, async (req, res) => {
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
-// TESTING
 router.get('/_:code', auth, async (req, res) => {
     code = req.params.code 
     try {
@@ -140,6 +160,9 @@ router.get('/_:code', auth, async (req, res) => {
     }
 })
 
+router.get('/new-work_:code', auth, async (req, res) => {
+    res.render('pages/new-work', {fiscalCode: req.params.code})
+})
 router.get('/practices', auth, async (req, res) => {
     owner = req.session.passport.user
     const clientList = await Client.find({owner: owner})
