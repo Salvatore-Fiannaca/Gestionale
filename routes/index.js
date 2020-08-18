@@ -6,7 +6,8 @@ const User = connection.models.User;
 const Client = connection.models.Client;
 const Work = connection.models.Work;
 const auth = require('../config/auth')
-const multer = require('multer');
+const multer = require('multer'); //remove?
+const upload = require('../config/multer')
 const { MulterError } = require('multer');
 const Upload = connection.models.Upload;
 
@@ -32,7 +33,19 @@ router.post('/register', async (req, res) => {
    res.redirect('/')
  })
 
-router.post('/client', auth, async (req, res) => {
+router.post('/client', auth, upload, async (req, res) => {
+    console.log(req.files[0]);
+
+
+    /* "documents.file.fieldname": req.files.fieldname,
+    "documents.file.originalname": req.files.originalname,
+    "documents.file.mimetype": req.files.mimetype,
+    "documents.file.destination": req.files.destination,
+    "documents.file.filename": req.files.filename,
+    "documents.file.path": req.files.path,
+    "documents.file.size": req.files.size */
+
+    
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
@@ -53,6 +66,8 @@ router.post('/client', auth, async (req, res) => {
         } catch (e) {
          console.log(e)
     }
+
+
   })
 
 router.post('/new-work_:code', auth, async (req, res) => {
@@ -73,23 +88,6 @@ router.post('/new-work_:code', auth, async (req, res) => {
           res.send('ERROR D:', () => console.log(e))
       }
   })
-
-
-  // TEST MULTER
-const storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        const dir = process.env.HOME + '/Desktop/Gestionale/upload/test'
-        callback(null, 'upload/file')
-    },
-    filename: function(req, file, callback) {
-        const parts = file.mimetype.split("/");
-        callback(null, `${file.fieldname}-${Date.now()}.${parts[1]}`)
-        //callback(null, file.originalname)
-    }
-})
-
-const upload = multer({storage: storage}).array('files', 12)
-
 
 router.post('/test', auth, upload, async (req, res) => {
     console.log(req.file);

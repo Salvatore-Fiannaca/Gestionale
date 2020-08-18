@@ -94,12 +94,15 @@ const clientsSchema = new mongoose.Schema(
   },
   {
     documents: {
-      title: {
-        type: String,
-      },
-      file: {
-        type: Buffer,
-      },
+      file:  {
+        fieldname: String,
+        originalname: String,
+        mimetype: String,
+        destination: String,
+        filename: String,
+        path: String,
+        size: Number
+      }
     },
     avatar: {
       type: Buffer,
@@ -134,13 +137,15 @@ const worksSchema = new mongoose.Schema(
           type: Number
         }
       },
-      file: {
-        title: {
-          type: String,
-          trim: true
-        },
-        link: {
-          type: Buffer,
+      documents:  {
+        file: {
+          fieldname: String,
+          originalname: String,
+          mimetype: String,
+          destination: String,
+          filename: String,
+          path: String,
+          size: Number
         }
       },
       comments: {
