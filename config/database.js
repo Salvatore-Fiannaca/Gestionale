@@ -162,5 +162,11 @@ const worksSchema = new mongoose.Schema(
 const Work = connection.model("Work", worksSchema);
 
 
+// TEST UPLOAD
+const UploadSchema = new mongoose.Schema({
+  file: Buffer
+});
+const Upload = connection.model("Upload", UploadSchema);
+
 // Expose the connection
 module.exports = connection;

@@ -6,7 +6,9 @@ const User = connection.models.User;
 const Client = connection.models.Client;
 const Work = connection.models.Work;
 const auth = require('../config/auth')
-const multer = require('multer')
+const multer = require('multer');
+const { MulterError } = require('multer');
+const Upload = connection.models.Upload;
 
 
 /**
@@ -52,53 +54,48 @@ router.post('/client', auth, async (req, res) => {
          console.log(e)
     }
   })
+
+router.post('/new-work_:code', auth, async (req, res) => {
+      const newWork = await new Work({
+          "client": req.params.code,
+          "work.title": req.body.title,
+          "work.folder.title": req.body.folder,
+          "work.folder.number": req.body.nFolder,
+          "work.comments": req.body.comments,
+          "work.file.title": req.body.titleFile,
+          "work.file.link": req.body.linkFile,
+          "work.status": req.body.status
+      })
+      try {
+          await newWork.save()
+          res.send('OK!')
+      } catch (e) {
+          res.send('ERROR D:', () => console.log(e))
+      }
+  })
+
+
   // TEST MULTER
-const upload = multer({
-    storage: multer.diskStorage({
-        destination: function(req,file,next) {
-            next(null, './public/img')
-            }
-        }
-    ),
-    limits: {
-        fileSize: 1000000
+const storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, 'upload/img')
     },
-    filename: function(req,file, next) {
-        console.log(file);
-    },
-    fileFilter(req, file, callback) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-            return callback(new Error('Please upload an image'))
-        }
-        callback(undefined, true)
-    }
-})
-router.post('/new-work_:code', auth, upload.single('allegati'), async (req, res) => {
-    const newWork = await new Work({
-        "client": req.params.code,
-        "work.title": req.body.title,
-        "work.folder.title": req.body.folder,
-        "work.folder.number": req.body.nFolder,
-        "work.comments": req.body.comments,
-        "work.file.title": req.body.titleFile,
-        "work.file.link": req.body.linkFile,
-        "work.status": req.body.status
-    })
-    try {
-        await newWork.save()
-        res.send('OK!')
-    } catch (e) {
-        res.send('ERROR D:', () => console.log(e))
+    filename: function(req, file, callback) {
+        const parts = file.mimetype.split("/");
+        callback(null, `${file.filename}-${Date.now()}.${parts[1]}`)
     }
 })
 
-router.post('/test', auth, upload.single('allegati'), async (req, res) => {
-    file = req.file
-    if (file) {
-        console.log(req.file);
-    }else {
-        res.redirect('/test')
-    }
+const upload = multer({storage}) 
+
+
+router.post('/test', auth, upload.single('image'), async (req, res) => {
+    
+    //console.log(req.file);
+    //console.log(__dirname);
+    //test = (path.join(__dirname + '../' + req.file.path))
+    //console.log(test);
+    //res.sendFile(path.join(__dirname + '../' +"/" + req.file.filename))
 })
 
 router.get('/test', auth, async (req, res) => {
