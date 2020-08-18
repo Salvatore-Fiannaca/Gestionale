@@ -78,20 +78,23 @@ router.post('/new-work_:code', auth, async (req, res) => {
   // TEST MULTER
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
-        callback(null, 'upload')
+        const dir = process.env.HOME + '/Desktop/Gestionale/upload/test'
+        callback(null, 'upload/file')
     },
     filename: function(req, file, callback) {
         const parts = file.mimetype.split("/");
-        callback(null, `${file.filename}-${Date.now()}.${parts[1]}`)
+        callback(null, `${file.fieldname}-${Date.now()}.${parts[1]}`)
+        //callback(null, file.originalname)
     }
 })
 
-const upload = multer({storage}) 
+const upload = multer({storage: storage}).array('files', 12)
 
 
-router.post('/test', auth, upload.single('image'), async (req, res) => {
+router.post('/test', auth, upload, async (req, res) => {
     console.log(req.file);
-    const img = new Upload({
+    console.log(req.files);
+    /* const img = new Upload({
         "fieldname": req.file.fieldname,
         'originalname': req.file.originalname,
         "mimetype": req.file.mimetype,
@@ -99,14 +102,14 @@ router.post('/test', auth, upload.single('image'), async (req, res) => {
         "filename": req.file.filename,
         "path": req.file.path,
         "size": req.file.size
-    })
+    }) */
 
-    try {
+   /*  try {
         img.save()
         res.send("Done")
     } catch (e) {
         console.log(e);
-    }
+    } */
 
     //console.log(req.file);
     //console.log(__dirname);
