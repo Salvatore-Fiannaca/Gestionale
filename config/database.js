@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const { isNumeric } = require("jquery");
 
 require("dotenv").config();
 
@@ -164,8 +163,14 @@ const Work = connection.model("Work", worksSchema);
 
 // TEST UPLOAD
 const UploadSchema = new mongoose.Schema({
-  file: Buffer
-});
+    fieldname: String,
+    originalname: String,
+    mimetype: String,
+    destination: String,
+    filename: String,
+    path: String,
+    size: Number
+})
 const Upload = connection.model("Upload", UploadSchema);
 
 // Expose the connection

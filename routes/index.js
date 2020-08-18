@@ -90,7 +90,24 @@ const upload = multer({storage})
 
 
 router.post('/test', auth, upload.single('image'), async (req, res) => {
-    
+    console.log(req.file);
+    const img = new Upload({
+        "fieldname": req.file.fieldname,
+        'originalname': req.file.originalname,
+        "mimetype": req.file.mimetype,
+        "destination": req.file.destination,
+        "filename": req.file.filename,
+        "path": req.file.path,
+        "size": req.file.size
+    })
+
+    try {
+        img.save()
+        res.send("Done")
+    } catch (e) {
+        console.log(e);
+    }
+
     //console.log(req.file);
     //console.log(__dirname);
     //test = (path.join(__dirname + '../' + req.file.path))
