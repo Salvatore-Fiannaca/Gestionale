@@ -12,19 +12,19 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Numero</th>
-            <th>Cartella</th>
             <th>Titolo</th>
-            <th>Documenti</th>
+            <th>Cartella</th>
+            <th>Numero</th>
+            <th>Allegati</th>
             <th>Stato</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <th>Numero</th>
-            <th>Cartella</th>
             <th>Titolo</th>
-            <th>Documenti</th>
+            <th>Cartella</th>
+            <th>Numero</th>
+            <th>Allegati</th>
             <th>Stato</th>
           </tr>
         </tfoot>
@@ -32,14 +32,14 @@
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
-              <td> <%= clientList[0].work.folder.number %> </td>
-              <td> <%= clientList[0].work.folder.title %></td>
               <td> <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= clientList[0].work.comments %>">
                 <%= clientList[0].work.title %>
                 </button>
               </td>
+              <td> <%= clientList[0].work.folder.title %></td>
+              <td> <%= clientList[0].work.folder.number %> </td>
               <td>
-                <button class="btn btn-sm btn-light" href="#"> Allegati</button>
+                <button class="btn btn-sm btn-light" href="#"> Mostra </button>
               </td>
               <td> <%= clientList[0].work.status %> </td>
             </tr>

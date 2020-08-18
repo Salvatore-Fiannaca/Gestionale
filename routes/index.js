@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
 
    newUser.save()
      .then((user) => {
-         console.log("Account amministratore creato con successo")
+         console.log("Account creato con successo")
      })
    res.redirect('/')
  })
@@ -159,7 +159,7 @@ router.get('/client', auth, (req, res) => {
 router.get('/clients', auth, async (req, res) => {
     owner = req.session.passport.user
     const filter = await Client.find({owner: owner})
-    res.render('pages/show-clients', {clientList: filter});
+    res.render('pages/show-clients', {clientList: filter, n: 1});
 })
 //--------UNDER CONSTRUCTION------------
 router.get('/practice', auth, (req, res) => {
@@ -169,7 +169,7 @@ router.get('/_:code', auth, async (req, res) => {
     code = req.params.code 
     try {
         const clientList = await Work.find({"client": code})
-        console.log(clientList[0])
+        //console.log(clientList[0])
         res.render('pages/showForCode', {clientList: clientList});
     } catch (e) {
         console.log(e)

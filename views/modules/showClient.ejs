@@ -12,6 +12,7 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
+            <th>Numero</th>
             <th>Cliente</th>
             <th>Lavori</th>
             <th>Contatti</th>
@@ -19,6 +20,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th>Numero</th>
             <th>Cliente</th>
             <th>Lavori</th>
             <th>Contatti</th>
@@ -28,6 +30,7 @@
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
+              <td><%= n++ %></td>
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
               <td>
                 <a href="new-work_<%= client.profile.fiscalCode %>">
