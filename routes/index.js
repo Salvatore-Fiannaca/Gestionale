@@ -47,10 +47,10 @@ router.post('/client', auth, async (req, res) => {
         ...req.body,
         owner: req.user._id,
     })
-    console.log(newClient);
     try {
         await newClient.save()
-        res.redirect(`/upload_${newClient.profile.fiscalCode}`,{newClient: newClient })
+        res.send("OK")
+        //res.redirect(`/upload_${newClient._id}`)
         //res.render('pages/edit-client',{newClient: newClient })
         } catch (e) {
          console.log(e)
@@ -105,11 +105,6 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
     //res.sendFile(path.join(__dirname + '../' +"/" + req.file.filename))
 })
 
-router.get('/test', auth, async (req, res) => {
-    res.render('pages/upload-client')
-})
-
-
 
 
 /**
@@ -146,7 +141,12 @@ router.get('/clients', auth, async (req, res) => {
     const filter = await Client.find({owner: owner})
     res.render('pages/show-clients', {clientList: filter, n: 1});
 })
-//--------UNDER CONSTRUCTION------------
+
+
+
+router.get('/test', auth, async (req, res) => {
+    res.render('pages/upload-client')
+})
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
@@ -170,6 +170,12 @@ router.get('/practices', auth, async (req, res) => {
     const clientList = await Client.find({owner: owner})
     res.render('pages/show-practices', {clientList: clientList});
 })
+
+router.get('/upload_:id', auth, async (req, res) => {
+    res.render('pages/upload-client')
+})
+
+
 //--------------------------------------
 router.get('/404', (req, res) => {
     res.render('pages/404')
