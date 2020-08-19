@@ -79,15 +79,15 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
     // CHECK FILE
     const files = req.files
 
-    files.forEach(element => {
+    files.forEach(file => {
         const img = new Upload({
-            "fieldname": req.files.fieldname,
-            'originalname': req.files.originalname,
-            "mimetype": req.files.mimetype,
-            "destination": req.files.destination,
-            "filename": req.files.filename,
-            "path": req.files.path,
-            "size": req.files.size
+            "fieldname": file.fieldname,
+            'originalname': file.originalname,
+            "mimetype": file.mimetype,
+            "destination": file.destination,
+            "filename": file.filename,
+            "path": file.path,
+            "size": file.size
         })
         console.log(img);
     })
