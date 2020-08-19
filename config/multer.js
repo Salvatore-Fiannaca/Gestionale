@@ -2,8 +2,8 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
-        const dir = process.env.HOME + '/Desktop/Gestionale/upload/test'
-        callback(null, 'upload/file')
+        //const dir = process.env.HOME + '/Desktop/Gestionale/upload/clients'
+        callback(null, 'upload/clients')
     },
     filename: function(req, file, callback) {
         const parts = file.mimetype.split("/");

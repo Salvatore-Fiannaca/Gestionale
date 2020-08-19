@@ -29,10 +29,12 @@ router.post('/register', async (req, res) => {
  })
 
 router.post('/client', auth, async (req, res) => {
+    const code = req.body.fiscalCode
+
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
-        "profile.fiscalCode": req.body.fiscalCode,
+        "profile.fiscalCode": code,
         "address.street": req.body.address,
         "address.city": req.body.city,
         "address.state": req.body.state,
@@ -44,13 +46,12 @@ router.post('/client', auth, async (req, res) => {
     })
     try {
         await newClient.save()
-        res.send("OK")
-        //res.redirect(`/upload_${newClient._id}`)
+        //res.send("OK")
+        res.rendirect(`/upload_${code}`)
         //res.render('pages/edit-client',{newClient: newClient })
         } catch (e) {
          console.log(e)
     }
-
 
   })
 
@@ -74,30 +75,52 @@ router.post('/new-work_:code', auth, async (req, res) => {
   })
 
 router.post('/upload_:code', auth, upload, async (req, res) => {
-    console.log(req.params.code);
-    //console.log(req.files);
-    /* const img = new Upload({
-        "fieldname": req.file.fieldname,
-        'originalname': req.file.originalname,
-        "mimetype": req.file.mimetype,
-        "destination": req.file.destination,
-        "filename": req.file.filename,
-        "path": req.file.path,
-        "size": req.file.size
-    }) */
+    const client = req.params.code
+    // CHECK FILE
+    const files = req.files
 
-   /*  try {
-        img.save()
-        res.send("Done")
-    } catch (e) {
-        console.log(e);
-    } */
+    files.forEach(element => {
+        const img = new Upload({
+            "fieldname": req.files.fieldname,
+            'originalname': req.files.originalname,
+            "mimetype": req.files.mimetype,
+            "destination": req.files.destination,
+            "filename": req.files.filename,
+            "path": req.files.path,
+            "size": req.files.size
+        })
+        console.log(img);
+    })
+ /*    
+    if (img) {
+        console.log(img);
+        console.log("File Ready to upload");
+        // CERCA CLIENTE BY CODICE FISCALE
+        /* try {
+            const client = await Client.find({"client": client})
+            //console.log(clientList[0])
+            res.render('pages/showForCode', {clientList: clientList});
+        } catch (e) {
+            console.log(e)
+            res.send('User not found')
+        }
+        // INSERT FILE 
+        try {
+            img.save()
+            res.send("Done")
+        } catch (e) {
+            console.log(e);
+        }
+    } else {
+        // REDIRECT 
+    }   
+    */
+       
+})
 
-    //console.log(req.file);
-    //console.log(__dirname);
-    //test = (path.join(__dirname + '../' + req.file.path))
-    //console.log(test);
-    //res.sendFile(path.join(__dirname + '../' +"/" + req.file.filename))
+router.get('/upload_:code', auth, upload, async (req, res) => {
+    const client = req.params.code
+    res.render('pages/upload-client', {code: client})
 })
 
 
@@ -137,11 +160,6 @@ router.get('/clients', auth, async (req, res) => {
     res.render('pages/show-clients', {clientList: filter, n: 1});
 })
 
-
-
-router.get('/test', auth, async (req, res) => {
-    res.render('pages/upload-client')
-})
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
@@ -160,20 +178,21 @@ router.get('/_:code', auth, async (req, res) => {
 router.get('/new-work_:code', auth, async (req, res) => {
     res.render('pages/new-work', {fiscalCode: req.params.code})
 })
+
 router.get('/practices', auth, async (req, res) => {
     owner = req.session.passport.user
     const clientList = await Client.find({owner: owner})
     res.render('pages/show-practices', {clientList: clientList});
 })
 
-router.get('/upload_:id', auth, async (req, res) => {
-    res.render('pages/upload-client')
-})
-
-
 //--------------------------------------
 router.get('/404', (req, res) => {
     res.render('pages/404')
+})
+
+router.get('/test', (req, res) => {
+    const code = "FNNSTT95R13A087j"
+    res.redirect(`/upload_${code}`)
 })
 
 
