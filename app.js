@@ -1,9 +1,7 @@
-const path = require('path')
 const express = require('express')
 const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes');
-const ejs = require('ejs')
 const connection = require('./config/database');
 
 const MongoStore = require('connect-mongo')(session);
