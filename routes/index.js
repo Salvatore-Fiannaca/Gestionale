@@ -78,6 +78,7 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
     const client = req.params.code
     // CHECK FILE
     const files = req.files
+    console.log(files);
 
     files.forEach(file => {
         const img = new Upload({
@@ -127,10 +128,6 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
        
 })
 
-router.get('/upload_:code', auth, upload, async (req, res) => {
-    const client = req.params.code
-    res.render('pages/upload-client', {code: client})
-})
 
 
 
@@ -172,6 +169,7 @@ router.get('/clients', auth, async (req, res) => {
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
 })
+
 router.get('/_:code', auth, async (req, res) => {
     code = req.params.code 
     try {
@@ -194,12 +192,30 @@ router.get('/practices', auth, async (req, res) => {
     res.render('pages/show-practices', {clientList: clientList});
 })
 
+router.get('/upload_:code', auth, upload, async (req, res) => {
+    const client = req.params.code
+    res.render('pages/upload-client', {code: client})
+})
+
+
+router.get('/show-upload_:code', auth, async (req, res) => {
+    try {
+        const clientList = await Upload.find({client: req.params.code })
+        res.render('pages/showUpload', {clientList: clientList});
+    } catch (e) {
+        console.log(e)
+        res.send('User not found')
+    }
+})
+
+
+
 //--------------------------------------
 router.get('/404', (req, res) => {
     res.render('pages/404')
 })
 
-router.get('/test', (req, res) => {
+router.get('/test', auth, (req, res) => {
     const code = "FNNSTT95R13A087j"
     res.redirect(`/upload_${code}`)
 })

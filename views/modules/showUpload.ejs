@@ -1,0 +1,48 @@
+<!-- form ricerca cliente -->
+<h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
+<p>Codice fiscale: <%= clientList[0].client %> </p>
+<br>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Database</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Allegato</th>
+            <th>Cartella</th>
+            <th>Tipo</th>
+            <th>Dimensione</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Allegato</th>
+            <th>Cartella</th>
+            <th>Tipo</th>
+            <th>Dimensione</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <!-- LIST FROM DB--> 
+            <% clientList.forEach(file => { %>
+            <tr>
+              <td> <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title=" ">
+                <%= file.originalname %>
+                </button>
+              </td>
+              <td> <%= file.path %></td>
+              <td> <%= file.mimetype %> </td>
+              <td> <%= file.size %> </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
