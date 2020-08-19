@@ -33,10 +33,7 @@ router.post('/register', async (req, res) => {
    res.redirect('/')
  })
 
-router.post('/client', auth, upload, async (req, res) => {
-    console.log(req.files[0]);
-
-
+router.post('/client', auth, async (req, res) => {
     /* "documents.file.fieldname": req.files.fieldname,
     "documents.file.originalname": req.files.originalname,
     "documents.file.mimetype": req.files.mimetype,
@@ -45,7 +42,6 @@ router.post('/client', auth, upload, async (req, res) => {
     "documents.file.path": req.files.path,
     "documents.file.size": req.files.size */
 
-    
     const newClient = await new Client({
         "profile.firstName": req.body.firstName,
         "profile.lastName": req.body.lastName,
@@ -59,10 +55,11 @@ router.post('/client', auth, upload, async (req, res) => {
         ...req.body,
         owner: req.user._id,
     })
-
+    console.log(newClient);
     try {
         await newClient.save()
-        res.redirect('/clients')
+        res.render('pages/upload-client',{newClient: newClient })
+        //res.render('pages/edit-client',{newClient: newClient })
         } catch (e) {
          console.log(e)
     }
@@ -117,8 +114,9 @@ router.post('/test', auth, upload, async (req, res) => {
 })
 
 router.get('/test', auth, async (req, res) => {
-    res.render('test')
+    res.render('pages/upload-client')
 })
+
 
 
 
