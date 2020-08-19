@@ -2,23 +2,12 @@
 
 
 <!--      MODULO MODIFICA CLIENTI-->
-<h1 class="h3 mb-4 text-gray-800">Carica Allegati</h1>
-<p> Lascia il campo vuoto per caricarli in un secondo momento</p>
+<h1 class="h3 mb-4 text-gray-800"> Allegati </h1>
 
-<!-- FORM MODIFICA CLIENTI -->
-<form method="POST" action="client" enctype="multipart/form-data">
- 
-    <input type="file" name="files" multiple/>
-
-    <!--
-      <form action="/test" method="POST" enctype="multipart/form-data">
-        <button type="submit" value="Submit"class="btn btn-success">Test</button>
-      </form>
-    -->
-
-
-    <button type="submit" value="Submit"class="btn btn-primary">Avanti</button>
-  </div>
+<!-- UPLOAD FORM -->
+<form method="POST" action="test" enctype="multipart/form-data">
+  <input type="file" name="files" multiple/>
+  <button type="submit" value="Submit"class="btn btn-primary">Avanti</button>
 </form>
 <br>
 <br>
