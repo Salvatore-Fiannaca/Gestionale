@@ -168,6 +168,7 @@ const Work = connection.model("Work", worksSchema);
 
 // TEST UPLOAD
 const UploadSchema = new mongoose.Schema({
+    client: String,
     fieldname: String,
     originalname: String,
     mimetype: String,

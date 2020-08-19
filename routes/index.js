@@ -47,7 +47,7 @@ router.post('/client', auth, async (req, res) => {
     try {
         await newClient.save()
         //res.send("OK")
-        res.rendirect(`/upload_${code}`)
+        res.redirect(`/upload_${code}`)
         //res.render('pages/edit-client',{newClient: newClient })
         } catch (e) {
          console.log(e)
@@ -81,6 +81,7 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 
     files.forEach(file => {
         const img = new Upload({
+            "client": client,
             "fieldname": file.fieldname,
             'originalname': file.originalname,
             "mimetype": file.mimetype,
@@ -89,8 +90,16 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
             "path": file.path,
             "size": file.size
         })
-        console.log(img);
+
+        try {
+            img.save()
+            console.log(file.originalname + " Caricato con successo")
+        } catch (e) {
+            console.log(e);
+        }
     })
+
+    res.redirect('/clients')
  /*    
     if (img) {
         console.log(img);
