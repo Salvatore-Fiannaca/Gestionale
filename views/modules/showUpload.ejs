@@ -31,9 +31,11 @@
             <% clientList.forEach(file => { %>
             <tr>
               <td>
-                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title=" ">
-                <%= file.originalname %>
-                </button>
+                <a href="file_<%= file._id %>">
+                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title=" ">
+                    <%= file.originalname %>
+                  </button>
+                </a>
               </td>
               <td> <%= file.path %></td>
               <td> <%= file.mimetype %> </td>

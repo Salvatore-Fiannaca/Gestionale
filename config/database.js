@@ -100,7 +100,10 @@ const clientsSchema = new mongoose.Schema(
         mimetype: String,
         destination: String,
         filename: String,
-        path: String,
+        path: {
+          type: String,
+          trim: true
+        },
         size: Number
       }
     },

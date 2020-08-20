@@ -80,22 +80,33 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
     const client = req.params.code
     // CHECK FILE
     const files = req.files
-    console.log(files);
+
+    const removeEmpySpace = (str) => {
+        // pulisci
+        let firstPass = str.replace(' ', '')
+        let secondPass = firstPass.replace(' ', '')
+        let thirdPass = secondPass.replace(' ', '')
+        let fourthPass = thirdPass.replace(' ', '')
+        // ritorna stringa pulita
+        return fourthPass
+    }
 
     files.forEach(file => {
-        const img = new Upload({
+        const path = removeEmpySpace(file.path)
+        console.log(path);
+        const newFile = new Upload({
             "client": client,
             "fieldname": file.fieldname,
             'originalname': file.originalname,
             "mimetype": file.mimetype,
             "destination": file.destination,
             "filename": file.filename,
-            "path": file.path,
+            "path": path,
             "size": file.size
         })
 
         try {
-            img.save()
+            newFile.save()
             console.log(file.originalname + " Caricato con successo")
         } catch (e) {
             console.log(e);

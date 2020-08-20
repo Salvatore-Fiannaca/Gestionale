@@ -5,7 +5,17 @@ const storage = multer.diskStorage({
     filename: function(req, file, callback) {
         //const parts = file.mimetype.split("/");
         //callback(null, `${file.fieldname}-${Date.now()}.${parts[1]}`)
-        callback(null, file.originalname)
+        const removeEmpySpace = (str) => {
+            // pulisci
+            let firstPass = str.replace(' ', '')
+            let secondPass = firstPass.replace(' ', '')
+            let thirdPass = secondPass.replace(' ', '')
+            let fourthPass = thirdPass.replace(' ', '')
+            // ritorna stringa pulita
+            return fourthPass
+        }
+
+        callback(null, removeEmpySpace(file.originalname))
     }
 })
 
@@ -25,7 +35,7 @@ const upload = multer({
         callback(null, true)
     },
     limits: {
-        fileSize: 1024 * 1024
+        fileSize: 2048 * 2048
     }
 
 }).array('files', 12)
