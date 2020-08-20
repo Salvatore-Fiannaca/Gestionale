@@ -107,37 +107,12 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 
         try {
             newFile.save()
-            console.log(file.originalname + " Caricato con successo")
         } catch (e) {
             console.log(e);
         }
     })
 
     res.redirect('/clients')
- /*    
-    if (img) {
-        console.log(img);
-        console.log("File Ready to upload");
-        // CERCA CLIENTE BY CODICE FISCALE
-        /* try {
-            const client = await Client.find({"client": client})
-            //console.log(clientList[0])
-            res.render('pages/showForCode', {clientList: clientList});
-        } catch (e) {
-            console.log(e)
-            res.send('User not found')
-        }
-        // INSERT FILE 
-        try {
-            img.save()
-            res.send("Done")
-        } catch (e) {
-            console.log(e);
-        }
-    } else {
-        // REDIRECT 
-    }   
-    */
        
 })
 
