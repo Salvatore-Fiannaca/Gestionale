@@ -5,6 +5,8 @@ const connection = require('../config/database');
 const {User, Client, Work, Upload } = connection.models 
 const auth = require('../config/auth')
 const upload = require('../config/multer')
+const fs = require('fs');
+const { ObjectID } = require('mongodb');
 
 
 /**
@@ -215,9 +217,27 @@ router.get('/404', (req, res) => {
     res.render('pages/404')
 })
 
-router.get('/test', auth, (req, res) => {
-    const code = "FNNSTT95R13A087j"
-    res.redirect(`/upload_${code}`)
+router.get('/file_:id', async(req, res) => {
+
+    const dbFile = await Upload.find({_id: ObjectID(req.params.id)})
+    const path = "/home/jil/Desktop/Gestionale/" // CARTELLA PROGETTO
+    const file = path + dbFile[0].path
+    console.log(file);
+    fs.access(file, fs.constants.F_OK, err => {
+        console.log(`${file} ${err ? "does not exist" : "exists"}`);
+    })
+    fs.readFile(file, (err, content) => {
+        if (err) {
+            res.writeHead(404, { "Content-type": "text/html"})
+        }
+        else {
+            res.writeHead(200, {"Content-type": "application/pdf"})
+            res.end(content)
+        }
+    })
+
+
+
 })
 
 
