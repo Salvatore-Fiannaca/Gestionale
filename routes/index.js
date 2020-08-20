@@ -242,7 +242,7 @@ router.get('/file_:id', async(req, res) => {
             res.writeHead(404, { "Content-type": "text/html"})
         }
         else {
-            res.writeHead(200, {"Content-type": "application/pdf"})
+            res.writeHead(200, {"Content-type": dbFile[0].mimetype })
             res.end(content)
         }
     })

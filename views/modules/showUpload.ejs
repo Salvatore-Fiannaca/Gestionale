@@ -14,16 +14,12 @@
           <tr>
             <th>Allegato</th>
             <th>Cartella</th>
-            <th>Tipo</th>
-            <th>Dimensione</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Allegato</th>
             <th>Cartella</th>
-            <th>Tipo</th>
-            <th>Dimensione</th>
           </tr>
         </tfoot>
         <tbody>
@@ -37,9 +33,7 @@
                   </button>
                 </a>
               </td>
-              <td> <%= file.path %></td>
-              <td> <%= file.mimetype %> </td>
-              <td> <%= file.size %> </td>
+              <td> <%= file.destination %></td>
             </tr>
             <% }) %> 
         </tbody>
