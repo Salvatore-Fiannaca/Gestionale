@@ -1,13 +1,7 @@
 const express = require('express')
 const session = require('express-session');
 const passport = require('passport');
-// ROUTES
-const routes = require('./routes');
-const routes404 = require('./routes/404');
-const clientRoutes = require('./routes/client');
-//-----
 const connection = require('./config/database');
-
 const MongoStore = require('connect-mongo')(session);
 
 // Need to require the entire Passport config module so app.js knows about it
@@ -58,9 +52,15 @@ app.use(passport.session());
  * -------------- ROUTES ----------------
  */
 
+const routes = require('./routes');
+const routes404 = require('./routes/404');
+const uploadRoutes = require('./routes/upload');
+const workRoutes = require('./routes/work');
+
 app.use(routes);
 app.use(routes404);
-app.use(clientRoutes);
+app.use(workRoutes);
+app.use(uploadRoutes);
 
 
 /**
