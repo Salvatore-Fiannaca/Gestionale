@@ -1,4 +1,10 @@
 <!-- form ricerca cliente -->
+<% if (clientList) {
+
+  }else {
+    clientList[0] = '' 
+  }  
+%>
 <h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
 <p>Codice fiscale: <%= clientList[0].client %> </p>
 <br>
@@ -13,12 +19,14 @@
         <thead>
           <tr>
             <th>Allegato</th>
+            <th>Rimuovi</th>
             <th>Cartella</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Allegato</th>
+            <th>Rimuovi</th>
             <th>Cartella</th>
           </tr>
         </tfoot>
@@ -32,6 +40,11 @@
                     <%= file.originalname %>
                   </button>
                 </a>
+              </td>
+              <td>
+                <form action ="file_<%= file._id %>" method="POST" id="btnDelete">
+                  <button type="submit" class="btn btn-sm btn-danger" value="Submit">DELETE</button>
+                </form>
               </td>
               <td> <%= file.destination %></td>
             </tr>

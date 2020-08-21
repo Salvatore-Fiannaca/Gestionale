@@ -6,6 +6,7 @@ const connection = require('../config/database');
 const {Upload } = connection.models 
 const fs = require('fs');
 const { ObjectID } = require('mongodb');
+const { render } = require('ejs');
 
 /**
  * -------------- POST ROUTES ----------------
@@ -92,6 +93,16 @@ router.get('/file_:id', async(req, res) => {
             res.end(content)
         }
     })
+})
+
+router.post('/file_:id', async(req, res) => {
+    const dbFile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+    
+    if (!dbFile) {
+        return console.log("Done!")
+    } else {
+        res.send('OK')
+    }
 })
 
 module.exports= router
