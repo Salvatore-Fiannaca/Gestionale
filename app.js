@@ -1,7 +1,11 @@
 const express = require('express')
 const session = require('express-session');
 const passport = require('passport');
+// ROUTES
 const routes = require('./routes');
+const routes404 = require('./routes/404');
+const clientRoutes = require('./routes/client');
+//-----
 const connection = require('./config/database');
 
 const MongoStore = require('connect-mongo')(session);
@@ -17,7 +21,7 @@ require('./config/passport');
 require('dotenv').config();
 
 // Create the Express application
-var app = express();
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -54,8 +58,9 @@ app.use(passport.session());
  * -------------- ROUTES ----------------
  */
 
-// Imports all of the routes from ./routes/index.js
 app.use(routes);
+app.use(routes404);
+app.use(clientRoutes);
 
 
 /**

@@ -30,33 +30,9 @@ router.post('/register', async (req, res) => {
    res.redirect('/')
  })
 
-router.post('/client', auth, async (req, res) => {
-    const code = req.body.fiscalCode
 
-    const newClient = await new Client({
-        "profile.firstName": req.body.firstName,
-        "profile.lastName": req.body.lastName,
-        "profile.fiscalCode": code,
-        "address.street": req.body.address,
-        "address.city": req.body.city,
-        "address.state": req.body.state,
-        "address.zipCode": req.body.zipCode,
-        "contacts.email": req.body.email,
-        "contacts.phone": req.body.phone,
-        ...req.body,
-        owner: req.user._id,
-    })
-    try {
-        await newClient.save()
-        //res.send("OK")
-        res.redirect(`/upload_${code}`)
-        //res.render('pages/edit-client',{newClient: newClient })
-        } catch (e) {
-         console.log(e)
-    }
 
-  })
-
+ // work
 router.post('/new-work_:code', auth, async (req, res) => {
       const newWork = await new Work({
           "client": req.params.code,
@@ -76,6 +52,8 @@ router.post('/new-work_:code', auth, async (req, res) => {
       }
   })
 
+
+  // upload
 router.post('/upload_:code', auth, upload, async (req, res) => {
     const client = req.params.code
     // CHECK FILE
@@ -123,9 +101,19 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 //  LOGIN / DASHBOARD
+
+
 router.get('/', (req, res) => {
     if (req.isAuthenticated()) {
         res.render('pages/index');
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.get('/login', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/');
     } else {
         res.render('pages/login');
     }
@@ -144,15 +132,11 @@ router.get('/forgot', (req, res) => {
     res.render('pages/forgot')
 })
 
-router.get('/client', auth, (req, res) => {
-    res.render('pages/clients');
-})
 
-router.get('/clients', auth, async (req, res) => {
-    owner = req.session.passport.user
-    const filter = await Client.find({owner: owner})
-    res.render('pages/show-clients', {clientList: filter, n: 1});
-})
+
+
+
+
 
 router.get('/practice', auth, (req, res) => {
     res.render('pages/practice')
@@ -197,16 +181,11 @@ router.get('/show-upload_:code', auth, async (req, res) => {
 })
 
 
-
-//--------------------------------------
-router.get('/404', (req, res) => {
-    res.render('pages/404')
-})
-
 router.get('/file_:id', async(req, res) => {
 
     const dbFile = await Upload.find({_id: ObjectID(req.params.id)})
-    const path = "/home/jil/Desktop/Gestionale/" // CARTELLA PROGETTO
+    //const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
+    const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
     const file = path + dbFile[0].path
     console.log(file);
     fs.access(file, fs.constants.F_OK, err => {
@@ -221,11 +200,9 @@ router.get('/file_:id', async(req, res) => {
             res.end(content)
         }
     })
-
-
-
 })
 
 
 module.exports = router;
+
 
