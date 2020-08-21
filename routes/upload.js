@@ -6,7 +6,6 @@ const connection = require('../config/database');
 const {Upload } = connection.models 
 const fs = require('fs');
 const { ObjectID } = require('mongodb');
-const { render } = require('ejs');
 
 /**
  * -------------- POST ROUTES ----------------

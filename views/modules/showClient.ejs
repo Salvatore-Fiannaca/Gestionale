@@ -22,7 +22,7 @@
             <th>Cliente</th>
             <th>Lavori</th>
             <th>Allegati</th>
-            <th>Contatti</th>
+            <th></th>
           </tr>
         </thead>
         <tfoot>
@@ -31,7 +31,7 @@
             <th>Cliente</th>
             <th>Lavori</th>
             <th>Allegati</th>
-            <th>Contatti</th>
+            <th></th>
           </tr>
         </tfoot>
         <tbody>
@@ -42,7 +42,7 @@
               <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
               <td>
                 <a href="new-work_<%= client.profile.fiscalCode %>">
-                  <button type="button" class="btn btn-sm btn-light">Nuovo</button>
+                  <button type="button" class="btn btn-sm btn-light ">Nuovo</button>
                 </a>
 
                 <a href="/_<%= client.profile.fiscalCode %>">
@@ -58,7 +58,7 @@
                 </a>
               </td>
               <td>
-                <div class="dropdown">
+                <div class="dropdown mb-2">
                 <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Contatti
                 </button>
@@ -74,7 +74,11 @@
                   </svg>  <%= client.contacts.email %> 
                   </button>
                 </div>
-              </div>
+                </div>
+
+                <form action ="client_<%= client._id %>" method="POST" id="btnDelete">
+                  <button type="submit" class="btn btn-sm btn-danger" value="Submit">Rimuovi</button>
+                </form>
               </td>
             </tr>
             <% }) %> 

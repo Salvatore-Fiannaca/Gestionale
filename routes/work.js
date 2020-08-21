@@ -3,6 +3,7 @@ const router = new express.Router()
 const auth = require('../config/auth')
 const connection = require('../config/database');
 const { Work, Client } = connection.models 
+const { ObjectID } = require('mongodb');
 
 /**
  * -------------- POST ROUTES ----------------
@@ -24,6 +25,26 @@ router.post('/new-work_:code', auth, async (req, res) => {
         res.send('OK!')
     } catch (e) {
         res.send('ERROR D:', () => console.log(e))
+    }
+})
+
+router.post('/client_:id', async(req, res) => {
+    const dbFile = await Client.findOneAndDelete({_id: ObjectID(req.params.id)})
+    
+    if (!dbFile) {
+        return console.log("Done!")
+    } else {
+        res.send('OK')
+    }
+})
+
+router.post('/work_:id', async(req, res) => {
+    const dbFile = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
+    
+    if (!dbFile) {
+        return console.log("Done!")
+    } else {
+        res.send('OK')
     }
 })
 
