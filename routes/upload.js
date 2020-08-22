@@ -86,7 +86,7 @@ router.get('/upload_:code', auth, upload, async (req, res) => {
 router.get('/show-upload_:code', auth, async (req, res) => {
     try {
         const clientList = await Upload.find({client: req.params.code })
-        res.render('pages/showUpload', {clientList: clientList});
+        res.render('pages/showUpload', {clientList: clientList, code: req.params.code});
     } catch (e) {
         console.log(e)
         res.send('User not found')

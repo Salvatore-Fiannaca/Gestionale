@@ -60,14 +60,12 @@ router.get('/practice', auth, (req, res) => {
 })
 
 router.get('/_:code', auth, async (req, res) => {
-    code = req.params.code 
     try {
-        const clientList = await Work.find({"client": code})
-        //console.log(clientList[0])
-        res.render('pages/showForCode', {clientList: clientList});
+        const clientList = await Work.find({"client": req.params.code })
+        res.render('pages/showForCode', {clientList: clientList, code: req.params.code});
     } catch (e) {
         console.log(e)
-        res.send('User not found')
+        res.redirect('/')
     }
 })
 
