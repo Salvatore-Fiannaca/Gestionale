@@ -50,6 +50,27 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
        
 })
 
+router.post('/file_:id', async(req, res) => {
+    try {
+        const localfile = await Upload.find({_id: ObjectID(req.params.id)})
+        const path = localfile[0].path
+        const dbFile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+
+        console.log("Deleted from db")
+        fs.unlink( path, (err) => {
+            if (err) console.log("Il file è stato rimosso manualmente o qualcosa è andato storno")
+            else {
+                console.log(`${path} was deleted`);
+                res.send('Deleted')
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        res.send("Qualcosa è andato storto")
+    }
+    
+    
+})
 
 /**
  * -------------- GET ROUTES ----------------
@@ -94,14 +115,6 @@ router.get('/file_:id', async(req, res) => {
     })
 })
 
-router.post('/file_:id', async(req, res) => {
-    const dbFile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
-    
-    if (!dbFile) {
-        return console.log("Done!")
-    } else {
-        res.send('OK')
-    }
-})
+
 
 module.exports= router

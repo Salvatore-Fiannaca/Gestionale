@@ -1,9 +1,5 @@
 <!-- form ricerca cliente -->
-<% if (clientList) {
-
-  }else {
-    clientList[0] = '' 
-  }  
+<% if (!clientList) {} else {clientList[0] = ''}  
 %>
 <h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
 <p>Codice fiscale: <%= clientList[0].client %> </p>
