@@ -56,11 +56,13 @@ app.use(passport.session());
 
 const routes = require('./routes');
 const routes404 = require('./routes/404');
-const uploadRoutes = require('./routes/upload');
+const clientRoutes = require('./routes/client');
 const workRoutes = require('./routes/work');
+const uploadRoutes = require('./routes/upload');
 
 app.use(routes);
 app.use(routes404);
+app.use(clientRoutes);
 app.use(workRoutes);
 app.use(uploadRoutes);
 

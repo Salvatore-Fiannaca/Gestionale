@@ -1,9 +1,3 @@
-<% if (clientList) {
-
-}else {
-  clientList[0] = '' 
-}  
-%>
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800">Lista Clienti</h1>
 <p>Elenco completo dei clienti registrati</p>
@@ -39,7 +33,13 @@
             <% clientList.forEach(client => { %>
             <tr>
               <td><%= n++ %></td>
-              <td><%= client.profile.lastName + " " + client.profile.firstName %></td>
+              <td>
+                <a href="new-work_<%= client.profile.fiscalCode %>">
+                  <button type="button" class="btn btn-sm btn-light ">
+                    <%= client.profile.lastName + " " + client.profile.firstName %>
+                  </button>
+                </a>
+              </td>
               <td>
                 <a href="new-work_<%= client.profile.fiscalCode %>">
                   <button type="button" class="btn btn-sm btn-light ">Nuovo</button>
