@@ -15,8 +15,9 @@
   </div>
   <br />
   <div class="form-group">
-    <input type="text" name="fiscalCode" placeholder="Codice Fiscale" class="form-control" value="<%= clientList[0].profile.fiscalCode %>"
-      pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" readonly />
+    <label class="form-control" readonly >
+      <%= clientList[0].profile.fiscalCode %>
+    </label>
   </div>
   <div class="form-group">
     <input type="text" name="address" placeholder="Indirizzo" class="form-control" value="<%= clientList[0].address.street %>"/>

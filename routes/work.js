@@ -22,7 +22,7 @@ router.post('/new-work_:code', auth, async (req, res) => {
     })
     try {
         await newWork.save()
-        res.send('OK!')
+        res.redirect(`/_${req.params.code}`)
     } catch (e) {
         res.send('ERROR D:', () => console.log(e))
     }
@@ -62,10 +62,9 @@ router.get('/practice', auth, (req, res) => {
 router.get('/_:code', auth, async (req, res) => {
     try {
         const clientList = await Work.find({"client": req.params.code })
-        res.render('pages/showForCode', {clientList: clientList, code: req.params.code});
+        if (!clientList[0].code) {res.redirect('/clients')}
     } catch (e) {
-        console.log(e)
-        res.redirect('/')
+        res.redirect('/clients')
     }
 })
 
