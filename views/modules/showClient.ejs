@@ -1,7 +1,14 @@
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800">Lista Clienti</h1>
-<p>Elenco completo dei clienti registrati</p>
+<p>Elenco completo dei clienti registrati 
+  <a href="/client">
+    <button type="button" class="btn btn-sm btn-success mb-4 float-right">
+      Nuovo
+    </button>
+  </a>
+</p>
 <br>
+
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
@@ -44,7 +51,6 @@
                 <a href="new-work_<%= client.profile.fiscalCode %>">
                   <button type="button" class="btn btn-sm btn-light ">Nuovo</button>
                 </a>
-
                 <a href="/_<%= client.profile.fiscalCode %>">
                   <button type="button" class="btn btn-sm btn-light">Elenco lavori</button>
                 </a>

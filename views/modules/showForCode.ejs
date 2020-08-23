@@ -1,6 +1,12 @@
+
 <!-- form ricerca cliente -->
-<h1 class="h3 mb-2 text-gray-800">Singoli Lavori</h1>
-<p>Codice fiscale: <%= code %> </p>
+<h1 class="h3 mb-2 text-gray-800">Elenco Lavori</h1>
+<p>Codice fiscale: <%= code %> 
+  <a href="new-work_<%= clientList[0].client %>">
+  <button type="button" class="btn btn-sm btn-success mb-4 float-right">
+    Nuovo
+  </button>
+</a></p>
 <br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -33,13 +39,13 @@
             <% clientList.forEach(client => { %>
             <tr>
               <td> 
-                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= clientList[0].work.comments %>">
-                  <%= clientList[0].work.title %>
+                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= client.work.comments %>">
+                  <%= client.work.title %>
                 </button>
               </td>
-              <td> <%= clientList[0].work.folder.title %></td>
-              <td> <%= clientList[0].work.folder.number %> </td>
-              <td> <%= clientList[0].work.status %> </td>
+              <td> <%= client.work.folder.title %></td>
+              <td> <%= client.work.folder.number %> </td>
+              <td> <%= client.work.status %> </td>
               <td> 
                 <form action ="work_<%= client._id %>" method="POST" id="btnDelete">
                   <button type="submit" class="btn btn-sm btn-danger" value="Submit">Cancella</button>
