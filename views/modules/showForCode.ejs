@@ -15,8 +15,8 @@
             <th>Titolo</th>
             <th>Cartella</th>
             <th>Numero</th>
-            <th>Allegati</th>
             <th>Stato</th>
+            <th></th>
           </tr>
         </thead>
         <tfoot>
@@ -24,27 +24,27 @@
             <th>Titolo</th>
             <th>Cartella</th>
             <th>Numero</th>
-            <th>Allegati</th>
             <th>Stato</th>
+            <th></th>
           </tr>
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB--> 
             <% clientList.forEach(client => { %>
             <tr>
-              <td> <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= clientList[0].work.comments %>">
-                <%= clientList[0].work.title %>
+              <td> 
+                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= clientList[0].work.comments %>">
+                  <%= clientList[0].work.title %>
                 </button>
+              </td>
+              <td> <%= clientList[0].work.folder.title %></td>
+              <td> <%= clientList[0].work.folder.number %> </td>
+              <td> <%= clientList[0].work.status %> </td>
+              <td> 
                 <form action ="work_<%= client._id %>" method="POST" id="btnDelete">
                   <button type="submit" class="btn btn-sm btn-danger" value="Submit">Cancella</button>
                 </form>
               </td>
-              <td> <%= clientList[0].work.folder.title %></td>
-              <td> <%= clientList[0].work.folder.number %> </td>
-              <td>
-                <button class="btn btn-sm btn-light" href="#"> Mostra </button>
-              </td>
-              <td> <%= clientList[0].work.status %> </td>
             </tr>
             <% }) %> 
         </tbody>
