@@ -4,7 +4,7 @@
 <p> </p>
 
 <!-- FORM MODIFICA CLIENTI -->
-<form method="POST" action="client" enctype="multipart/form-data">
+<form method="POST" action="update_<%= clientList[0]._id %>">
   <div class="row">
     <div class="col">
       <input type="text" name="firstName" class="form-control" value="<%= clientList[0].profile.firstName %>" placeholder="Nome" />
