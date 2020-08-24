@@ -107,10 +107,7 @@ const clientsSchema = new mongoose.Schema(
         },
         size: Number
       }
-    },
-    avatar: {
-      type: Buffer,
-    },
+    }
   },
   {
     timestamps: true,
@@ -141,17 +138,6 @@ const worksSchema = new mongoose.Schema(
           type: Number
         }
       },
-      documents:  {
-        file: {
-          fieldname: String,
-          originalname: String,
-          mimetype: String,
-          destination: String,
-          filename: String,
-          path: String,
-          size: Number
-        }
-      },
       comments: {
         type: String,
         default: ''
@@ -160,6 +146,11 @@ const worksSchema = new mongoose.Schema(
         type: String,
         default: ''
       }
+    },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
     }
   },
   {
@@ -179,7 +170,12 @@ const UploadSchema = new mongoose.Schema({
     destination: String,
     filename: String,
     path: String,
-    size: Number
+    size: Number,
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
 })
 const Upload = connection.model("Upload", UploadSchema);
 

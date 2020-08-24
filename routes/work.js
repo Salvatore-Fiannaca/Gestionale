@@ -18,7 +18,8 @@ router.post('/new-work_:code', auth, async (req, res) => {
         "work.comments": req.body.comments,
         "work.file.title": req.body.titleFile,
         "work.file.link": req.body.linkFile,
-        "work.status": req.body.status
+        "work.status": req.body.status,
+        owner: req.user._id
     })
     try {
         await newWork.save()

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const connection = require('../config/database');
-const {Client, Work} = connection.models 
+const {Client, Work, Upload} = connection.models 
 const auth = require('../config/auth');
 const { readSync } = require('fs');
 
@@ -20,8 +20,7 @@ router.post('/client', auth, async (req, res) => {
         "address.zipCode": req.body.zipCode,
         "contacts.email": req.body.email,
         "contacts.phone": req.body.phone,
-        ...req.body,
-        owner: req.user._id,
+        owner: req.user._id
     })
     try {
         await newClient.save()
@@ -60,9 +59,9 @@ router.post('/client_:code', async(req, res) => {
     let msg = ''
     try {
         const dbClient = await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
-        // ADD OWNER ON WORK SCHEMA
-        const dbClientFile = await Work.findOneAndDelete({client: req.params.code, owner: owner})
-        msg = "done"
+        const dbWork = await Work.deleteMany({client: req.params.code, owner: owner})
+        const dbFile = await Upload.deleteMany({client: req.params.code, owner: owner})
+        msg = "done" 
     } catch (err) {
         console.log(err);
         msg = "error"

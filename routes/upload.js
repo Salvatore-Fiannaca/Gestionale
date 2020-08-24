@@ -36,7 +36,8 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
             "destination": file.destination,
             "filename": file.filename,
             "path": path,
-            "size": file.size
+            "size": file.size,
+            "owner": req.user._id
         })
 
         try {
