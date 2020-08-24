@@ -83,10 +83,6 @@ const clientsSchema = new mongoose.Schema(
         trim: true,
       },
     },
-    completed: {
-      type: Boolean,
-      default: false,
-    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -146,6 +142,10 @@ const worksSchema = new mongoose.Schema(
         type: String,
         default: ''
       }
+    },
+    completed: {
+      type: Boolean,
+      default: false,
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
