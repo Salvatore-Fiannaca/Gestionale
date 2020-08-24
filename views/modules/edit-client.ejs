@@ -43,20 +43,34 @@
     <div class="form-group col-md-6"> 
       <input type="number" name="phone" placeholder="Telefono" class="form-control" value="<%= clientList[0].contacts.phone %>"/>
     </div>
-    <div class="row">
-      <div class="col">
-        <button type="submit" value="Submit"class="btn btn-primary my-2">Aggiorna</button>
-      </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="completed" id="exampleRadios1" value="false" checked>
+      <label class="form-check-label" for="exampleRadios1">
+        Disponibile
+      </label>
     </div>
+    <div class="ml-3 form-check">
+      <input class="form-check-input" type="radio" name="completed" id="exampleRadios2" value="true">
+      <label class="form-check-label" for="exampleRadios2">
+        Sposta in Archivio
+      </label>
+    </div>
+  </div>
+    <div class="form-group ">
+      <button type="submit" value="Submit"class="btn btn-primary mt-4">Aggiorna</button>
+    </div>
+  </div>
 </form>
 
-<br>
-
-<div class="row">
+<div class="form-group ml-3 ">
   <form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
-    <button type="submit" class="btn btn-danger my-2 ml-4" value="Submit">Rimuovi Cliente</button>
+    <button type="submit" class="btn btn-danger mt-2" value="Submit">Rimuovi Cliente</button>
   </form> 
 </div>
+
+
+  
+
 
 
 

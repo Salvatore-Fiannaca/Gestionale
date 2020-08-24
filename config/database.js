@@ -87,22 +87,10 @@ const clientsSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
-    }
-  },
-  {
-    documents: {
-      file:  {
-        fieldname: String,
-        originalname: String,
-        mimetype: String,
-        destination: String,
-        filename: String,
-        path: {
-          type: String,
-          trim: true
-        },
-        size: Number
-      }
+    },
+    completed: {
+      type: Boolean,
+      default: false,
     }
   },
   {
