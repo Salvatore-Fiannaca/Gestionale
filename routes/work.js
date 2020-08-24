@@ -10,8 +10,6 @@ const { ObjectID } = require('mongodb');
  */
 
 router.post('/new-work_:code', auth, async (req, res) => {
-    let check = false
-    if (req.body.status == 'Archiviato') {check = true, console.log("ok")}
     const newWork = await new Work({
         "client": req.params.code,
         "work.title": req.body.title,
@@ -21,9 +19,8 @@ router.post('/new-work_:code', auth, async (req, res) => {
         "work.file.title": req.body.titleFile,
         "work.file.link": req.body.linkFile,
         "work.status": req.body.status,
-        "completed": check,
+        "completed": req.body.status,
         owner: req.user._id
-
     })
     try {
         await newWork.save()
@@ -42,16 +39,13 @@ router.post('/work_:id', async(req, res) => {
 router.post('/update-work_:client', auth, async (req, res) => {
     const client = req.params.id
     try {
-        let check = false
-        if (req.body.status == 'Archiviato') {check = true}
         await Work.findOneAndUpdate(
             {_client: client}, 
             {$set: {"work.title": req.body.title,
                     "work.folder.title": req.body.folder,
                     "work.folder.number": req.body.nFolder,
                     "work.status": req.body.status,
-                    "work.comments": req.body.comments,
-                    "completed":  check
+                    "work.comments": req.body.comments
                     }
             })
 
@@ -72,7 +66,7 @@ router.post('/update-work_:client', auth, async (req, res) => {
 
 router.get('/_:code', auth, async (req, res) => {
     try {
-        const clientList = await Work.find({"client": req.params.code, "completed": false})
+        const clientList = await Work.find({"client": req.params.code})
         res.render('pages/showForCode', {clientList: clientList, code: req.params.code})
     } catch (e) {
         res.redirect('/clients')
