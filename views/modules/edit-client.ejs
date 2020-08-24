@@ -1,7 +1,7 @@
 
 <!--      MODULO MODIFICA CLIENTI-->
 <h1 class="h3 mb-4 text-gray-800">Mostra / Modifica cliente</h1>
-<p> </p>
+<p>  Cliente: <%= clientList[0].profile.fiscalCode %></p>
 
 <!-- FORM MODIFICA CLIENTI -->
 <form method="POST" action="update_<%= clientList[0]._id %>">
@@ -43,11 +43,21 @@
     <div class="form-group col-md-6"> 
       <input type="number" name="phone" placeholder="Telefono" class="form-control" value="<%= clientList[0].contacts.phone %>"/>
     </div>
-    <button type="submit" value="Submit"class="btn btn-primary">Aggiorna</button>
-  </div>
+    <div class="row">
+      <div class="col">
+        <button type="submit" value="Submit"class="btn btn-primary my-2">Aggiorna</button>
+      </div>
+    </div>
 </form>
+
 <br>
-<br>
-<br>
+
+<div class="row">
+  <form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
+    <button type="submit" class="btn btn-danger my-2 ml-4" value="Submit">Rimuovi Cliente</button>
+  </form> 
+</div>
+
+
 
 

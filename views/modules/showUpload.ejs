@@ -1,7 +1,13 @@
 <!-- form ricerca cliente -->
 
 <h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
-<p>Codice fiscale: <%= code %> </p>
+<p>Codice fiscale: <%= code %> 
+  <a href="/upload_<%= code %>">
+    <button type="button" class="btn btn-sm btn-success mb-4 float-right">
+      Nuovo
+    </button>
+  </a>
+</p>
 <br>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">

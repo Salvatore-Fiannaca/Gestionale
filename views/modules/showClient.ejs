@@ -1,6 +1,6 @@
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800">Lista Clienti</h1>
-<p>Elenco completo dei clienti registrati 
+<p>Elenco completo dei clienti registrati
   <a href="/client">
     <button type="button" class="btn btn-sm btn-success mb-4 float-right">
       Nuovo
@@ -36,58 +36,54 @@
           </tr>
         </tfoot>
         <tbody>
-          <!-- LIST CLIENT FROM DB--> 
-            <% clientList.forEach(client => { %>
-            <tr>
-              <td><%= n++ %></td>
-              <td>
-                <a href="edit-client_<%= client.id %>">
-                  <button type="button" class="btn btn-sm btn-light ">
-                    <%= client.profile.lastName + " " + client.profile.firstName %>
-                  </button>
-                </a>
-              </td>
-              <td>
-                <a href="new-work_<%= client.profile.fiscalCode %>">
-                  <button type="button" class="btn btn-sm btn-light ">Nuovo</button>
-                </a>
-                <a href="/_<%= client.profile.fiscalCode %>">
-                  <button type="button" class="btn btn-sm btn-light">Elenco lavori</button>
-                </a>
-              </td>
-              <td>
-                <a href="/upload_<%= client.profile.fiscalCode  %>">
-                <button type="button" class="btn btn-sm btn-light">Aggiungi</button>
-                </a>
-                <a href="/show-upload_<%= client.profile.fiscalCode  %>">
-                <button type="button" class="btn btn-sm btn-light">Elenco Allegati</button>
-                </a>
-              </td>
-              <td>
-                <div class="dropdown mb-2">
-                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <!-- LIST CLIENT FROM DB-->
+          <% clientList.forEach(client => { %>
+          <tr>
+            <td><%= n++ %></td>
+            <td>
+              <a href="edit-client_<%= client.id %>">
+                <button type="button" class="btn btn-sm btn-light ">
+                  <%= client.profile.lastName + " " + client.profile.firstName %>
+                </button>
+              </a>
+            </td>
+            <td>
+              <a href="/_<%= client.profile.fiscalCode %>">
+                <button type="button" class="btn btn-sm btn-light">Lavori</button>
+              </a>
+            </td>
+            <td>
+              <a href="/show-upload_<%= client.profile.fiscalCode  %>">
+                <button type="button" class="btn btn-sm btn-light">Allegati</button>
+              </a>
+            </td>
+            <td>
+              <div class="dropdown mb-2">
+                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   Contatti
                 </button>
                 <div class="dropdown-menu">
                   <!-- Dropdown menu links -->
                   <button class="dropdown-item mb-1" type="button">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z"/>
-                      </svg> <%= client.contacts.phone %> </button>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-fill" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.47 17.47 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969z" />
+                    </svg> <%= client.contacts.phone %>
+                  </button>
                   <button class="dropdown-item" type="button">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-                  </svg>  <%= client.contacts.email %> 
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z" />
+                    </svg> <%= client.contacts.email %>
                   </button>
                 </div>
-                </div>
-
-                <form action ="client_<%= client.profile.fiscalCode %>" method="POST" id="btnDelete">
-                  <button type="submit" class="btn btn-sm btn-danger" value="Submit">Rimuovi</button>
-                </form>
-              </td>
-            </tr>
-            <% }) %> 
+              </div>
+            </td>
+          </tr>
+          <% }) %>
         </tbody>
       </table>
     </div>
