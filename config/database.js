@@ -20,6 +20,7 @@ const connection = mongoose.createConnection(conn, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false
 });
 
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register

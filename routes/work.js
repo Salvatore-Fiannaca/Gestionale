@@ -40,11 +40,29 @@ router.post('/client_:id', async(req, res) => {
 
 router.post('/work_:id', async(req, res) => {
     const dbFile = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
-    
-    if (!dbFile) {
-        return console.log("Done!")
-    } else {
-        res.send('OK')
+    backURL=req.header('Referer') || '/';
+    res.redirect(backURL);
+})
+
+router.post('/update-work_:client', auth, async (req, res) => {
+    const client = req.params.id
+    try {
+        await Work.findOneAndUpdate(
+            {_client: client}, 
+            {$set: {"work.title": req.body.title,
+                    "work.folder.title": req.body.folder,
+                    "work.folder.number": req.body.nFolder,
+                    "work.status": req.body.status,
+                    "work.comments": req.body.comments
+                    }
+            })
+
+        backURL=req.header('Referer') || '/';
+        res.redirect(backURL);
+    } catch (err) {
+        console.log(err);
+        backURL=req.header('Referer') || '/';
+        res.redirect(backURL);
     }
 })
 
@@ -62,10 +80,15 @@ router.get('/practice', auth, (req, res) => {
 router.get('/_:code', auth, async (req, res) => {
     try {
         const clientList = await Work.find({"client": req.params.code })
-        if (!clientList[0].code) {res.redirect('/clients')}
+        res.render('pages/showForCode', {clientList: clientList, code: req.params.code})
     } catch (e) {
         res.redirect('/clients')
     }
+})
+
+router.get('/edit-work_:code', auth, async (req, res) => {
+    const clientList = await Work.find({"client": req.params.code})
+    res.render('pages/edit-work', {clientList: clientList})
 })
 
 router.get('/new-work_:code', auth, async (req, res) => {

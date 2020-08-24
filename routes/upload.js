@@ -58,10 +58,15 @@ router.post('/file_:id', async(req, res) => {
 
         console.log("Deleted from db")
         fs.unlink( path, (err) => {
-            if (err) console.log("Il file è stato rimosso manualmente o qualcosa è andato storno")
+            if (err) {
+                const backURL=req.header('Referer') || '/';
+                console.log("Il file è stato rimosso manualmente o qualcosa è andato storno")
+                res.redirect(backURL);
+            }
             else {
+                backURL=req.header('Referer') || '/';
                 console.log(`${path} was deleted`);
-                res.send('Deleted')
+                res.redirect(backURL);
             }
         })
     } catch (err) {

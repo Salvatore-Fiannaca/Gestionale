@@ -1,0 +1,46 @@
+
+<h1 class="h3 mb-4 text-gray-800">Mostra / Modifica Lavoro</h1>
+<p>Cliente: <%= clientList[0].client %> </p>
+<!--   -->
+<!-- FORM REGISTRA LAVORO -->
+<form method="POST" action="update-work_<%=clientList[0].client %>">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="text" value="<%= clientList[0].work.title %>" name="title" placeholder="Nome lavoro" class="form-control" required />
+    </div>
+    <div class="form-group col-md-4">
+      <select name="folder" class="form-control">
+        <option selected><%= clientList[0].work.folder.title %></option>
+        <option value="PROGETTI">PROGETTI</option>
+        <option value="DOCFA">DOCFA</option>
+        <option value="PREGEO">PREGEO</option>
+        <option value="VARIE">VARIE</option>
+        <option value="">...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <input type="number" value="<%= clientList[0].work.folder.number %>" name="nFolder" placeholder="N°" class="form-control" required />
+    </div>
+    <div class="form-group col-md-8">
+      <textarea name="comments" value="<%= clientList[0].comments %>" placeholder="Spazio per i commenti" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="form-group col-md-2">
+      <select name="status" class="form-control">
+        <option selected><%= clientList[0].work.status %></option>
+        <option value="Concluso">Concluso</option>
+        <option value="Incompleto">Da completare</option>
+        <option value="no-Money">In attesa di pagamento</option>
+        <option value="no-way">Sospeso per pagamenti</option>
+        <option value="stand-bye">Sospeso</option>
+        <option value="Revisionare">Da revisionare</option>
+        <option value="">...</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" value="Submit"class="btn btn-success">Aggiorna</button>
+</form>
+<br>
+<br>
+<br>
+
+

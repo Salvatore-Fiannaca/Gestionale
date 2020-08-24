@@ -1,7 +1,7 @@
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800">Elenco Lavori</h1>
-<p>Codice fiscale: <%= clientList[0].client %>" 
-  <a href="new-work_<%= clientList[0].client %>">
+<p>Codice fiscale: <%= code %> 
+  <a href="new-work_<%= code %>">
   <button type="button" class="btn btn-sm btn-success mb-4 float-right">
     Nuovo
   </button>
@@ -39,9 +39,11 @@
             <% clientList.forEach(client => { %>
             <tr>
               <td> 
-                <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= client.work.comments %>">
-                  <%= client.work.title %>
-                </button>
+                <a href="/edit-work_<%= code %>">
+                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= client.work.comments %>">
+                    <%= client.work.title %>
+                  </button>
+                </a>
               </td>
               <td> <%= client.work.folder.title %></td>
               <td> <%= client.work.folder.number %> </td>
