@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const connection = require('../config/database');
-const {Client} = connection.models 
-const auth = require('../config/auth')
+const {Client, Work} = connection.models 
+const auth = require('../config/auth');
+const { readSync } = require('fs');
 
 /**
  * -------------- POST ROUTES ----------------
@@ -54,6 +55,21 @@ router.post('/update_:id', auth, async (req, res) => {
     }
 })
     
+router.post('/client_:code', async(req, res) => {
+    owner = req.session.passport.user
+    let msg = ''
+    try {
+        const dbClient = await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
+        // ADD OWNER ON WORK SCHEMA
+        const dbClientFile = await Work.findOneAndDelete({client: req.params.code, owner: owner})
+        msg = "done"
+    } catch (err) {
+        console.log(err);
+        msg = "error"
+    }
+
+    res.redirect("/clients")
+})
 
 /**
  * -------------- GET ROUTES ----------------
