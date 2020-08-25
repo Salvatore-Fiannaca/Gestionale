@@ -72,7 +72,9 @@ router.post('/file_:id', async(req, res) => {
         })
     } catch (err) {
         console.log(err);
-        res.send("Qualcosa è andato storto")
+        backURL=req.header('Referer') || '/';
+        res.redirect(backURL);
+        console.log('Qualcosa è andato storto')
     }
     
     
@@ -106,7 +108,6 @@ router.get('/file_:id', async(req, res) => {
     //const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
     const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
     const file = path + dbFile[0].path
-    console.log(file);
     fs.access(file, fs.constants.F_OK, err => {
         console.log(`${file} ${err ? "does not exist" : "exists"}`);
     })

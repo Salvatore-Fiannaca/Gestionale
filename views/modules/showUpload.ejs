@@ -4,7 +4,7 @@
 <p>Codice fiscale: <%= code %> 
   <a href="/upload_<%= code %>">
     <button type="button" class="btn btn-sm btn-success mb-4 float-right">
-      Nuovo
+      Inserisci nuovo allegato
     </button>
   </a>
 </p>
@@ -20,15 +20,15 @@
         <thead>
           <tr>
             <th>Allegato</th>
-            <th>Rimuovi</th>
             <th>Cartella</th>
+            <th></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Allegato</th>
-            <th>Rimuovi</th>
             <th>Cartella</th>
+            <th></th>
           </tr>
         </tfoot>
         <tbody>
@@ -42,12 +42,12 @@
                   </button>
                 </a>
               </td>
+              <td> <%= file.destination %></td>
               <td>
                 <form action ="file_<%= file._id %>" method="POST" id="btnDelete">
-                  <button type="submit" class="btn btn-sm btn-danger" value="Submit">DELETE</button>
+                  <button type="submit" class="btn btn-sm btn-danger" value="Submit"> X </button>
                 </form>
               </td>
-              <td> <%= file.destination %></td>
             </tr>
             <% }) %> 
         </tbody>
