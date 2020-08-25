@@ -90,10 +90,11 @@ router.get('/clients', auth, async (req, res) => {
     const filter = await Client.find({owner: owner, "completed": false})
     res.render('pages/show-clients', {clientList: filter, n: 1 });
 })
+
 router.get('/old-clients', auth, async (req, res) => {
     owner = req.session.passport.user
     const filter = await Client.find({owner: owner, "completed": true })
-    res.render('pages/show-clients', {clientList: filter, n: 1});
+    res.render('pages/show-old', {clientList: filter, n: 1});
 })
 
 module.exports = router;

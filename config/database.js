@@ -145,7 +145,7 @@ const worksSchema = new mongoose.Schema(
 const Work = connection.model("Work", worksSchema);
 
 
-// TEST UPLOAD
+
 const UploadSchema = new mongoose.Schema({
     client: String,
     fieldname: String,
@@ -162,6 +162,25 @@ const UploadSchema = new mongoose.Schema({
     }
 })
 const Upload = connection.model("Upload", UploadSchema);
+
+
+
+const UploadForWork = new mongoose.Schema({
+    client: String,
+    fieldname: String,
+    originalname: String,
+    mimetype: String,
+    destination: String,
+    filename: String,
+    path: String,
+    size: Number,
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+})
+const UploadWork = connection.model("UploadWork", UploadForWork);
 
 // Expose the connection
 module.exports = connection;
