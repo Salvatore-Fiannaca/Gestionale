@@ -75,6 +75,7 @@ router.get('/_:code', auth, async (req, res) => {
 
 router.get('/edit-work_:code', auth, async (req, res) => {
     const clientList = await Work.find({"client": req.params.code})
+    console.log(clientList);
     res.render('pages/edit-work', {clientList: clientList})
 })
 

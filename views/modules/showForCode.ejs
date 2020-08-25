@@ -1,5 +1,5 @@
 <!-- form ricerca cliente -->
-<h1 class="h3 mb-2 text-gray-800"> Elenco dei Lavori</h1>
+<h1 class="h3 mb-2 text-gray-800"> Elenco Lavori</h1>
 <p><%= code %> 
   <a href="new-work_<%= code %>">
   <button type="button" class="btn btn-sm btn-success mb-4 float-right">
@@ -20,18 +20,16 @@
           <tr>
             <th>Titolo</th>
             <th>Cartella</th>
-            <th>Numero</th>
+            <th>Allegati X Lavoro</th>
             <th>Stato</th>
-            <th></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Titolo</th>
             <th>Cartella</th>
-            <th>Numero</th>
+            <th>Allegati X Lavoro</th>
             <th>Stato</th>
-            <th></th>
           </tr>
         </tfoot>
         <tbody>
@@ -45,14 +43,22 @@
                   </button>
                 </a>
               </td>
-              <td> <%= client.work.folder.title %></td>
-              <td> <%= client.work.folder.number %> </td>
-              <td> <%= client.work.status %> </td>
               <td> 
-                <form action ="work_<%= client._id %>" method="POST" id="btnDelete">
-                  <button type="submit" class="btn btn-sm btn-danger" value="Submit">Cancella</button>
-                </form>
+                <label class="mr-2">
+                  <%= client.work.folder.title %>
+                </label>
+                <label class="">
+                  N°: <%= client.work.folder.number %>
+                </label>
               </td>
+              <td>
+                <a href="#">
+                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top"">
+                    Allegati
+                  </button>
+                </a>
+              </td>
+              <td> <%= client.work.status %> </td>
             </tr>
             <% }) %> 
         </tbody>

@@ -1,6 +1,6 @@
 <!-- form ricerca cliente -->
 
-<h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
+<h1 class="h3 mb-2 text-gray-800">Lista Allegati Generici</h1>
 <p>Codice fiscale: <%= code %> 
   <a href="/upload_<%= code %>">
     <button type="button" class="btn btn-sm btn-success mb-4 float-right">
@@ -20,14 +20,12 @@
         <thead>
           <tr>
             <th>Allegato</th>
-            <th>Cartella</th>
             <th></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th>Allegato</th>
-            <th>Cartella</th>
             <th></th>
           </tr>
         </tfoot>
@@ -42,7 +40,6 @@
                   </button>
                 </a>
               </td>
-              <td> <%= file.destination %></td>
               <td>
                 <form action ="file_<%= file._id %>" method="POST" id="btnDelete">
                   <button type="submit" class="btn btn-sm btn-danger" value="Submit"> X </button>
