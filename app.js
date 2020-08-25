@@ -59,12 +59,14 @@ const routes404 = require('./routes/404');
 const clientRoutes = require('./routes/client');
 const workRoutes = require('./routes/work');
 const uploadRoutes = require('./routes/upload');
+const uploadWorkRoutes = require('./routes/uploadWork');
 
 app.use(routes);
 app.use(routes404);
 app.use(clientRoutes);
 app.use(workRoutes);
 app.use(uploadRoutes);
+app.use(uploadWorkRoutes);
 
 
 /**

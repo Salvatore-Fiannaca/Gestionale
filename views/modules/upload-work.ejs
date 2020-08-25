@@ -3,12 +3,12 @@
 
 <!--      MODULO MODIFICA CLIENTI-->
 <h1 class="h3 text-gray-800"> Inserisci allegati</h1> 
-<small class=" mb-4">Allegati riferiti al cliente: <%= code %></small>
+<small class=" mb-4">Allegati riferiti al lavoro: <%= code %></small>
 <hr>
 <br>
 
 <!-- UPLOAD FORM -->
-<form method="POST" action="upload_<%= code %>" enctype="multipart/form-data">
+<form method="POST" action="work-upload_<%= code %>" enctype="multipart/form-data">
   <input type="file" name="files" multiple/>
   <button type="submit" value="Submit"class="btn btn-primary">Avanti</button>
 </form>

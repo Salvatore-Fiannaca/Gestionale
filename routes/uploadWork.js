@@ -87,20 +87,18 @@ router.post('/work-file_:id', async(req, res) => {
 
 router.get('/work-upload_:code', auth, upload, async (req, res) => {
     const client = req.params.code
-    res.render('pages/upload-client', {code: client})
+    res.render('pages/upload-work', {code: client})
 })
-
 
 router.get('/work-show-upload_:code', auth, async (req, res) => {
     try {
-        const clientList = await Upload.find({client: req.params.code })
-        res.render('pages/showUpload', {clientList: clientList, code: req.params.code});
+        const clientList = await UploadWork.find({client: req.params.code })
+        res.render('pages/show-Work-Upload', {clientList: clientList, code: req.params.code});
     } catch (e) {
         console.log(e)
         res.send('User not found')
     }
 })
-
 
 router.get('/work-file_:id', async(req, res) => {
 
