@@ -105,8 +105,8 @@ router.get('/show-upload_:code', auth, async (req, res) => {
 router.get('/file_:id', async(req, res) => {
 
     const dbFile = await Upload.find({_id: ObjectID(req.params.id)})
-    //const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
-    const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
+    const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
+    //const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
     const file = path + dbFile[0].path
     fs.access(file, fs.constants.F_OK, err => {
         console.log(`${file} ${err ? "does not exist" : "exists"}`);

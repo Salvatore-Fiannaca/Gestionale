@@ -53,9 +53,9 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
 
 router.post('/work-file_:id', async(req, res) => {
     try {
-        const localfile = await Upload.find({_id: ObjectID(req.params.id)})
+        const localfile = await UploadWork.find({_id: ObjectID(req.params.id)})
         const path = localfile[0].path
-        const dbFile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+        const dbFile = await UploadWork.findOneAndDelete({_id: ObjectID(req.params.id)})
 
         console.log("Deleted from db")
         fs.unlink( path, (err) => {
@@ -102,9 +102,9 @@ router.get('/work-show-upload_:code', auth, async (req, res) => {
 
 router.get('/work-file_:id', async(req, res) => {
 
-    const dbFile = await Upload.find({_id: ObjectID(req.params.id)})
-    //const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
-    const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
+    const dbFile = await UploadWork.find({_id: ObjectID(req.params.id)})
+    const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
+    //const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
     const file = path + dbFile[0].path
     fs.access(file, fs.constants.F_OK, err => {
         console.log(`${file} ${err ? "does not exist" : "exists"}`);
