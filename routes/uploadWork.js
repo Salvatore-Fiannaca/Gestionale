@@ -13,7 +13,7 @@ const { ObjectID } = require('mongodb');
  * -------------- POST ROUTES ----------------
  */
 
-
+// ADD NEW 
 router.post('/work-upload_:code', auth, upload, async (req, res) => {
     const files = req.files
     if (files) {
@@ -45,19 +45,19 @@ router.post('/work-file_:id', async (req, res) => {
     try {
         const localfile = await UploadWork.find({ _id: ObjectID(req.params.id) })
         const path = localfile[0].path
-        const dbFile = await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id) })
+        await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id) })
 
         fs.unlink(path, (err) => {
             if (err) {
                 console.log(err)
                 res.redirect(req.header('Referer') || '/')
             }
-            res.redirect(req.header('Referer') || '/')
         })
     } catch (err) {
         console.log(err);
         res.redirect(req.header('Referer') || '/')
     }
+    res.redirect('/clients')
 
 
 })
@@ -66,7 +66,6 @@ router.post('/work-file_:id', async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 
-
 router.get('/work-upload_:code', auth, upload, async (req, res) => {
     res.render('pages/upload-work', { code: req.params.code })
 })
@@ -74,6 +73,7 @@ router.get('/work-upload_:code', auth, upload, async (req, res) => {
 router.get('/work-show-upload_:code', auth, async (req, res) => {
     try {
         const clientList = await UploadWork.find({ client: req.params.code })
+        console.log(clientList);
         res.render('pages/show-Work-Upload', { clientList: clientList, code: req.params.code });
     } catch (err) {
         console.log(err)

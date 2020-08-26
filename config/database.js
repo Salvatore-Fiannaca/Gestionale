@@ -166,7 +166,6 @@ const Upload = connection.model("Upload", UploadSchema);
 
 
 const UploadForWork = new mongoose.Schema({
-    title: String,
     client: String,
     fieldname: String,
     originalname: String,

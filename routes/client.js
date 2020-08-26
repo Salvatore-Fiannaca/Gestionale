@@ -53,7 +53,8 @@ router.post('/update_:id', auth, async (req, res) => {
         console.log(err);
     }
 })
-    
+
+// DELETE CLIENT + ALLEGATI + WORK
 router.post('/client_:code', async(req, res) => {
     owner = req.session.passport.user
     let msg = ''
