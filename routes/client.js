@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const connection = require('../config/database');
-const {Client, Work, Upload} = connection.models 
+const {Client, Work, Upload, UploadWork} = connection.models 
 const auth = require('../config/auth');
 const { readSync } = require('fs');
 
@@ -31,7 +31,6 @@ router.post('/client', auth, async (req, res) => {
 
 })
 
-//      WORKING ON UPDATE CLIENT
 router.post('/update_:id', auth, async (req, res) => {
     const id = req.params.id
     try {
@@ -59,9 +58,10 @@ router.post('/client_:code', async(req, res) => {
     owner = req.session.passport.user
     let msg = ''
     try {
-        const dbClient = await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
-        const dbWork = await Work.deleteMany({client: req.params.code, owner: owner})
-        const dbFile = await Upload.deleteMany({client: req.params.code, owner: owner})
+        await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
+        await Work.deleteMany({client: req.params.code, owner: owner})
+        await Upload.deleteMany({client: req.params.code, owner: owner})
+        await UploadWork.deleteMany({client: req.params.code, owner: owner})
         msg = "done" 
     } catch (err) {
         console.log(err);

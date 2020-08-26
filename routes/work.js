@@ -24,16 +24,18 @@ router.post('/new-work_:code', auth, async (req, res) => {
     })
     try {
         await newWork.save()
-        res.redirect(`/_${req.params.code}`)
     } catch (e) {
-        res.send('ERROR D:', () => console.log(e))
+        return (
+            res.redirect(`/_${req.params.code}`), 
+            console.log(e)
+            )
     }
+    res.redirect(`/work-upload_${req.body.title}`)
 })
 
 router.post('/work_:id', async(req, res) => {
-    const dbFile = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
-    backURL=req.header('Referer') || '/';
-    res.redirect(backURL);
+    await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
+    res.redirect(req.header('Referer') || '/')
 })
 
 router.post('/update-work_:client', auth, async (req, res) => {
@@ -48,13 +50,12 @@ router.post('/update-work_:client', auth, async (req, res) => {
                     "work.comments": req.body.comments
                     }
             })
+            
+        res.redirect(req.header('Referer') || '/')
 
-        backURL=req.header('Referer') || '/';
-        res.redirect(backURL);
     } catch (err) {
         console.log(err);
-        backURL=req.header('Referer') || '/';
-        res.redirect(backURL);
+        res.redirect(req.header('Referer') || '/')
     }
 })
 

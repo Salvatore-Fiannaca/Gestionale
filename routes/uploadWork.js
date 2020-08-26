@@ -13,6 +13,7 @@ const { ObjectID } = require('mongodb');
  * -------------- POST ROUTES ----------------
  */
 
+
 router.post('/work-upload_:code', auth, upload, async (req, res) => {
     const files = req.files
     if (files) {
@@ -36,10 +37,10 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
             }
         })
     }
-   
-    res.redirect("/")
+    res.redirect(`/clients`)
 })
 
+//          DELETE WORK UPLOAD
 router.post('/work-file_:id', async (req, res) => {
     try {
         const localfile = await UploadWork.find({ _id: ObjectID(req.params.id) })
