@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
-const { genPassword } = require('../lib/passwordUtils');
+const { genPassword } = require('../utils/passwordUtils');
 const connection = require('../config/database');
 const {User} = connection.models 
 const auth = require('../config/auth')
