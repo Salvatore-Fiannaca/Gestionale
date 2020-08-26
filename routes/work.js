@@ -4,6 +4,8 @@ const auth = require('../config/auth')
 const connection = require('../config/database');
 const { Work , UploadWork} = connection.models 
 const { ObjectID } = require('mongodb');
+const fs = require('fs');
+
 
 /**
  * -------------- POST ROUTES ----------------
@@ -32,12 +34,20 @@ router.post('/new-work_:code', auth, async (req, res) => {
     }
     res.redirect(`/work-upload_${req.body.title}`)
 })
-    // DELETE 
+    // DELETE WORK + FILE
 router.post('/work_:id', async(req, res) => {
     try {
         const work = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
         const fileWork = await UploadWork.findOneAndDelete({ client: work.client })
-        res.redirect("/clients")
+        const path = fileWork.path
+
+        fs.unlink(path, (err) => {
+            if (err) {
+                console.log(err)
+                res.redirect(req.header('Referer') || '/')
+            }
+            res.redirect("/clients")
+        })
     } catch (err) {
         res.redirect("/clients")
         console.log(err)

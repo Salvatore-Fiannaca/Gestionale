@@ -43,9 +43,8 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
 //          DELETE WORK UPLOAD
 router.post('/work-file_:id', async (req, res) => {
     try {
-        const localfile = await UploadWork.find({ _id: ObjectID(req.params.id) })
-        const path = localfile[0].path
-        await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id) })
+        const localfile = await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id) })
+        const path = localfile.path
 
         fs.unlink(path, (err) => {
             if (err) {
