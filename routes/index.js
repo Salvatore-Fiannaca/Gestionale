@@ -10,7 +10,7 @@ const auth = require('../config/auth')
  * -------------- POST ROUTES ----------------
  */
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/'}))
+router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/', failureFlash: true}))
 
 router.post('/register', async (req, res) => {
    const hash =  await genPassword(req.body.password)
@@ -21,25 +21,21 @@ router.post('/register', async (req, res) => {
    })
    newUser.save()
      .then((user) => {})
-   res.redirect('/')
+   res.redirect('/login')
  })
  
 /**
  * -------------- GET ROUTES ----------------
  */
-router.get('/', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.render('pages/index');
-    } else {
-        res.redirect('/login');
-    }
-});
+router.get('/', auth, (req, res) => {
+    res.render('pages/index')
+})
 
 router.get('/login', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
-        res.render('pages/login');
+        res.render('pages/login', {msg: false});
     }
 });
 
@@ -49,7 +45,7 @@ router.get('/register', (req, res) => {
 
 router.get('/logout', auth, async(req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 router.get('/forgot', (req, res) => {

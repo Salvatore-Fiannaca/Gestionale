@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +40,15 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
+
+                    
+                    <% if (msg == true) { %>
+                      <div class="alert alert-danger" role="alert" id="msg">
+                      <%= text %>
+                      </div>
+                    <% } %>
+
+
                     <h1 class="h4 text-gray-900 mb-4">Accedi</h1>
                   </div>
                   <form class="user" method="POST" action="/login">
@@ -83,7 +93,5 @@
 
   <!-- Custom scripts -->
 
-  </style>
 </body>
-
 </html>

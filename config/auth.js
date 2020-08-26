@@ -2,7 +2,7 @@ const auth = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
     } else {
-        res.redirect('/')
+        res.render('pages/login', {msg: true, text: `E' richiesto il login`})
     }
 }
 
