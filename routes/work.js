@@ -2,13 +2,13 @@ const express = require('express')
 const router = new express.Router()
 const auth = require('../config/auth')
 const connection = require('../config/database');
-const { Work } = connection.models 
+const { Work , UploadWork} = connection.models 
 const { ObjectID } = require('mongodb');
 
 /**
  * -------------- POST ROUTES ----------------
  */
-
+    // ADD
 router.post('/new-work_:code', auth, async (req, res) => {
     const newWork = await new Work({
         "client": req.params.code,
@@ -32,12 +32,18 @@ router.post('/new-work_:code', auth, async (req, res) => {
     }
     res.redirect(`/work-upload_${req.body.title}`)
 })
-
+    // DELETE 
 router.post('/work_:id', async(req, res) => {
-    await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
-    res.redirect(req.header('Referer') || '/')
+    try {
+        const work = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
+        const fileWork = await UploadWork.findOneAndDelete({ client: work.client })
+        res.redirect("/clients")
+    } catch (err) {
+        res.redirect("/clients")
+        console.log(err)
+    }
 })
-
+    // UPDATE   
 router.post('/update-work_:client', auth, async (req, res) => {
     const client = req.params.id
     try {

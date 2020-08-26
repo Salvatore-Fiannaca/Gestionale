@@ -58,8 +58,6 @@ router.post('/work-file_:id', async (req, res) => {
         res.redirect(req.header('Referer') || '/')
     }
     res.redirect('/clients')
-
-
 })
 
 /**
@@ -73,7 +71,6 @@ router.get('/work-upload_:code', auth, upload, async (req, res) => {
 router.get('/work-show-upload_:code', auth, async (req, res) => {
     try {
         const clientList = await UploadWork.find({ client: req.params.code })
-        console.log(clientList);
         res.render('pages/show-Work-Upload', { clientList: clientList, code: req.params.code });
     } catch (err) {
         console.log(err)

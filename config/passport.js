@@ -13,20 +13,16 @@ const customFields = {
 const verifyCallback = async (username, password, done) => {
   //check if exist user
   const user = await User.findOne({ username: username})
-
     if (!user) {
       return done(null, false)
     }
-
     // check if valid pw
     const isValid = await validPassword(password, user.hash)
-
     if (isValid) {
       return done(null, user)
     } else {
       return done(null, false)
     }
-
 }
 
 const strategy = new LocalStrategy(customFields, verifyCallback)

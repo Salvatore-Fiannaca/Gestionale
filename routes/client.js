@@ -28,7 +28,6 @@ router.post('/client', auth, async (req, res) => {
         } catch (e) {
          console.log(e)
     }
-
 })
 
 router.post('/update_:id', auth, async (req, res) => {
@@ -47,28 +46,23 @@ router.post('/update_:id', auth, async (req, res) => {
                     "completed": req.body.completed
                     }
             })
-
         res.redirect('/clients')
     } catch (err) {
         console.log(err);
     }
 })
 
-// DELETE CLIENT + ALLEGATI + WORK
+// DELETE ALL FOR CLIENT
 router.post('/client_:code', async(req, res) => {
     owner = req.session.passport.user
-    let msg = ''
     try {
         await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
         await Work.deleteMany({client: req.params.code, owner: owner})
         await Upload.deleteMany({client: req.params.code, owner: owner})
         await UploadWork.deleteMany({client: req.params.code, owner: owner})
-        msg = "done" 
     } catch (err) {
         console.log(err);
-        msg = "error"
     }
-
     res.redirect("/clients")
 })
 

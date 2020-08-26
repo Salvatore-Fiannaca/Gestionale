@@ -16,18 +16,18 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
     // CHECK FILE
     const files = req.files
 
-    const removeEmpySpace = (str) => {
+    const removeEmptySpace = (str) => {
         // pulisci
-        let firstPass = str.replace(' ', '')
-        let secondPass = firstPass.replace(' ', '')
-        let thirdPass = secondPass.replace(' ', '')
-        let fourthPass = thirdPass.replace(' ', '')
+        let firstPass = str.replace(' ', '-')
+        let secondPass = firstPass.replace(' ', '-')
+        let thirdPass = secondPass.replace(' ', '-')
+        let fourthPass = thirdPass.replace(' ', '-')
         // ritorna stringa pulita
         return fourthPass
     }
 
     files.forEach(file => {
-        const path = removeEmpySpace(file.path)
+        const path = removeEmptySpace(file.path)
         const newFile = new Upload({
             "client": client,
             "fieldname": file.fieldname,
@@ -60,21 +60,16 @@ router.post('/file_:id', async(req, res) => {
         console.log("Deleted from db")
         fs.unlink( path, (err) => {
             if (err) {
-                const backURL=req.header('Referer') || '/';
                 console.log("Il file è stato rimosso manualmente o qualcosa è andato storno")
-                res.redirect(backURL);
+                res.redirect(req.header('Referer') || '/');
             }
             else {
-                backURL=req.header('Referer') || '/';
-                console.log(`${path} was deleted`);
-                res.redirect(backURL);
+                res.redirect(req.header('Referer') || '/');
             }
         })
     } catch (err) {
         console.log(err);
-        backURL=req.header('Referer') || '/';
-        res.redirect(backURL);
-        console.log('Qualcosa è andato storto')
+        res.redirect(req.header('Referer') || '/');
     }
     
     
