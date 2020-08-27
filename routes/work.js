@@ -5,6 +5,7 @@ const connection = require('../config/database');
 const { Work , UploadWork} = connection.models 
 const { ObjectID } = require('mongodb');
 const fs = require('fs');
+const { log } = require('console');
 
 
 /**
@@ -39,8 +40,22 @@ router.post('/new-work_:code', auth, async (req, res) => {
 router.post('/work_:id', async(req, res) => {
     try {
         const work = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
-        const fileWork = await UploadWork.findOneAndDelete({ client: work.client })
-        const path = fileWork.path
+        const find = await UploadWork.find({ client: work.client })
+        await UploadWork.deleteMany({ client: work.client })
+
+        find.forEach(file => {
+            let path = file.path
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.log(err)
+                    res.redirect('/clients')
+                }
+            })
+        })
+
+        res.redirect("/clients")
+        
+        /* const path = fileWork.path
 
         fs.unlink(path, (err) => {
             if (err) {
@@ -48,7 +63,10 @@ router.post('/work_:id', async(req, res) => {
                 res.redirect(req.header('Referer') || '/')
             }
             res.redirect("/clients")
-        })
+        }) */
+
+        
+
     } catch (err) {
         res.redirect("/clients")
         console.log(err)
