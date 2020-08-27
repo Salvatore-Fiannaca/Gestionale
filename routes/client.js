@@ -3,6 +3,7 @@ const connection = require('../config/database');
 const {Client, Work, Upload, UploadWork} = connection.models 
 const auth = require('../config/auth');
 const { readSync } = require('fs');
+const fs = require('fs');
 
 /**
  * -------------- POST ROUTES ----------------
@@ -60,8 +61,31 @@ router.post('/client_:code', async(req, res) => {
     try {
         await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
         await Work.deleteMany({client: req.params.code, owner: owner})
+        const findWork = await UploadWork.find({client: req.params.code, owner: owner})
+        const findUpload = await Upload.find({client: req.params.code, owner: owner})
+        
+        // DELETE UPLOAD CLIENT
         await Upload.deleteMany({client: req.params.code, owner: owner})
+        findUpload.forEach(file => {
+            let path = file.path
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+        })
+
+        // DELETE UPLOAD WORK CLIENT
         await UploadWork.deleteMany({client: req.params.code, owner: owner})
+        findWork.forEach(file => {
+            let path = file.path
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+        })
+
     } catch (err) {
         console.log(err);
     }
