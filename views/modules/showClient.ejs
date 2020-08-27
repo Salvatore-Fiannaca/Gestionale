@@ -19,7 +19,7 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Numero</th>
+            <th >Numero</th>
             <th>Cliente</th>
             <th>Documenti</th>
             <th>Lavori</th>
@@ -39,7 +39,11 @@
           <!-- LIST CLIENT FROM DB-->
           <% clientList.forEach(client => { %>
           <tr>
-            <td><%= n++ %></td>
+            <td>
+              <b>
+                <%= n++ %>
+              </b>
+            </td>
             <td>
               <a href="edit-client_<%= client.id %>">
                 <button type="button" class="btn btn-sm btn-light ">
