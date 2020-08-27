@@ -2,8 +2,9 @@ const router = require('express').Router();
 const passport = require('passport');
 const { genPassword } = require('../utils/passwordUtils');
 const connection = require('../config/database');
-const {User} = connection.models 
-const auth = require('../config/auth')
+const {User, Client, Work} = connection.models 
+const auth = require('../config/auth');
+const { ObjectID } = require('mongodb');
 
 
 /**
@@ -27,8 +28,9 @@ router.post('/register', async (req, res) => {
 /**
  * -------------- GET ROUTES ----------------
  */
-router.get('/', auth, (req, res) => {
-    res.render('pages/index')
+router.get('/', auth, async (req, res) => {
+    const numberOfClients = await Client.find({owner: req.user._id})
+    res.render('pages/index', {numberOfClients: numberOfClients.length})
 })
 
 router.get('/login', (req, res) => {

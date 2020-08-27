@@ -54,18 +54,6 @@ router.post('/work_:id', async(req, res) => {
         })
 
         res.redirect("/clients")
-        
-        /* const path = fileWork.path
-
-        fs.unlink(path, (err) => {
-            if (err) {
-                console.log(err)
-                res.redirect(req.header('Referer') || '/')
-            }
-            res.redirect("/clients")
-        }) */
-
-        
 
     } catch (err) {
         res.redirect("/clients")
