@@ -5,6 +5,8 @@ const connection = require('../config/database');
 const {User, Client, Work} = connection.models 
 const auth = require('../config/auth');
 const { ObjectID } = require('mongodb');
+const { lchown } = require('fs');
+const { has } = require('browser-sync');
 
 
 /**
@@ -17,15 +19,19 @@ router.post('/login', passport.authenticate('local', {
 }))
 
 router.post('/register', async (req, res) => {
-   const hash =  await genPassword(req.body.password)
+    const psw = req.body.password
+    const psw2 = req.body.password2
+    const username = req.body.username
 
-   const newUser = new User({
-       username: req.body.username,
-       hash: hash
-   })
-   newUser.save()
-     .then((user) => {})
-   res.redirect('/login')
+    if (psw.length > 6 & psw == psw2 & username.length > 3) {
+        const hash =  await genPassword(psw)
+        const newUser = await new User({ username: username, hash: hash})
+        await newUser.save()
+        res.render('pages/login', {msg: false, msgOK: true, text: 'Account creato con successo'})
+ 
+    } else {
+        res.render("pages/register", {msg: true, msgOK: false, text: 'Dati inseriti non validi'})
+    }
  })
  
 /**
@@ -40,7 +46,7 @@ router.get('/login', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
-        res.render('pages/login', {msg: false});
+        res.render('pages/login', {msg: false, msgOK: false,});
     }
 });
 
@@ -49,12 +55,12 @@ router.get('/login-', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/');
     } else {
-        res.render('pages/login', {msg: true, text: 'Dati inseriti non corretti'});
+        res.render('pages/login', {msg: true, msgOK: false ,text: 'Dati inseriti non corretti'});
     }
 });
 
 router.get('/register', (req, res) => {
-    res.render('pages/register')
+    res.render('pages/register', {msg: false, msgOK: false, text: ''})
 })
 
 router.get('/logout', auth, async(req, res) => {

@@ -28,6 +28,13 @@
             <div class="col-lg-7">
               <div class="p-5">
                 <div class="text-center">
+
+                  <% if (msg) { %>
+                    <div class="alert alert-danger" role="alert" id="msg">
+                    <%= text %>
+                    </div>
+                  <% } %>
+
                   <h1 class="h4 text-gray-900 mb-4">Crea un account amministratore</h1>
                 </div>
                 <form class="user" method="POST" action="register" id="regForm">
@@ -39,7 +46,7 @@
                       <input type="password" class="form-control form-control-user" name="password" placeholder="Password" required>
                     </div>
                     <div class="col-sm-6">
-                      <input type="password" class="form-control form-control-user" id="password1" placeholder="Ripeti Password" required>
+                      <input type="password" class="form-control form-control-user" name="password2" placeholder="Ripeti Password" required>
                     </div>
                   </div>
                   <button type="submit" value="Submit" class="btn btn-primary btn-user btn-block">
@@ -51,7 +58,7 @@
                   <a class="small" href="/forgot">Hai dimenticato la password?</a>
                 </div>
                 <div class="text-center">
-                  <a class="small" href="/">Hai già un account?</a>
+                  <a class="small" href="/login">Hai già un account?</a>
                 </div>
               </div>
             </div>
