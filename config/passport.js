@@ -4,11 +4,11 @@ const connection = require('./database');
 const { validPassword } = require('../utils/passwordUtils');
 const User = connection.models.User;
 
-// TODO
 const customFields = {
     usernameField: 'username',
-    passwordField: 'password'
+    passwordField: 'password',
 }
+
 
 const verifyCallback = async (username, password, done) => {
   //check if exist user

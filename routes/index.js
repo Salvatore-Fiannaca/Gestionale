@@ -11,7 +11,10 @@ const { ObjectID } = require('mongodb');
  * -------------- POST ROUTES ----------------
  */
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/', failureFlash: true}))
+router.post('/login', passport.authenticate('local', { 
+    failureRedirect: '/login-', 
+    successRedirect: '/'
+}))
 
 router.post('/register', async (req, res) => {
    const hash =  await genPassword(req.body.password)
@@ -38,6 +41,15 @@ router.get('/login', (req, res) => {
         res.redirect('/');
     } else {
         res.render('pages/login', {msg: false});
+    }
+});
+
+// LOGIN FAIL
+router.get('/login-', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('pages/login', {msg: true, text: 'Dati inseriti non corretti'});
     }
 });
 
