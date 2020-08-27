@@ -10,6 +10,7 @@ const fs = require('fs');
 /**
  * -------------- POST ROUTES ----------------
  */
+
     // ADD
 router.post('/new-work_:code', auth, async (req, res) => {
     const newWork = await new Work({
@@ -32,7 +33,7 @@ router.post('/new-work_:code', auth, async (req, res) => {
             console.log(e)
             )
     }
-    res.redirect(`/work-upload_${req.body.title}`)
+    res.redirect(`/work-upload_${req.params.code}`)
 })
     // DELETE WORK + FILE
 router.post('/work_:id', async(req, res) => {
@@ -92,7 +93,6 @@ router.get('/_:code', auth, async (req, res) => {
 
 router.get('/edit-work_:code', auth, async (req, res) => {
     const clientList = await Work.find({"client": req.params.code})
-    console.log(clientList);
     res.render('pages/edit-work', {clientList: clientList})
 })
 

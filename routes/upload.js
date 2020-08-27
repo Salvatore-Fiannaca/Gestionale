@@ -53,14 +53,13 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 
 router.post('/file_:id', async(req, res) => {
     try {
-        const localfile = await Upload.find({_id: ObjectID(req.params.id)})
-        const path = localfile[0].path
-        const dbFile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+        //const localfile = await Upload.find({_id: ObjectID(req.params.id)})
+        const localfile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+        const path = localfile.path
 
-        console.log("Deleted from db")
         fs.unlink( path, (err) => {
             if (err) {
-                console.log("Il file è stato rimosso manualmente o qualcosa è andato storno")
+                console.log(err)
                 res.redirect(req.header('Referer') || '/');
             }
             else {
