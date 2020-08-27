@@ -8,6 +8,7 @@ const { readSync } = require('fs');
  * -------------- POST ROUTES ----------------
  */
 
+//      ADD NEW CLIENT
 router.post('/client', auth, async (req, res) => {
     const code = req.body.fiscalCode
     const newClient = await new Client({
@@ -30,6 +31,7 @@ router.post('/client', auth, async (req, res) => {
     }
 })
 
+//      UPDATE CLIENT
 router.post('/update_:id', auth, async (req, res) => {
     const id = req.params.id
     try {
@@ -52,7 +54,7 @@ router.post('/update_:id', auth, async (req, res) => {
     }
 })
 
-// DELETE ALL FOR CLIENT
+// DELETE CLIENT
 router.post('/client_:code', async(req, res) => {
     owner = req.session.passport.user
     try {
