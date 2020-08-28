@@ -3,7 +3,8 @@ const auth = (req, res, next) => {
         next()
     } else {
         res.render('pages/login', {
-            msg: true, 
+            redMsg: true, 
+            greenMsg: false, 
             text: `Devi prima effettuare il login`
         })
     }
