@@ -1,6 +1,11 @@
 
 <!--      MODULO MODIFICA CLIENTI-->
-<h1 class="h3 mb-4 text-gray-800">Profilo cliente</h1>
+<h1 class="h3 text-gray-800">
+  Profilo cliente
+</h1>
+
+
+
 <br>
 <!-- FORM MODIFICA CLIENTI -->
 <form method="POST" action="update_<%= clientList[0]._id %>">
@@ -55,18 +60,65 @@
       </label>
     </div>
   </div>
-    <div class="form-group ">
+    <div class="form-group mt-2">
       <button type="submit" value="Submit"class="btn btn-primary mt-4">Aggiorna</button>
     </div>
   </div>
 </form>
 
-<div class="form-group ml-3 ">
-  <form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
-    <button type="submit" class="btn btn-danger mt-2" value="Submit">Rimuovi Cliente</button>
-  </form> 
-</div>
+<form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-danger btn-icon-split ml-4 mb-4" data-toggle="modal" data-target="#staticBackdrop">
+    <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+    <span class="text">      
+      Rimuovi
+    </span>
+  </button>
 
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Attenzione!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Verranno rimossi tutti i lavori e/o allegati relativi al cliente, vuoi comunque continuare?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+          <button type="submit" class="btn btn-danger" value="Submit">Cancella</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form> 
+
+
+<!-- OLD BUTTON 
+
+<form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
+  <button 
+  type="submit" 
+  class="btn btn-danger btn-icon-split ml-4" 
+  data-toggle="modal" 
+  data-target="#staticBackdrop" 
+  value="Submit"
+  >
+    <span class="icon text-white-50">
+      <i class="fas fa-trash"></i>
+    </span>
+    <span class="text">      
+      Rimuovi Cliente
+    </span>
+  </button>
+</form> 
+
+
+-->
 
   
 
