@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const { genPassword } = require('../utils/passwordUtils');
 const connection = require('../config/database');
-const {User, Client} = connection.models 
+const {User, Work, Client} = connection.models 
 const auth = require('../config/auth');
 
 
@@ -58,7 +58,12 @@ router.post('/register', async (req, res) => {
  */
 router.get('/', auth, async (req, res) => {
     const numberOfClients = await Client.find({owner: req.user._id})
-    res.render('pages/index', {numberOfClients: numberOfClients.length})
+    const numberOfWork = await Work.find({owner: req.user._id})
+
+    res.render('pages/index', {
+        numberOfClients: numberOfClients.length,
+        numberOfWork: numberOfWork.length
+    })
 })
 
 router.get('/login', (req, res) => {
