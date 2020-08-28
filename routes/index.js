@@ -4,6 +4,8 @@ const { genPassword } = require('../utils/passwordUtils');
 const connection = require('../config/database');
 const {User, Work, Client} = connection.models 
 const auth = require('../config/auth');
+const { ObjectID } = require('mongodb');
+
 
 
 /**
@@ -100,7 +102,12 @@ router.get('/register', (req, res) => {
 router.get('/logout', auth, async(req, res) => {
     req.logout();
     res.redirect('/login');
-});
+})
+
+router.get('/edit-user', auth, async(req, res) => {
+    const user = await User.find({_id : ObjectID(req.user._id) })
+    res.render('pages/edit-user', {username: user[0].username})
+})
 
 router.get('/forgot', (req, res) => {
     res.render('pages/forgot')
