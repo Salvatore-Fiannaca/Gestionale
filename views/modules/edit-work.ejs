@@ -1,5 +1,5 @@
 
-<h1 class="h3 mb-4 text-gray-800">Mostra / Modifica Lavoro</h1>
+<h1 class="h3 mb-4 text-gray-800"> Edita Lavoro</h1>
 <p>Cliente: <%= clientList[0].client %> </p>
 <!--   -->
 <!-- FORM REGISTRA LAVORO -->
@@ -32,17 +32,41 @@
         <option value="In attesa di pagamento">In attesa di pagamento</option>
         <option value="Sospeso">Sospeso</option>
         <option value="In revisione">In revisione</option>
-        <option value="">...</option>
       </select>
     </div>
   </div>
-  <button type="submit" value="Submit"class="btn btn-success">Aggiorna</button>
+  <button type="submit" value="Submit"class="btn btn-primary">Aggiorna</button>
 </form>
+
 <form action ="work_<%= clientList[0]._id %>" method="POST" id="btnDelete">
-  <button type="submit" class="btn btn-sm btn-danger" value="Submit">Cancella</button>
+   <!-- Button trigger modal -->
+   <button type="button" class="btn btn-danger btn-icon-split mt-2" data-toggle="modal" data-target="#staticBackdrop">
+    <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+    <span class="text">      
+      Cancella
+    </span>
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Attenzione!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Se presenti, verranno rimossi tutti gli allegati relativi al lavoro, vuoi continuare?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+          <button type="submit" class="btn btn-danger" value="Submit">Cancella</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
-<br>
-<br>
-<br>
+
 
 

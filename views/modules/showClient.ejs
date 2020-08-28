@@ -46,8 +46,13 @@
             </td>
             <td>
               <a href="edit-client_<%= client.id %>">
-                <button type="button" class="btn btn-sm btn-light ">
-                  <%= client.profile.lastName + " " + client.profile.firstName %>
+                <button type="button" class="btn btn-sm btn-icon-split btn-light ">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                  <span class="text">
+                    <%= client.profile.lastName + " " + client.profile.firstName %>
+                  </span>
                 </button>
               </a>
             </td>
@@ -95,3 +100,4 @@
 </div>
 
 </div>
+
