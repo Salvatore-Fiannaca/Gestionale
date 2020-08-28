@@ -19,20 +19,20 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Numero</th>
-            <th>Cliente</th>
-            <th>Documenti</th>
-            <th>Lavori</th>
-            <th>Info</th>
+            <th><strong>Numero</strong></th>
+            <th><strong>Cliente</strong></th>
+            <th><strong>Documenti</strong></th>
+            <th><strong>Lavori</strong></th>
+            <th><strong>Info</strong></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <th>Numero</th>
-            <th>Cliente</th>
-            <th>Documenti</th>
-            <th>Lavori</th>
-            <th>Info</th>
+            <th><strong>Numero</strong></th>
+            <th><strong>Cliente</strong></th>
+            <th><strong>Documenti</strong></th>
+            <th><strong>Lavori</strong></th>
+            <th><strong>Info</strong></th>
           </tr>
         </tfoot>
         <tbody>
@@ -42,8 +42,13 @@
             <td><%= n++ %></td>
             <td>
               <a href="edit-client_<%= client.id %>">
-                <button type="button" class="btn btn-sm btn-light ">
-                  <%= client.profile.lastName + " " + client.profile.firstName %>
+                <button type="button" class="btn btn-sm btn-icon-split btn-light ">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                  <span class="text">
+                    <%= client.profile.lastName + " " + client.profile.firstName %>
+                  </span>
                 </button>
               </a>
             </td>
