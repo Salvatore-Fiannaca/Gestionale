@@ -26,7 +26,7 @@ const connection = mongoose.createConnection(conn, {
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({
   username: String,
-  hash: String,
+  hash: String
 });
 const User = connection.model("User", UserSchema);
 
@@ -91,7 +91,8 @@ const clientsSchema = new mongoose.Schema(
     completed: {
       type: Boolean,
       default: false,
-    }
+    },
+    count: Number
   },
   {
     timestamps: true,
@@ -181,6 +182,21 @@ const UploadForWork = new mongoose.Schema({
     }
 })
 const UploadWork = connection.model("UploadWork", UploadForWork);
+
+
+const CounterSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  },
+  count: {
+    type: Number,
+    default: 1
+  }
+});
+const Count = connection.model("Count", CounterSchema);
+
 
 // Expose the connection
 module.exports = connection;

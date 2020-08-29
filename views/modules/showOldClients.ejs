@@ -39,7 +39,7 @@
           <!-- LIST CLIENT FROM DB-->
           <% clientList.forEach(client => { %>
           <tr>
-            <td><%= n++ %></td>
+            <td><%= client.count %></td>
             <td>
               <a href="edit-client_<%= client.id %>">
                 <button type="button" class="btn btn-sm btn-icon-split btn-light ">

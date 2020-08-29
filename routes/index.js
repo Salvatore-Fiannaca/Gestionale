@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const { genPassword } = require('../utils/passwordUtils');
 const connection = require('../config/database');
-const {User, Work, Client} = connection.models 
+const {User, Work, Client, Count} = connection.models 
 const auth = require('../config/auth');
 const { ObjectID } = require('mongodb');
 
@@ -32,12 +32,15 @@ router.post('/register', async (req, res) => {
             const hash =  await genPassword(psw)
             const newUser = await new User({ username: username, hash: hash})
             await newUser.save()
+
+            const count = await new Count({ owner: newUser._id })
+            await count.save()
+
             res.render('pages/login', {
                 redMsg: false, 
                 greenMsg: true, 
                 text: 'Account creato con successo'
             })
-           
         } else {
             res.render("pages/register", {
                 redMsg: true, 
