@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const { tree } = require("gulp");
 
 require("dotenv").config();
 
@@ -25,7 +26,11 @@ const connection = mongoose.createConnection(conn, {
 
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({
-  username: String,
+  username: { 
+    type:String, 
+    unique: true,
+    trim: true 
+  },
   hash: String
 });
 const User = connection.model("User", UserSchema);
@@ -45,7 +50,11 @@ const clientsSchema = new mongoose.Schema(
       },
       fiscalCode: {
         type: String,
-        trim: true
+        unique: true,
+        required:true,
+        uppercase: true,
+        trim: true,
+        index: true
       },
     },
     address: {

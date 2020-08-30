@@ -4,6 +4,8 @@ const {Client, Work, Upload, UploadWork, Count} = connection.models
 const auth = require('../config/auth');
 const { readSync } = require('fs');
 const fs = require('fs');
+const { Console } = require('console');
+const { text } = require('express');
 
 /**
  * -------------- POST ROUTES ----------------
@@ -12,8 +14,11 @@ const fs = require('fs');
 //      ADD NEW CLIENT
 router.post('/client', auth, async (req, res) => {
     const code = req.body.fiscalCode
-    
-    try {
+    const check = await Client.find({ owner: req.user._id, "profile.fiscalCode": code})
+
+    // CHECK IF EXIST
+    if (!check[0]) {
+        
         const counter = await Count.findOneAndUpdate({owner: req.user._id}, {$inc: {count: +1} })
         const newClient = await new Client({
             "profile.firstName": req.body.firstName,
@@ -28,14 +33,20 @@ router.post('/client', auth, async (req, res) => {
             owner: req.user._id,
             count: counter.count
         })
-        await newClient.save()
 
-    } catch (e) {
-        console.log(e)
+        try {
+            await newClient.save()
+        } catch (e) {
+            console.log(e)
+        }
+        res.redirect(`/upload_${code}`)
+
+    } else {
+        res.render(`pages/clients`, {redMsg: true, text: 'Codice Fiscale già registrato'})
     }
-    res.redirect(`/upload_${code}`)
+    
 })
-
+   
 //      UPDATE CLIENT
 router.post('/update_:id', auth, async (req, res) => {
     const id = req.params.id
@@ -101,7 +112,7 @@ router.post('/client_:code', async(req, res) => {
  */
 
 router.get('/client', auth, (req, res) => {
-    res.render('pages/clients');
+    res.render('pages/clients', {redMsg: false});
 })
 
 router.get('/edit-client_:id', auth, async (req, res) => {

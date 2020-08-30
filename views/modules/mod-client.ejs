@@ -2,7 +2,11 @@
 <!--      MODULO MODIFICA/CANCELLA CLIENTI-->
 
 <h1 class="h3 mb-4 text-gray-800">Registra un nuovo cliente</h1>
-
+<% if (redMsg) { %>
+  <div class="form-group col-md-6 alert alert-danger mx-auto text-center" role="alert" id="msg">
+  <%= text %>
+  </div>
+<% } %>
 <!-- FORM REGISTRA CLIENTI -->
 <form method="POST" action="client" >
   <div class="row">
