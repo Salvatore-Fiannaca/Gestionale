@@ -39,9 +39,9 @@ router.post('/new-work_:code', auth, async (req, res) => {
     // DELETE WORK + FILE
 router.post('/work_:id', async(req, res) => {
     try {
-        const work = await Work.findOneAndDelete({_id: ObjectID(req.params.id)})
-        const find = await UploadWork.find({ client: work.client })
-        await UploadWork.deleteMany({ client: work.client })
+        const work = await Work.findOneAndDelete({_id: ObjectID(req.params.id), owner: req.user._id})
+        const find = await UploadWork.find({ client: work.client, owner: req.user._id } )
+        await UploadWork.deleteMany({ client: work.client , owner: req.user._id })
 
         find.forEach(file => {
             let path = file.path
@@ -52,20 +52,18 @@ router.post('/work_:id', async(req, res) => {
                 }
             })
         })
-
-        res.redirect("/clients")
-
     } catch (err) {
-        res.redirect("/clients")
         console.log(err)
     }
+
+    res.redirect("/clients")
 })
     // UPDATE   
 router.post('/update-work_:client', auth, async (req, res) => {
-    const client = req.params.id
+    const client = req.params.client
     try {
         await Work.findOneAndUpdate(
-            {_client: client}, 
+            {client: client, owner: req.user._id}, 
             {$set: {"work.title": req.body.title,
                     "work.folder.title": req.body.folder,
                     "work.folder.number": req.body.nFolder,
@@ -98,7 +96,7 @@ router.get('/_:code', auth, async (req, res) => {
 })
 
 router.get('/edit-work_:code', auth, async (req, res) => {
-    const clientList = await Work.find({"client": req.params.code})
+    const clientList = await Work.find({"client": req.params.code, owner: req.user._id})
     res.render('pages/edit-work', {clientList: clientList})
 })
 

@@ -19,18 +19,18 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
     if (files) {
         files.forEach(file => {
             const path = fixString(file.path)
-            const newFile = new UploadWork({
-                "client": req.params.code,
-                "fieldname": file.fieldname,
-                'originalname': file.originalname,
-                "mimetype": file.mimetype,
-                "destination": file.destination,
-                "filename": file.filename,
-                "path": path,
-                "size": file.size,
-                "owner": req.user._id
-            })
             try {
+                const newFile = new UploadWork({
+                    "client": req.params.code,
+                    "fieldname": file.fieldname,
+                    'originalname': file.originalname,
+                    "mimetype": file.mimetype,
+                    "destination": file.destination,
+                    "filename": file.filename,
+                    "path": path,
+                    "size": file.size,
+                    "owner": req.user._id
+                })
                 newFile.save()
             } catch (e) {
                 console.log(e);
@@ -43,7 +43,7 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
 //          DELETE WORK UPLOAD
 router.post('/work-file_:id', async (req, res) => {
     try {
-        const localfile = await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id) })
+        const localfile = await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id), owner: req.user._id })
         const path = localfile.path
 
         fs.unlink(path, (err) => {
@@ -69,7 +69,7 @@ router.get('/work-upload_:code', auth, upload, async (req, res) => {
 
 router.get('/work-show-upload_:code', auth, async (req, res) => {
     try {
-        const clientList = await UploadWork.find({ client: req.params.code })
+        const clientList = await UploadWork.find({ client: req.params.code , owner: req.user._id})
         res.render('pages/show-Work-Upload', { clientList: clientList, code: req.params.code });
     } catch (err) {
         console.log(err)
@@ -79,7 +79,7 @@ router.get('/work-show-upload_:code', auth, async (req, res) => {
 
 router.get('/work-file_:id', async (req, res) => {
 
-    const dbFile = await UploadWork.find({ _id: ObjectID(req.params.id) })
+    const dbFile = await UploadWork.find({ _id: ObjectID(req.params.id), owner: req.user._id })
     const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
     //const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
 

@@ -28,19 +28,18 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 
     files.forEach(file => {
         const path = removeEmptySpace(file.path)
-        const newFile = new Upload({
-            "client": client,
-            "fieldname": file.fieldname,
-            'originalname': file.originalname,
-            "mimetype": file.mimetype,
-            "destination": file.destination,
-            "filename": file.filename,
-            "path": path,
-            "size": file.size,
-            "owner": req.user._id
-        })
-
         try {
+            const newFile = new Upload({
+                "client": client,
+                "fieldname": file.fieldname,
+                'originalname': file.originalname,
+                "mimetype": file.mimetype,
+                "destination": file.destination,
+                "filename": file.filename,
+                "path": path,
+                "size": file.size,
+                "owner": req.user._id
+            })
             newFile.save()
         } catch (e) {
             console.log(e);
@@ -53,23 +52,19 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 
 router.post('/file_:id', async(req, res) => {
     try {
-        //const localfile = await Upload.find({_id: ObjectID(req.params.id)})
-        const localfile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id)})
+        const localfile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id), owner: req.user._id})
         const path = localfile.path
 
         fs.unlink( path, (err) => {
             if (err) {
                 console.log(err)
-                res.redirect(req.header('Referer') || '/');
-            }
-            else {
-                res.redirect(req.header('Referer') || '/');
             }
         })
+        
     } catch (err) {
         console.log(err);
-        res.redirect(req.header('Referer') || '/');
     }
+    res.redirect(req.header('Referer') || '/');
     
     
 })
@@ -87,7 +82,7 @@ router.get('/upload_:code', auth, upload, async (req, res) => {
 
 router.get('/show-upload_:code', auth, async (req, res) => {
     try {
-        const clientList = await Upload.find({client: req.params.code })
+        const clientList = await Upload.find({client: req.params.code , owner: req.user._id })
         res.render('pages/showUpload', {clientList: clientList, code: req.params.code});
     } catch (e) {
         console.log(e)
@@ -98,9 +93,9 @@ router.get('/show-upload_:code', auth, async (req, res) => {
 
 router.get('/file_:id', async(req, res) => {
 
-    const dbFile = await Upload.find({_id: ObjectID(req.params.id)})
+    const dbFile = await Upload.find({ _id: ObjectID(req.params.id), owner: req.user._id })
     
-    // PLEASE CHANGE THE PATH
+    // PLEASE CHANGE WITH YOUR PATH
     const path = "/home/jil/Desktop/Gestionale/" 
     
     const file = path + dbFile[0].path

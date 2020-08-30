@@ -20,21 +20,20 @@ router.post('/client', auth, async (req, res) => {
     if (!check[0]) {
         
         const counter = await Count.findOneAndUpdate({owner: req.user._id}, {$inc: {count: +1} })
-        const newClient = await new Client({
-            "profile.firstName": req.body.firstName,
-            "profile.lastName": req.body.lastName,
-            "profile.fiscalCode": code,
-            "address.street": req.body.address,
-            "address.city": req.body.city,
-            "address.state": req.body.state,
-            "address.zipCode": req.body.zipCode,
-            "contacts.email": req.body.email,
-            "contacts.phone": req.body.phone,
-            owner: req.user._id,
-            count: counter.count
-        })
-
         try {
+            const newClient = await new Client({
+                "profile.firstName": req.body.firstName,
+                "profile.lastName": req.body.lastName,
+                "profile.fiscalCode": code,
+                "address.street": req.body.address,
+                "address.city": req.body.city,
+                "address.state": req.body.state,
+                "address.zipCode": req.body.zipCode,
+                "contacts.email": req.body.email,
+                "contacts.phone": req.body.phone,
+                owner: req.user._id,
+                count: counter.count
+            })
             await newClient.save()
         } catch (e) {
             console.log(e)
@@ -74,7 +73,7 @@ router.post('/update_:id', auth, async (req, res) => {
 router.post('/client_:code', async(req, res) => {
     owner = req.session.passport.user
     try {
-        await Client.findOneAndDelete({"profile.fiscalCode": req.params.code})
+        await Client.findOneAndDelete({"profile.fiscalCode": req.params.code, owner: owner})
         await Work.deleteMany({client: req.params.code, owner: owner})
         const findWork = await UploadWork.find({client: req.params.code, owner: owner})
         const findUpload = await Upload.find({client: req.params.code, owner: owner})
