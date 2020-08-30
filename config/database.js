@@ -97,7 +97,7 @@ const clientsSchema = new mongoose.Schema(
         required: true,
         ref: 'User'
     },
-    completed: {
+    archive: {
       type: Boolean,
       default: false,
     },

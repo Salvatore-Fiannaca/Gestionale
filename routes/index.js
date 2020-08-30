@@ -62,12 +62,15 @@ router.post('/register', async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 router.get('/', auth, async (req, res) => {
-    const numberOfClients = await Client.find({owner: req.user._id})
-    const numberOfWork = await Work.find({owner: req.user._id})
+    const numberOfWork = await Work.find({ owner: req.user._id })
+    const numberOfArchive = await Client.find({ owner: req.user._id, archive: true })
+    const numberOfCompleted = await Work.find({ owner: req.user._id, "work.status": "Concluso" })
 
     res.render('pages/index', {
-        numberOfClients: numberOfClients.length,
-        numberOfWork: numberOfWork.length
+        numberOfWork: numberOfWork.length,
+        numberOfArchive: numberOfArchive.length,
+        numberOfCompleted: numberOfCompleted.length,
+        numberInProgress: numberOfWork.length - numberOfCompleted.length
     })
 })
 
