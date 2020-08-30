@@ -90,7 +90,7 @@ router.post('/update-work_:client', auth, async (req, res) => {
 
 router.get('/_:code', auth, async (req, res) => {
     try {
-        const clientList = await Work.find({"client": req.params.code})
+        const clientList = await Work.find({owner: req.user._id,"client": req.params.code})
         res.render('pages/showForCode', {clientList: clientList, code: req.params.code})
     } catch (e) {
         res.redirect('/clients')
