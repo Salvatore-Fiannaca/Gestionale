@@ -2,10 +2,7 @@ const router = require('express').Router();
 const connection = require('../config/database');
 const {Client, Work, Upload, UploadWork, Count} = connection.models 
 const auth = require('../config/auth');
-const { readSync } = require('fs');
 const fs = require('fs');
-const { Console } = require('console');
-const { text } = require('express');
 
 /**
  * -------------- POST ROUTES ----------------
