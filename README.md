@@ -1,8 +1,7 @@
 
 Gestionale per studi tecnici.
-(In construzione)
 
-Questo è il mio primo progetto con node js, con il suo rispettivo framework (express js) e con Mongodb (NOSQL). 
+Il mio primo progetto con node js, con il framework (express js) e con Mongodb (NOSQL). 
 Per far pratica con questo linguaggio, sto sviluppando un gestionale per studi tecnici / uffici in generale.
 
 Funzioni / Obiettivi del progetto:
@@ -21,9 +20,9 @@ Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
   - Mongodb
 
-Si puo avviare il classico comando " npm install " dentro la relativa cartella
-Una volta scaricato tutto le dipendenze, si devono creare un file e una cartella:
-  - ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni )  
+Si puo avviare il classico comando " npm install " dentro la relativa cartella.
+Una volta scaricato tutte le dipendenze, si deve creare un file e una cartella:
+  - File ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni )  
     Esempio contenuto file " .env "
       DB_STRING=mongodb://127.0.0.1:27017/Gestionale
       SECRET=ChiaveSuperSegreta
@@ -33,7 +32,7 @@ Una volta scaricato tutto le dipendenze, si devono creare un file e una cartella
 Fatto il tutto e dopo essersi assicurato che il servizio mongodb è in funzione,
 si puo dare il comando " npm run dev "  o  " npm run start " per far partire la webapp.
 
-Una volta fatto, visitare dal browser "localhost:3000/register" o "http://YOUR-LOCAL-IP:3000/register"
+Una volta fatto, visitare dal browser "http://localhost:3000/register" o "http://YOUR-LOCAL-IP:3000/register" e creare un account amministratore.
 
 Chiaramente  non è completo ne completamente sicuro e affidabile, accetto comunque consigli o collaborazioni.
 Good Luck!
