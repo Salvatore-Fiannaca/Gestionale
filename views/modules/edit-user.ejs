@@ -1,23 +1,29 @@
 
 <!--      MODULO EDITA UTENTE -->
 <h1 class="h3 text-gray-800">
-  Profilo Utente
+  <%= username %> 
 </h1>
 <br>
 
+<% if (redMsg) { %>
+  <div class="alert alert-danger" role="alert" id="msg">
+  <%= text %>
+  </div>
+<% } %>
+
+<% if (greenMsg) { %>
+  <div class="alert alert-success" role="alert" id="msg">
+  <%= text %>
+  </div>
+<% } %>
+
 <!-- FORM  -->
-<form method="POST" action="">
+<form method="POST" action="edit-user">
   <div class="form-group col-md-6">
-    Username <input type="text" name="username" placeholder="Username" class="form-control" value="<%= username %>"/>
+    Nuova Password <input type="text" name="newPass" placeholder="" class="form-control" value="" required />
   </div>
   <div class="form-group col-md-6">
-    Password Corrente <input type="text" name="nowPassword" placeholder="" class="form-control" value="" readonly/>
-  </div>
-  <div class="form-group col-md-6">
-    Nuova Password <input type="text" name="newPassword" placeholder="" class="form-control" value="" readonly/>
-  </div>
-  <div class="form-group col-md-6">
-    Conferma Nuova Password <input type="text" name="newPassword2" placeholder="" class="form-control" value="" readonly/>
+    Conferma Nuova Password <input type="text" name="newPass2" placeholder="" class="form-control" value="" required/>
   </div>
   <div class="form-group ml-4">
     <button type="submit" value="Submit"class="btn btn-primary mt-4">Aggiorna</button>

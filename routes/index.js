@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     const psw = req.body.password
     const psw2 = req.body.password2
     const username = req.body.username
-    if (psw.length > 5 & psw == psw2 & username.length > 3) {
+    if (psw.length > 6 & psw == psw2 & username.length > 3) {
 
     //  CHECK IF EXIST
         const slot  = await User.find({username: username})
@@ -57,6 +57,31 @@ router.post('/register', async (req, res) => {
         })
     }
  })
+
+router.post('/edit-user', auth, async (req, res) => {
+    const newPass  = req.body.newPass
+    const newPass2 = req.body.newPass2
+
+    if (newPass.length > 6 & newPass == newPass2 ) {
+        const hash =  await genPassword(newPass)
+        await User.findOneAndUpdate({ _id: req.user._id }, { $set: { hash: hash } })
+        const user = await User.find({_id : ObjectID(req.user._id) })
+        res.render("pages/edit-user", {
+            username: user[0].username,
+            redMsg: false,
+            greenMsg: true, 
+            text: 'Password aggiornata con successo'
+        })
+    } else {
+        const user = await User.find({_id : ObjectID(req.user._id) })
+        res.render("pages/edit-user", {
+            username: user[0].username,
+            greenMsg: false,
+            redMsg: true, 
+            text: 'Riprova con altre credenziali'
+        })
+    }
+})
  
 /**
  * -------------- GET ROUTES ----------------
@@ -114,12 +139,17 @@ router.get('/logout', auth, async(req, res) => {
 
 router.get('/edit-user', auth, async(req, res) => {
     const user = await User.find({_id : ObjectID(req.user._id) })
-    res.render('pages/edit-user', {username: user[0].username})
+    res.render('pages/edit-user', 
+        { username: user[0].username,
+          redMsg: false,
+          greenMsg: false
+        })
 })
 
 router.get('/forgot', (req, res) => {
     res.render('pages/forgot')
 })
+
 
 
 module.exports = router;
