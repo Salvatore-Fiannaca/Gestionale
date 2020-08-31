@@ -51,8 +51,8 @@ Content Row -->
                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">LAVORI IN CORSO</div>
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> 
-                      <%= numberInProgress %>%
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"id="labelInProgress"> 
+                      
                     </div>
                   </div>
                   <div class="col">
@@ -79,8 +79,8 @@ Content Row -->
                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">LAVORI COMPLETATI</div>
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> 
-                      <%= numberOfCompleted %> %
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="labelCompleted"> 
+
                     </div>
                   </div>
                   <div class="col">
@@ -102,8 +102,12 @@ Content Row -->
 
 <script>
   var widthInProgress = "<%= numberInProgress %>";
+  if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
   document.getElementById("inProgress").style.width = widthInProgress + "%";
+  document.getElementById("labelInProgress").innerText = widthInProgress + "%";
 
   var widthCompleted = "<%= numberOfCompleted %>";
+  if ( isNaN( widthCompleted ) === true ) {widthCompleted = 0}
   document.getElementById("complete").style.width =  widthCompleted + "%";
+  document.getElementById("labelCompleted").innerText = widthCompleted + "%";
 </script>

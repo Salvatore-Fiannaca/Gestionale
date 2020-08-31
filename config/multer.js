@@ -14,7 +14,6 @@ const storage = multer.diskStorage({
         const nameFile = removeEmptySpace(file.originalname)
         const parts = nameFile.split(".")
         callback(null, `${parts[0]}-${Date.now()}.${parts[1]}`)
-        //callback(null, removeEmptySpace(file.originalname))
     }
 })
 

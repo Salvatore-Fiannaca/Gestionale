@@ -96,7 +96,8 @@ router.get('/file_:id', async(req, res) => {
     const dbFile = await Upload.find({ _id: ObjectID(req.params.id), owner: req.user._id })
     
     // PLEASE CHANGE WITH YOUR PATH
-    const path = "/home/jil/Desktop/Gestionale/" 
+    //const path = "/home/jil/Desktop/Gestionale/" 
+    const path = process.env.pwd 
     
     const file = path + dbFile[0].path
     fs.access(file, fs.constants.F_OK, err => {

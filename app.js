@@ -14,6 +14,7 @@ require('./config/passport');
 // Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax
 require('dotenv').config();
 
+
 // Create the Express application
 const app = express();
 
