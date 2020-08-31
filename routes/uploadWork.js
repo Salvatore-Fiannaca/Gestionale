@@ -44,7 +44,7 @@ router.post('/work-upload_:code', auth, upload, async (req, res) => {
 router.post('/work-file_:id', async (req, res) => {
     try {
         const localfile = await UploadWork.findOneAndDelete({ _id: ObjectID(req.params.id), owner: req.user._id })
-        const path = localfile.path
+        const path = process.env.PWD + "/" + localfile.path
 
         fs.unlink(path, (err) => {
             if (err) {
@@ -80,11 +80,10 @@ router.get('/work-show-upload_:code', auth, async (req, res) => {
 router.get('/work-file_:id', async (req, res) => {
 
     const dbFile = await UploadWork.find({ _id: ObjectID(req.params.id), owner: req.user._id })
-    const path = "/home/jil/Desktop/Gestionale/" // INSERISCI IL MODIFICARE
-    //const path = "/home/jil/Dev/Gestionale/" // CARTELLA PROGETTO
+    const path = process.env.PWD
 
     if (dbFile) {
-        const file = path + dbFile[0].path
+        const file = path + "/" + dbFile[0].path
         fs.access(file, fs.constants.F_OK, err => {
             console.log(`${file} ${err ? "does not exist" : "exists"}`);
         })

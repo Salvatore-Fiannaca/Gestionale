@@ -53,7 +53,7 @@ router.post('/upload_:code', auth, upload, async (req, res) => {
 router.post('/file_:id', async(req, res) => {
     try {
         const localfile = await Upload.findOneAndDelete({_id: ObjectID(req.params.id), owner: req.user._id})
-        const path = localfile.path
+        const path = process.env.PWD + "/" + localfile.path
 
         fs.unlink( path, (err) => {
             if (err) {
@@ -94,12 +94,9 @@ router.get('/show-upload_:code', auth, async (req, res) => {
 router.get('/file_:id', async(req, res) => {
 
     const dbFile = await Upload.find({ _id: ObjectID(req.params.id), owner: req.user._id })
+    const path = process.env.PWD
     
-    // PLEASE CHANGE WITH YOUR PATH
-    //const path = "/home/jil/Desktop/Gestionale/" 
-    const path = process.env.pwd 
-    
-    const file = path + dbFile[0].path
+    const file = path + "/" + dbFile[0].path
     fs.access(file, fs.constants.F_OK, err => {
         console.log(`${file} ${err ? "does not exist" : "exists"}`);
     })
