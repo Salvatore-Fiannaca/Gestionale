@@ -5,6 +5,7 @@
 
 
 Content Row -->
+
 <div class="row">
     <!-- NUMERO LAVORI -->
     <div class="col-xl-6 col-md-6 mb-4">
@@ -105,6 +106,7 @@ Content Row -->
   if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
   document.getElementById("inProgress").style.width = widthInProgress + "%";
   document.getElementById("labelInProgress").innerText = widthInProgress + "%";
+
 
   var widthCompleted = "<%= numberOfCompleted %>";
   if ( isNaN( widthCompleted ) === true ) {widthCompleted = 0}
