@@ -94,7 +94,7 @@ router.get("/_:code", auth, async (req, res) => {
       owner: req.user._id,
       client: req.params.code,
     });
-    res.render("pages/showForCode", {
+    res.render("pages/show-works", {
       clientList: clientList,
       code: req.params.code,
     });

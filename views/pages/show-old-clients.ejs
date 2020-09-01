@@ -14,6 +14,7 @@
 
     <!-- HEAD LOADER -->
   <%- include('../partials/head') %>
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
   </head>
     <!-- HEADER LOADER -->
@@ -21,12 +22,18 @@
 
   <!-- BODY LOADER -->
   <div class="container-fluid "> 
-    <%- include('../modules/mod-client') %>
+    <%- include('../modules/show-old-clients') %>
   </div>
 
     <!-- FOOTER LOADER -->
     <%- include('../partials/footer') %>
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
+    
   <!-- Logout Modal-->
   <div
     class="modal fade"
@@ -60,7 +67,7 @@
           >
             Annulla
           </button>
-          <a class="btn btn-primary" href="login.html">Esci</a>
+          <a class="btn btn-primary" href="/logout">Esci</a>
         </div>
       </div>
     </div>

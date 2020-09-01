@@ -75,7 +75,7 @@ router.get("/work-show-upload_:code", auth, async (req, res) => {
       client: req.params.code,
       owner: req.user._id,
     });
-    res.render("pages/show-Work-Upload", {
+    res.render("pages/show-work-upload", {
       clientList: clientList,
       code: req.params.code,
     });

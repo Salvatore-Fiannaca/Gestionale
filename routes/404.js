@@ -37,9 +37,6 @@ router.get("/_:code/*", (req, res) => {
 router.get("/new-work_:code/*", (req, res) => {
   res.render("pages/404");
 });
-router.get("/practices/*", (req, res) => {
-  res.render("pages/404");
-});
 router.get("/upload_:code/*", (req, res) => {
   res.render("pages/404");
 });

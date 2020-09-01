@@ -42,7 +42,7 @@ router.post("/client", auth, async (req, res) => {
     }
     res.redirect(`/upload_${code}`);
   } else {
-    res.render(`pages/clients`, {
+    res.render(`pages/new-client`, {
       redMsg: true,
       text: "Codice Fiscale già registrato",
     });
@@ -125,7 +125,7 @@ router.post("/client_:code", async (req, res) => {
  */
 
 router.get("/client", auth, (req, res) => {
-  res.render("pages/clients", { redMsg: false });
+  res.render("pages/new-client", { redMsg: false });
 });
 
 router.get("/edit-client_:id", auth, async (req, res) => {
@@ -147,7 +147,7 @@ router.get("/clients", auth, async (req, res) => {
 router.get("/old-clients", auth, async (req, res) => {
   owner = req.session.passport.user;
   const filter = await Client.find({ owner: owner, archive: true });
-  res.render("pages/show-old", { clientList: filter, n: 1 });
+  res.render("pages/show-old-clients", { clientList: filter, n: 1 });
 });
 
 module.exports = router;
