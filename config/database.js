@@ -21,17 +21,17 @@ const connection = mongoose.createConnection(conn, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({
-  username: { 
-    type:String, 
+  username: {
+    type: String,
     unique: true,
-    trim: true 
+    trim: true,
   },
-  hash: String
+  hash: String,
 });
 const User = connection.model("User", UserSchema);
 
@@ -51,10 +51,10 @@ const clientsSchema = new mongoose.Schema(
       fiscalCode: {
         type: String,
         unique: true,
-        required:true,
+        required: true,
         uppercase: true,
         trim: true,
-        index: true
+        index: true,
       },
     },
     address: {
@@ -93,15 +93,15 @@ const clientsSchema = new mongoose.Schema(
       },
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
     },
     archive: {
       type: Boolean,
       default: false,
     },
-    count: Number
+    count: Number,
   },
   {
     timestamps: true,
@@ -109,103 +109,96 @@ const clientsSchema = new mongoose.Schema(
 );
 const Client = connection.model("Client", clientsSchema);
 
-
 // Creates schema for Work
 const worksSchema = new mongoose.Schema(
   {
     client: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     work: {
       title: {
         type: String,
         require: true,
-        trim: true
+        trim: true,
       },
       folder: {
         title: {
           type: String,
-          require: true
+          require: true,
         },
         number: {
-          type: Number
-        }
+          type: Number,
+        },
       },
       comments: {
         type: String,
-        default: ''
+        default: "",
       },
       status: {
         type: String,
-        default: ''
-      }
+        default: "",
+      },
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
-    }
+      ref: "User",
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
-)
+);
 
 const Work = connection.model("Work", worksSchema);
 
-
-
 const UploadSchema = new mongoose.Schema({
-    client: String,
-    fieldname: String,
-    originalname: String,
-    mimetype: String,
-    destination: String,
-    filename: String,
-    path: String,
-    size: Number,
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User'
-    }
-})
+  client: String,
+  fieldname: String,
+  originalname: String,
+  mimetype: String,
+  destination: String,
+  filename: String,
+  path: String,
+  size: Number,
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+});
 const Upload = connection.model("Upload", UploadSchema);
 
-
-
 const UploadForWork = new mongoose.Schema({
-    client: String,
-    fieldname: String,
-    originalname: String,
-    mimetype: String,
-    destination: String,
-    filename: String,
-    path: String,
-    size: Number,
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User'
-    }
-})
+  client: String,
+  fieldname: String,
+  originalname: String,
+  mimetype: String,
+  destination: String,
+  filename: String,
+  path: String,
+  size: Number,
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+});
 const UploadWork = connection.model("UploadWork", UploadForWork);
-
 
 const CounterSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: "User",
   },
   count: {
     type: Number,
-    default: 1
-  }
+    default: 1,
+  },
 });
 const Count = connection.model("Count", CounterSchema);
-
 
 // Expose the connection
 module.exports = connection;
