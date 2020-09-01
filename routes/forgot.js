@@ -3,13 +3,21 @@ const router = new express.Router();
 const transporter = require("../config/send-email");
 const connection = require("../config/database");
 const { User } = connection.models;
+const { tmpPass, genPassword } = require("../utils/passwordUtils")
 
 router.post("/forgot", async (req, res) => {
   const mail = req.body.mail;
   const user = await User.findOne({ mail: mail });
+  // GENERATE NEW PASS
+  
+  let newPass = await tmpPass();
+  const hash = await genPassword(newPass);
+    await User.findOneAndUpdate(
+      { mail: mail },
+      { $set: { hash: hash } }
+    );
   // IF EXIST SEND MAIL
   if (user) {
-    const newPass = 'newPass'
     const mailOptions = {
       from: "Gestionale",
       to: req.body.mail,

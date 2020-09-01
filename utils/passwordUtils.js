@@ -12,5 +12,17 @@ const validPassword = async (password, hash) => {
   return hashVerify;
 };
 
+const tmpPass = () => {
+  let length = 10,
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789*-/+",
+    retVal = "";
+
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
+};
+
 module.exports.validPassword = validPassword;
 module.exports.genPassword = genPassword;
+module.exports.tmpPass = tmpPass;
