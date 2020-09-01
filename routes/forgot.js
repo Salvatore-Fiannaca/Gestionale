@@ -29,11 +29,18 @@ router.post("/forgot", async (req, res) => {
       if (err) console.log(err);
       else console.log("Email sent: " + info.response);
     }) 
-    res.send("FATTO")
+    res.redirect("/")
   } else {
-    res.send("Email non valida");
+    res.render("pages/forgot", {
+      redMsg: true,
+      text: "Email non valida",
+    });
   }
 
+})
+
+router.get("/forgot", (req, res) => {
+  res.render("pages/forgot", {redMsg: false});
 });
 
 module.exports = router;

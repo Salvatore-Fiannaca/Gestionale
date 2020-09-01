@@ -166,8 +166,5 @@ router.get("/edit-user", auth, async (req, res) => {
   });
 });
 
-router.get("/forgot", (req, res) => {
-  res.render("pages/forgot");
-});
 
 module.exports = router;
