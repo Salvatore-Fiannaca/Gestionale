@@ -12,17 +12,20 @@ router.post("/forgot", async (req, res) => {
   
   let newPass = await tmpPass();
   const hash = await genPassword(newPass);
-    await User.findOneAndUpdate(
-      { mail: mail },
-      { $set: { hash: hash } }
-    );
+  await User.findOneAndUpdate(
+    { mail: mail },
+    { $set: { hash: hash } }
+  );
   // IF EXIST SEND MAIL
   if (user) {
     const mailOptions = {
       from: "Gestionale",
       to: req.body.mail,
       subject: "Recupera Password",
-      text: newPass
+      text: `
+      Username: ${user.username} 
+      Password temporanea: ${newPass}
+      `
     // html: "<h1></h1><p></p>",
     };
     transporter.sendMail(mailOptions, (err, info) => {

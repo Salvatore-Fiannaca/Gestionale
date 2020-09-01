@@ -9,23 +9,4 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-
-// EXAMPLE 
-/*
-
-const mailOptions = {
-  from: "",
-  to: "",
-  subject: "",
-  text: "",
-  html: "<h1></h1><p></p>",
-};
-
-transporter.sendMail(mailOptions, (err, info) => {
-  if (err) console.log(err);
-  else console.log("Email sent: " + info.response);
-})
-
-*/
-
 module.exports = transporter
