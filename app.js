@@ -58,6 +58,7 @@ const clientRoutes = require("./routes/client");
 const workRoutes = require("./routes/work");
 const uploadRoutes = require("./routes/upload");
 const uploadWorkRoutes = require("./routes/uploadWork");
+const forgot = require("./routes/forgot");
 
 app.use(routes);
 app.use(routes404);
@@ -65,6 +66,7 @@ app.use(clientRoutes);
 app.use(workRoutes);
 app.use(uploadRoutes);
 app.use(uploadWorkRoutes);
+app.use(forgot);
 
 /**
  * -------------- SERVER ----------------
@@ -78,3 +80,4 @@ app.set("views", "views");
 app.use(express.static("public"));
 
 app.listen(3000, () => console.log("Server is up on :3000"));
+

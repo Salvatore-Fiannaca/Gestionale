@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  mail: {
+    type: String,
+    unique: true,
+    trim: true,
+  },
   hash: String,
 });
 const User = connection.model("User", UserSchema);

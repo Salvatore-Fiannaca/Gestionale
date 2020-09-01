@@ -23,15 +23,25 @@ router.post("/register", async (req, res) => {
   const psw = req.body.password;
   const psw2 = req.body.password2;
   const username = req.body.username;
-  if ((psw.length > 6) & (psw == psw2) & (username.length > 3)) {
+  const mail = req.body.mail;
+
+  if (
+    (psw.length > 6) &
+    (psw == psw2) &
+    (username.length > 3) &
+    (mail.length > 6)
+  ) {
     //  CHECK IF EXIST
     const slot = await User.find({ username: username });
-
     if (slot.length === 0) {
       const hash = await genPassword(psw);
-      const newUser = await new User({ username: username, hash: hash });
+      const newUser = await new User({
+        username: username,
+        hash: hash,
+        mail: mail,
+      });
       await newUser.save();
-
+      // INIT COUNT CLIENTS FOR NEW USER
       const count = await new Count({ owner: newUser._id });
       await count.save();
 
