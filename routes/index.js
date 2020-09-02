@@ -32,8 +32,9 @@ router.post("/register", async (req, res) => {
     (mail.length > 6)
   ) {
     //  CHECK IF EXIST
-    const slot = await User.find({ username: username });
-    if (slot.length === 0) {
+    const slotUser = await User.find({ username: username });
+    const slotMail = await User.find({ mail: mail });
+    if (slotUser.length === 0 & slotMail.length === 0) {
       const hash = await genPassword(psw);
       const newUser = await new User({
         username: username,
@@ -54,7 +55,7 @@ router.post("/register", async (req, res) => {
       res.render("pages/register", {
         redMsg: true,
         greenMsg: false,
-        text: "Username non disponibile",
+        text: "Riprova con altre credenziali",
       });
     }
   } else {
