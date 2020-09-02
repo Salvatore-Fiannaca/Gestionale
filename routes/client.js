@@ -76,7 +76,7 @@ router.post("/update_:id", auth, async (req, res) => {
 });
 
 // DELETE CLIENT
-router.post("/client_:code", async (req, res) => {
+router.post("/client_:code", auth, async (req, res) => {
   owner = req.session.passport.user;
   try {
     await Client.findOneAndDelete({

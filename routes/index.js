@@ -2,9 +2,10 @@ const router = require("express").Router();
 const passport = require("passport");
 const { genPassword } = require("../utils/passwordUtils");
 const connection = require("../config/database");
-const { User, Work, Client, Count } = connection.models;
+const { User, Work, Client, Count, Upload, UploadWork } = connection.models;
 const auth = require("../config/auth");
 const { ObjectID } = require("mongodb");
+const fs = require("fs");
 
 /**
  * -------------- POST ROUTES ----------------
@@ -94,6 +95,42 @@ router.post("/edit-user", auth, async (req, res) => {
     });
   }
 });
+
+router.post("/delete-me", auth, async (req, res) => {
+  const owner = req.session.passport.user;
+  try {
+    const findWork = await UploadWork.find({ owner: owner })
+    const findUpload = await Upload.find({ owner: owner })
+    await Client.deleteMany({ owner: owner })
+    await Work.deleteMany({ owner: owner })
+    // DELETE UPLOAD CLIENT
+    await Upload.deleteMany({owner: owner });
+    findUpload.forEach((file) => {
+      let path = file.path;
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+    // DELETE UPLOAD WORK CLIENT
+    await UploadWork.deleteMany({ owner: owner });
+    findWork.forEach((file) => {
+      let path = file.path;
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+  } catch (err) {
+    console.log(err)
+  }
+  await User.findOneAndDelete({ "_id": ObjectID(owner)})
+  await Count.findOneAndDelete({ owner: ObjectID(owner)})
+  res.redirect("/register")
+
+})
 
 /**
  * -------------- GET ROUTES ----------------
