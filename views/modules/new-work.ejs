@@ -1,12 +1,19 @@
-
 <h1 class="h3 mb-4 text-gray-800">Registra un nuovo lavoro</h1>
-<p>Cliente: <%= fiscalCode %> </p>
+<p>Cliente: <%= fiscalCode %></p>
 <!--   -->
 <!-- FORM REGISTRA LAVORO -->
 <form method="POST" action="">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input type="text" name="title" placeholder="Nome lavoro" class="form-control" required />
+      <input
+        type="text"
+        name="title"
+        placeholder="Nome lavoro"
+        class="form-control"
+        minlength="3"
+        maxlength="30"
+        required
+      />
     </div>
     <div class="form-group col-md-4">
       <select name="folder" class="form-control" required>
@@ -14,15 +21,30 @@
         <option value="PROGETTI">PROGETTI</option>
         <option value="DOCFA">DOCFA</option>
         <option value="PREGEO">PREGEO</option>
+        <option value="SUCCESSIONI">SUCCESSIONI</option>
+        <option value="PERIZIE GIURATE">PERIZIE GIURATE</option>
+        <option value="APE">APE</option>
         <option value="VARIE">VARIE</option>
-        <option value="">...</option>
       </select>
     </div>
     <div class="form-group col-md-2">
-      <input type="number" name="nFolder" placeholder="N°" class="form-control" required />
+      <input
+        type="number"
+        name="nFolder"
+        placeholder="N°"
+        class="form-control"
+        required
+      />
     </div>
     <div class="form-group col-md-8">
-      <textarea name="comments" placeholder="Spazio per i commenti" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea
+        name="comments"
+        placeholder="Spazio per i commenti"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        maxlength="200"
+      ></textarea>
     </div>
     <div class="form-group col-md-4">
       <select name="status" class="form-control" required>
@@ -31,14 +53,11 @@
         <option value="In corso">In corso</option>
         <option value="In attesa di pagamento">In attesa di pagamento</option>
         <option value="Sospeso">Sospeso</option>
-        <option value="In Revisione">In revisione</option>
       </select>
     </div>
   </div>
-  <button type="submit" value="Submit"class="btn btn-success">Salva</button>
+  <button type="submit" value="Submit" class="btn btn-success">Salva</button>
 </form>
-<br>
-<br>
-<br>
-
-
+<br />
+<br />
+<br />

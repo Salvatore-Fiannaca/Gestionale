@@ -83,7 +83,6 @@ const clientsSchema = new mongoose.Schema(
     contacts: {
       email: {
         type: String,
-        required: true,
         trim: true,
         lowercase: true,
         validate(value) {
