@@ -6,7 +6,7 @@
 
 Content Row -->
 
-<div class="row">
+<div class="row mb-4">
     <!-- NUMERO LAVORI -->
     <div class="col-xl-6 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
@@ -105,16 +105,22 @@ Content Row -->
 <hr>
 <br>
 <div class="list-group list-group-horizontal container mx-auto">
-    <a href="/clients" class="list-group-item list-group-item-action">
-      <h5 class="mb-1">Lista clienti</h5>
+    <a href="/clients" class="list-group-item list-group-item-action border-bottom-info">
+      <h5 class="mb-1">Clienti
+        <i class="fas fa-users fa-1x text-gray-300"></i>
+      </h5>
       <small class="mb-1">Cerca, Aggiunti e Modifica Cliente</small>
     </a>
-    <a href="/old-clients" class="list-group-item list-group-item-action">
-      <h5 class="mb-1">Lista archiviati</h5>
+    <a href="/old-clients" class="list-group-item list-group-item-action border-bottom-info">
+      <h5 class="mb-1">Archiviati
+        <i class="fas fa-users fa-1x text-gray-300"></i>
+      </h5>
       <small class="mb-1">Cerca, Aggiunti e Modifica Cliente</small>
     </a>
-    <a href="/404" class="list-group-item list-group-item-action">
-      <h5 class="mb-1">Help</h5>
+    <a href="/404" class="list-group-item list-group-item-action border-bottom-info">
+      <h5 class="mb-1">Supporto
+        <i class="fas fa-life-ring fa-1x text-gray-300"></i>
+      </h5>
       <small class="mb-1">Guida all'utilizzo</small>
     </a>
 </div>
@@ -122,35 +128,77 @@ Content Row -->
 <br>
 <br>
 <hr>
-
-<div class="d-sm-flex align-items-center justify-content-center mt-4 mb-4">
-  <h2 class="h3 mb-0 text-gray-800">Link Utili</h2>
+<br>
+<br>
+<div class="d-sm-flex align-items-center justify-content-center mt-4">
+  <h2 class="h3 mb-0 text-gray-800">Siti Utili</h2>
 </div>
 
-<div class="card-deck container mx-auto">
-  <div class="card">
-    <img src="..." class="card-img-top" alt="..."> ICONA SITO
+<div class="card-deck container mx-auto mt-4">
+  <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">Nome Sito</h5>
-      <p class="card-text">Descrizione</p>
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www.bollettinoonline.it/">Bollettini Postali</a>
+      </h5>
+      <div class="card-body">
+        <small class="card-text"> Modulo bollettino postale precompilato</small>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <img src="..." class="card-img-top" alt="..."> ICONA SITO
+  <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">Nome Sito</h5>
-      <p class="card-text">Descrizione</p>
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/pagamenti/f24-elementi-identificativi-f24elide/modello-e-istruzioni-f24elide">F24 Elide</a>
+      </h5>
+      <div class="card-body">
+        <small class="card-text">Modulo F24 Elide precompilato</small>
+      </div>
     </div>
   </div>
-  <div class="card"> 
-    <img src="..." class="card-img-top" alt="..."> ICONA SITO
+  <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">Nome Sito</h5>
-      <p class="card-text">Descrizione</p>
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/pagamenti/f24/compilazione-invio-f24-via-web">F24</a>
+      </h5>
+      <div class="card-body">
+        <small class="card-text">Modulo F24 precompilato</small>
+      </div>
     </div>
   </div>
+</div>
+<div class="card-deck container mx-auto mt-4 mb-4">
+  <div class="card border-bottom-secondary">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/schede/pagamenti/f23/modello+f23">F23</a>      </h5>
+      <div class="card-body">
+        <small class="card-text"> Modulo F23 precompilato</small>
+      </div>
+    </div>
+  </div>
+  <div class="card border-bottom-secondary">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://sister.agenziaentrate.gov.it/Main/index.jsp">Sister</a>      </h5>
+      <div class="card-body">
+        <small class="card-text">Agenzia dell'entrate</small>
+      </div>
+    </div>
+  </div>
+  <div class="card border-bottom-secondary">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www1.agenziaentrate.gov.it/servizi/Monografie/ricerca.php">Monografie</a>
+      </h5>
+      <div class="card-body">
+        <small class="card-text">Il servizio consente di estrarre l'elenco di tutte le particelle del comune e della provincia indicata.</small>
+      </div>
+    </div>
+  </div>
+</div>
 
-
+<br>
+<br>
 <script>
   var widthInProgress = "<%= numberInProgress %>";
   if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
@@ -163,5 +211,6 @@ Content Row -->
   document.getElementById("complete").style.width =  widthCompleted + "%";
   document.getElementById("labelCompleted").innerText = widthCompleted + "%";
 </script>
+
 
 
