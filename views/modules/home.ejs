@@ -6,6 +6,17 @@
 
 Content Row -->
 
+<style>
+  section {
+    height: 95vh;
+  }
+  #button-center {
+    position: relative;
+    top: 15vh
+  }
+</style>
+
+<section>
 <div class="row mb-4">
     <!-- NUMERO LAVORI -->
     <div class="col-xl-6 col-md-6 mb-4">
@@ -53,7 +64,6 @@ Content Row -->
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"id="labelInProgress"> 
-                      
                     </div>
                   </div>
                   <div class="col">
@@ -81,7 +91,6 @@ Content Row -->
                 <div class="row no-gutters align-items-center">
                   <div class="col-auto">
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="labelCompleted"> 
-
                     </div>
                   </div>
                   <div class="col">
@@ -100,11 +109,8 @@ Content Row -->
       </div>
 </div>
 
-<br>
-<br>
 <hr>
-<br>
-<div class="list-group list-group-horizontal container mx-auto">
+<div class="list-group list-group-horizontal container mx-auto" id="button-center">
     <a href="/clients" class="list-group-item list-group-item-action border-bottom-info">
       <h5 class="mb-1">Clienti
         <i class="fas fa-users fa-1x text-gray-300"></i>
@@ -124,78 +130,57 @@ Content Row -->
       <small class="mb-1">Guida all'utilizzo</small>
     </a>
 </div>
+</section>
 
-<br>
-<br>
-<hr>
-<br>
-<br>
+
+<section>
 <div class="d-sm-flex align-items-center justify-content-center mt-4">
-  <h2 class="h3 mb-0 text-gray-800">Siti Utili</h2>
+  <h1 class="mb-0 text-gray-800">Link utili</h1>
 </div>
-
-<div class="card-deck container mx-auto mt-4">
+<div class="card-deck container mx-auto mt-4 text-center">
   <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">
+      <h6 class="card-title">
         <a class="collapse-item" target="_blank" href="https://www.bollettinoonline.it/">Bollettini Postali</a>
-      </h5>
-      <div class="card-body">
-        <small class="card-text"> Modulo bollettino postale precompilato</small>
-      </div>
+      </h6>
     </div>
   </div>
   <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">
+      <h6 class="card-title">
         <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/pagamenti/f24-elementi-identificativi-f24elide/modello-e-istruzioni-f24elide">F24 Elide</a>
-      </h5>
-      <div class="card-body">
-        <small class="card-text">Modulo F24 Elide precompilato</small>
-      </div>
+      </h6>
     </div>
   </div>
   <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">
+      <h6 class="card-title">
         <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/web/guest/schede/pagamenti/f24/compilazione-invio-f24-via-web">F24</a>
-      </h5>
-      <div class="card-body">
-        <small class="card-text">Modulo F24 precompilato</small>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="card-deck container mx-auto mt-4 mb-4">
-  <div class="card border-bottom-secondary">
-    <div class="card-body">
-      <h5 class="card-title">
-        <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/schede/pagamenti/f23/modello+f23">F23</a>      </h5>
-      <div class="card-body">
-        <small class="card-text"> Modulo F23 precompilato</small>
-      </div>
+      </h6>
     </div>
   </div>
   <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">
+      <h6 class="card-title">
+        <a class="collapse-item" target="_blank" href="https://www.agenziaentrate.gov.it/portale/schede/pagamenti/f23/modello+f23">F23</a>      </h6>
+    </div>
+  </div>
+  <div class="card-deck container mx-auto mt-4 mb-4 text-center">
+  <div class="card border-bottom-secondary">
+    <div class="card-body">
+      <h6 class="card-title">
         <a class="collapse-item" target="_blank" href="https://sister.agenziaentrate.gov.it/Main/index.jsp">Sister</a>      </h5>
-      <div class="card-body">
-        <small class="card-text">Agenzia dell'entrate</small>
-      </div>
     </div>
   </div>
   <div class="card border-bottom-secondary">
     <div class="card-body">
-      <h5 class="card-title">
+      <h6 class="card-title">
         <a class="collapse-item" target="_blank" href="https://www1.agenziaentrate.gov.it/servizi/Monografie/ricerca.php">Monografie</a>
-      </h5>
-      <div class="card-body">
-        <small class="card-text">Il servizio consente di estrarre l'elenco di tutte le particelle del comune e della provincia indicata.</small>
-      </div>
+      </h6>
     </div>
   </div>
 </div>
+</section>
 
 <br>
 <br>
