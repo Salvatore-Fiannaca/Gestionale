@@ -1,8 +1,9 @@
 
-Gestionale per studi tecnici.
+Gestionale per studi tecnici, in fase di costruzione.
 
-Il mio primo progetto con node js, con il framework (express js) e con Mongodb (NOSQL). 
+Primo progetto con node js, express e con Mongodb.
 Per far pratica con questo linguaggio, sto sviluppando un gestionale per studi tecnici / uffici in generale.
+Principalmente girerà in locale, per questioni di sicurezza.
 
 Funzioni / Obiettivi del progetto:
   - Gestione clienti ( Dati anagrafici + Allegati Generali + Contatti )
@@ -11,10 +12,9 @@ Funzioni / Obiettivi del progetto:
   - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
   
 Per capire meglio come funziona nodejs (e i linguaggi back-end in generale), 
-ho voluto gestirmi le sessioni e l'intero "CMS" senza l'ausilio di CMS già fatti.
+ho voluto gestirmi le sessioni e l'intero "CMS" senza l'ausilio di alteriori altri CMS.
 Ho soltanto utilizzato un tema open source e l'ho adattato
-per le mie esigenze (con l'ausilio di bootstrap + html +css +js ).
-
+per le mie esigenze (con l'ausilio di bootstrap ).
 
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
@@ -22,17 +22,19 @@ Una volta scaricato, presupponendo che si abbia già installato e configurato:
 
 Si puo avviare il classico comando " npm install " dentro la relativa cartella.
 Una volta scaricato tutte le dipendenze, si deve creare un file e una cartella:
-  - File ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni )  
+  - File ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni, email e password per inviare la password di recupero. )
+    È già settato per un dominio "gmail", inserire solo la prima parte della mail.  
     Esempio contenuto file " .env "
       DB_STRING=mongodb://127.0.0.1:27017/Gestionale
       SECRET=ChiaveSuperSegreta
+      MAIL=LaTuaMailDiProva
+      PSW=PasswordDellaMailDiProva
       
   - Creare una cartella (sempre all'interno del progetto) rinominandola "upload" (ovviamente senza virgolette)
-  
+
 Fatto il tutto e dopo essersi assicurato che il servizio mongodb è in funzione,
 si puo dare il comando " npm run dev "  o  " npm run start " per far partire la webapp.
 
 Una volta fatto, visitare dal browser "http://localhost:3000/register" o "http://YOUR-LOCAL-IP:3000/register" e creare un account amministratore.
 
 Chiaramente  non è completo ne completamente sicuro e affidabile, accetto comunque consigli o collaborazioni.
-Good Luck!
