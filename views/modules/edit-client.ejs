@@ -11,10 +11,24 @@
 <form method="POST" action="update_<%= clientList[0]._id %>">
   <div class="row">
     <div class="col">
-      <input type="text" name="firstName" class="form-control" value="<%= clientList[0].profile.firstName %>" placeholder="Nome" />
+      <input 
+      type="text" 
+      name="firstName" 
+      class="form-control" 
+      value="<%= clientList[0].profile.firstName %>" 
+      placeholder="Nome"
+      pattern="[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}"
+      />
     </div>
     <div class="col">
-      <input type="text" name="lastName" class="form-control" value="<%= clientList[0].profile.lastName %>" placeholder="Cognome" />
+      <input 
+      type="text" 
+      name="lastName" 
+      class="form-control" 
+      value="<%= clientList[0].profile.lastName %>" 
+      placeholder="Cognome"
+      pattern="[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}"
+      />
     </div>
   </div>
   <br />
@@ -24,11 +38,25 @@
     </label>
   </div>
   <div class="form-group">
-    <input type="text" name="address" placeholder="Indirizzo" class="form-control" value="<%= clientList[0].address.street %>"/>
+    <input 
+    type="text" 
+    name="address" 
+    placeholder="Indirizzo" 
+    class="form-control" 
+    value="<%= clientList[0].address.street %>"
+    pattern="[A-Za-z0-9\s]{2,20}[A-Za-z0-9\s]{2,20}"
+    />
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input type="text" name="city" placeholder="Città" class="form-control" value="<%= clientList[0].address.city %>"/>
+      <input 
+      type="text" 
+      name="city" 
+      placeholder="Città" 
+      class="form-control" 
+      value="<%= clientList[0].address.city %>"
+      pattern="[A-Za-z0-9\s]{2,20}[A-Za-z0-9\s]{2,20}"
+      />
     </div>
     <div class="form-group col-md-4">
       <select name="state" class="form-control">
@@ -39,13 +67,34 @@
       </select>
     </div>
     <div class="form-group col-md-2">
-      <input type="text" name="zipCode" placeholder="CAP" class="form-control" value="<%= clientList[0].address.zipCode %>" />
+      <input 
+      type="text" 
+      name="zipCode"
+      placeholder="CAP" 
+      class="form-control" 
+      value="<%= clientList[0].address.zipCode %>" 
+      pattern="[A-Za-z0-9_-]{1,20}"
+      />
     </div>
     <div class="form-group col-md-6">
-      <input type="email" name="email" placeholder="Email" class="form-control"  value="<%= clientList[0].contacts.email %>"/>
+      <input 
+      type="email" 
+      name="email" 
+      placeholder="Email"
+      maxlength="30" 
+      class="form-control"  
+      value="<%= clientList[0].contacts.email %>"
+      />
     </div>
     <div class="form-group col-md-6"> 
-      <input type="number" name="phone" placeholder="Telefono" class="form-control" value="<%= clientList[0].contacts.phone %>"/>
+      <input 
+      type="number" 
+      name="phone" 
+      placeholder="Telefono" 
+      class="form-control" 
+      value="<%= clientList[0].contacts.phone %>"
+      pattern="[0-9\s]{3,20}"
+      />
     </div>
     <div class="form-check" >
       <input class="form-check-input" type="radio" name="archive" id="exampleRadios1" value="false" checked>
