@@ -42,8 +42,7 @@
                       class="form-control form-control-user"
                       name="username"
                       placeholder="Username"
-                      minlength="3"
-                      maxlength="30"
+                      pattern="[A-Za-z0-9_-]{3,20}"
                       required
                     />
                   </div>
@@ -55,8 +54,7 @@
                         class="form-control form-control-user"
                         name="password"
                         placeholder="Password"
-                        minlength="6"
-                        maxlength="30"
+                        pattern="[A-Za-z0-9_-]{6,20}"
                         required
                       />
                     </div>
@@ -66,8 +64,7 @@
                         class="form-control form-control-user"
                         name="password2"
                         placeholder="Ripeti Password"
-                        minlength="6"
-                        maxlength="30"
+                        pattern="[A-Za-z0-9_-]{6,20}"
                         required
                       />
                     </div>
