@@ -59,6 +59,7 @@ const workRoutes = require("./routes/work");
 const uploadRoutes = require("./routes/upload");
 const uploadWorkRoutes = require("./routes/uploadWork");
 const forgot = require("./routes/forgot");
+const { Logger } = require("mongodb");
 
 app.use(routes);
 app.use(routes404);
@@ -79,4 +80,4 @@ app.set("views", "views");
 // Static route
 app.use(express.static("public"));
 
-app.listen(3000, () => console.log("Server is up on :3000"));
+app.listen(3000, () => console.log("Link Server => http://localhost:3000/login"));

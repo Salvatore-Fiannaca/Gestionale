@@ -45,7 +45,7 @@ router.post("/work-file_:id", async (req, res) => {
       _id: ObjectID(req.params.id),
       owner: req.user._id,
     });
-    const env = process.env.INIT_CWD || process.env.PWD
+    const env = process.env.PDW || process.env.INIT_CWD
     const path = env + "/" + localfile.path;
 
     fs.unlink(path, (err) => {
@@ -90,10 +90,10 @@ router.get("/work-file_:id", async (req, res) => {
     _id: ObjectID(req.params.id),
     owner: req.user._id,
   });
-  const path = process.env.INIT_CWD;
 
+  const env = process.env.PDW || process.env.INIT_CWD
   if (dbFile) {
-    const file = path + "/" + dbFile[0].path;
+    const file = env + "/" + dbFile[0].path;
     fs.access(file, fs.constants.F_OK, (err) => {
       console.log(`${file} ${err ? "does not exist" : "exists"}`);
     });

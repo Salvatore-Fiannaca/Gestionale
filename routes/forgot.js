@@ -23,8 +23,11 @@ router.post("/forgot", async (req, res) => {
       to: req.body.mail,
       subject: "Recupera Password",
       text: `
-      Username: ${user.username} 
-      Password temporanea: ${newPass}
+      Username: 
+      ${user.username} 
+
+      Password temporanea: 
+      ${newPass}
       `
     // html: "<h1></h1><p></p>",
     };
