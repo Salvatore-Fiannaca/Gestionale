@@ -6,20 +6,22 @@ const storage = multer.diskStorage({
     const nameFile = file.originalname.replace(" ", "-");
     const parts = nameFile.split(".");
     if (!/^[A-Za-z0-9-_]+$/.test(parts[0])) {
-      return callback(new Error ('Invalid File Name'))
+      return callback(null, false)
+    } else {
+      callback(null, `${parts[0]}-${Date.now()}.${parts[1]}`);
     }
-    callback(null, `${parts[0]}-${Date.now()}.${parts[1]}`);
   },
 });
 
 const upload = multer({
   storage: storage,
   fileFilter(req, file, callback) { 
-    console.log(file);
-   // if (file.filename.split('.').pop() !== '.pdf') {
-     // return callback(new Error('Only pdfs are allowed'))
-    //}
-    callback(null, true);
+    if (!file.originalname.match(/\.(doc|docs|pdf|jpg|zip|rar|svg|dwg|png|jpeg)$/)) {
+      callback( new Error("File Non Supportato"))
+      //return callback(null, false)
+    } else {
+      callback(null, true);
+    }
   },
   limits: {
     fileSize: 100000000, //byte === 100mb
