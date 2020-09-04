@@ -7,18 +7,26 @@
 Content Row -->
 
 <style>
-  #section1 {
-    height: 85vh;
-    margin-bottom: 100px;
+  #center{
+    margin: auto;
+    margin-bottom: 60vh;
   }
-  #button-center {
-    margin-top: 20px;
+  #section2 {
+    margin: auto;
+    height: 80vh;
   }
+  
+  @media only screen and (max-width: 600px) {
+  #center {
+    display: inline;
+  }
+}
 
 </style>
 
-<section id="section1">
-<div class="row mb-4">
+
+<main>
+  <div class="row mb-4">
     <!-- NUMERO LAVORI -->
     <div class="col-xl-6 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
@@ -108,10 +116,11 @@ Content Row -->
           </div>
         </div>
       </div>
-</div>
+  </div>
+</main>
 
-<hr>
-<div class="list-group list-group-horizontal mr-auto mt-4 mb-4 container" id="button-center">
+<div class="row mb-4 col-auto" >
+  <div class="list-group list-group-horizontal container"  id="center">
     <a href="/clients" class="list-group-item list-group-item-action border-bottom-info">
       <h5 class="mb-1">Clienti
         <i class="fas fa-users fa-1x text-gray-300"></i>
@@ -130,17 +139,12 @@ Content Row -->
       </h5>
       <small class="mb-1">Guida all'utilizzo</small>
     </a>
+  </div>
 </div>
-<br>
-<br>
-<br>
-<br>
-</section>
-
 
 <section id="section2" class="mt-4">
-<div class="d-sm-flex align-items-center justify-content-center mt-4">
-  <h1 class="mb-0 text-gray-800 mt-4">Link utili</h1>
+<div class="container align-items-center justify-content-center mt-4 text-center">
+  <h1 class="mb-4 text-gray-800 mt-4">Link utili</h1>
 </div>
 <div class="card-deck container mx-auto mt-4 text-center">
   <div class="card border-bottom-secondary">
@@ -187,8 +191,7 @@ Content Row -->
 </div>
 </section>
 
-<br>
-<br>
+
 <script>
   var widthInProgress = "<%= numberInProgress %>";
   if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
