@@ -45,7 +45,8 @@ router.post("/file_:id", async (req, res) => {
       _id: ObjectID(req.params.id),
       owner: req.user._id,
     });
-    const path = process.env.INIT_CWD + "/" + localfile.path;
+    const env = process.env.INIT_CWD || process.env.PWD
+    const path = env + "/" + localfile.path;
 
     fs.unlink(path, (err) => {
       if (err) {
