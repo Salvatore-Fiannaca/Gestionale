@@ -20,7 +20,7 @@ var safeKey3 = _.escapeRegExp(c);
 //console.log( "a is: "+ re )
 
 if (!/^[a-z0-9-]+$/.test(c)) {
-    return console.log("Illegal");
+    return console.log("invalid");
 }
 
 

@@ -3,18 +3,22 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "upload",
   filename: function (req, file, callback) {
-    const nameFile = file.originalname;
+    const nameFile = file.originalname.replace(" ", "-");
     const parts = nameFile.split(".");
+    if (!/^[A-Za-z0-9-_]+$/.test(parts[0])) {
+      return callback(new Error ('Invalid File Name'))
+    }
     callback(null, `${parts[0]}-${Date.now()}.${parts[1]}`);
   },
 });
 
 const upload = multer({
   storage: storage,
-  fileFilter(req, file, callback) {
-     if (!/^[a-z0-9-]+$/.test(file.originalname)) {
-      return callback(new Error ('Invalid File Name'))
-    }
+  fileFilter(req, file, callback) { 
+    console.log(file);
+   // if (file.filename.split('.').pop() !== '.pdf') {
+     // return callback(new Error('Only pdfs are allowed'))
+    //}
     callback(null, true);
   },
   limits: {

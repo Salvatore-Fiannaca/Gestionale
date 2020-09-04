@@ -45,7 +45,7 @@ router.post("/work-file_:id", async (req, res) => {
       _id: ObjectID(req.params.id),
       owner: req.user._id,
     });
-    const path = process.env.PWD + "/" + localfile.path;
+    const path = process.env.INIT_CWD + "/" + localfile.path;
 
     fs.unlink(path, (err) => {
       if (err) {
@@ -89,7 +89,7 @@ router.get("/work-file_:id", async (req, res) => {
     _id: ObjectID(req.params.id),
     owner: req.user._id,
   });
-  const path = process.env.PWD;
+  const path = process.env.INIT_CWD;
 
   if (dbFile) {
     const file = path + "/" + dbFile[0].path;
