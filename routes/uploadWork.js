@@ -2,7 +2,6 @@ const express = require("express");
 const router = new express.Router();
 const auth = require("../config/auth");
 const upload = require("../config/multer");
-const fixString = require("../utils/fixString");
 const connection = require("../config/database");
 const { UploadWork } = connection.models;
 const fs = require("fs");
@@ -17,7 +16,7 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
   const files = req.files;
   if (files) {
     files.forEach((file) => {
-      const path = fixString(file.path);
+      const path = file.path;
       try {
         const newFile = new UploadWork({
           client: req.params.code,

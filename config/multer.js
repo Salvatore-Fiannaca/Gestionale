@@ -3,14 +3,7 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "upload",
   filename: function (req, file, callback) {
-    const removeEmptySpace = (str) => {
-      let firstPass = str.replace(" ", "-");
-      let secondPass = firstPass.replace(" ", "-");
-      let thirdPass = secondPass.replace(" ", "-");
-      let fourthPass = thirdPass.replace(" ", "-");
-      return fourthPass;
-    };
-    const nameFile = removeEmptySpace(file.originalname);
+    const nameFile = file.originalname;
     const parts = nameFile.split(".");
     callback(null, `${parts[0]}-${Date.now()}.${parts[1]}`);
   },
@@ -19,11 +12,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter(req, file, callback) {
-    if (file.originalname.match(/\.(doc|docx)$/)) {
-      //return callback(new Error ('Please upload a Word document'))
-    }
-    if (file.originalname.match(/\.(pdf|jpg|jpeg|png)$/)) {
-      //return callback(new Error ('Please upload a Word document'))
+     if (!/^[a-z0-9-]+$/.test(file.originalname)) {
+      return callback(new Error ('Invalid File Name'))
     }
     callback(null, true);
   },

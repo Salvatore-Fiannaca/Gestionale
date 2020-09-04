@@ -6,7 +6,6 @@ const connection = require("../config/database");
 const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
-const fixString = require('../utils/fixString')
 
 /**
  * -------------- POST ROUTES ----------------
@@ -18,7 +17,7 @@ router.post("/upload_:code", auth, upload, async (req, res) => {
   const files = req.files;
 
   files.forEach((file) => {
-    const path = fixString(file.path);
+    const path = file.path;
     try {
       const newFile = new Upload({
         client: client,
