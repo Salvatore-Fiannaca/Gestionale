@@ -10,8 +10,7 @@
         name="title"
         placeholder="Nome lavoro"
         class="form-control"
-        minlength="3"
-        maxlength="30"
+        pattern="[A-Za-z0-9\s]{1,20}[A-Za-z0-9-]{1,20}"
         required
       />
     </div>
@@ -33,6 +32,7 @@
         name="nFolder"
         placeholder="N°"
         class="form-control"
+        pattern="[0-9\s]{3,10}[0-9\s]{3,10}"
         required
       />
     </div>
@@ -43,6 +43,7 @@
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="3"
+        pattern="[A-Za-z0-9\s-_.]"
         maxlength="200"
       ></textarea>
     </div>

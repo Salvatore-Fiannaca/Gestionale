@@ -6,7 +6,14 @@
 <form method="POST" action="update-work_<%=clientList[0].client %>">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <input type="text" value="<%= clientList[0].work.title %>" name="title" placeholder="Nome lavoro" class="form-control" required />
+      <input 
+      type="text" 
+      value="<%= clientList[0].work.title %>" 
+      name="title" 
+      placeholder="Nome lavoro" 
+      class="form-control" 
+      pattern="[A-Za-z0-9\s]{1,20}[A-Za-z0-9-]{1,20}"
+      required />
     </div>
     <div class="form-group col-md-4">
       <select name="folder" class="form-control">
@@ -19,10 +26,27 @@
       </select>
     </div>
     <div class="form-group col-md-2">
-      <input type="number" value="<%= clientList[0].work.folder.number %>" name="nFolder" placeholder="N°" class="form-control" required />
+      <input 
+      type="number" 
+      value="<%= clientList[0].work.folder.number %>" 
+      name="nFolder" 
+      placeholder="N°" 
+      class="form-control" 
+      pattern="[0-9\s]{3,10}[0-9\s]{3,10}"
+      required 
+      />
     </div>
     <div class="form-group col-md-8">
-      <textarea name="comments" value="<%= clientList[0].comments %>" placeholder="Spazio per i commenti" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea 
+      name="comments" 
+      value="<%= clientList[0].comments %>" 
+      placeholder="Spazio per i commenti" 
+      class="form-control" 
+      id="exampleFormControlTextarea1" 
+      rows="3"
+      pattern="[A-Za-z0-9\s-_.]"
+      maxlength="200"
+      ></textarea>
     </div>
     <div class="form-group col-md-4">
       <select name="status" class="form-control">
