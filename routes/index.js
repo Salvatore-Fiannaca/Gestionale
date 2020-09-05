@@ -137,7 +137,7 @@ router.post("/delete-me", auth, async (req, res) => {
  */
 router.get("/", auth, async (req, res) => {
   const user = await User.findOne({ _id: ObjectID(req.user._id) })
-  if (user.forgot == true) {
+  if (user.forgot === true) {
     await User.findOneAndUpdate({ 
       _id: ObjectID(req.user._id)},  
       { $set: { forgot: false }

@@ -8,17 +8,17 @@ const { tmpPass, genPassword } = require("../utils/passwordUtils")
 router.post("/forgot", async (req, res) => {
   const mail = req.body.mail;
   const user = await User.findOne({ mail: mail });
-  // GENERATE NEW PASS
+  console.log(user.forgot)
   
-  let newPass = await tmpPass();
-  const hash = await genPassword(newPass);
-  await User.findOneAndUpdate(
-    { mail: mail },
-    { $set: { hash: hash } }
-  );
   // IF EXIST SEND MAIL
-  
-  if (user.forgot == false) {
+  if (user.forgot === false) {
+    // GENERATE NEW PASS
+    let newPass = await tmpPass();
+    const hash = await genPassword(newPass);
+    await User.findOneAndUpdate(
+      { mail: mail },
+      { $set: { hash: hash, forgot: true } }
+    );
     const mailOptions = {
       from: "Gestionale",
       to: req.body.mail,
@@ -37,7 +37,7 @@ router.post("/forgot", async (req, res) => {
       else console.log("Email sent: " + info.response);
     }) 
     res.redirect("/")
-  } else if (user.forgot == true)  {
+  } else if (user.forgot === true)  {
     res.render("pages/forgot", {
       redMsg: true,
       text: "Email di recupero invitata",

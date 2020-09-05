@@ -98,32 +98,46 @@
                   data-target="#staticBackdrop"
                   data-toggle="modal" 
                   aria-haspopup="true" 
-                  aria-expanded="false">
+                  aria-expanded="false"
+                  >
                     Help
+                  <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                    <circle cx="8" cy="4.5" r="1"/>
+                  </svg>                    
                   </button>
                   <!-- Modal -->
                   <div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">Registrazione Guidata</h5>
+                          <h5 class="modal-title" id="staticBackdropLabel">
+                            Registrazione guidata
+                          </h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
                           <p>
-                            -L'utente deve avere almeno 3 caratteri 
+                            Caratteri speciali consentiti: - _  
                           </p>
-                          <p>
-                            -La password deve avere almeno 6 caratteri
-                          </p>
-                          <p>
-                            -L'email è serve per il recupero
-                          </p>
+                          <ul>
+                            <li>
+                              Utente: almeno 3 caratteri 
+                            </li>
+                            <li>
+                              Password: almeno 6 caratteri
+                            </li>
+                            <li>
+                              Email: serve per il recupero                            </li>
+                          </ul>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-info" data-dismiss="modal">Ho capito</button>
+                          <button type="button" class="btn btn-info" data-dismiss="modal">
+                            Ho capito
+                          </button>
                         </div>
                       </div>
                     </div>

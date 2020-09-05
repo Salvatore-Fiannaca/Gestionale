@@ -14,7 +14,7 @@ const validPassword = async (password, hash) => {
 
 const tmpPass = () => {
   let length = 10,
-    charset = "abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789-",
+    charset = "abcdefghijklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789-",
     retVal = "";
 
   for (var i = 0, n = charset.length; i < length; ++i) {
