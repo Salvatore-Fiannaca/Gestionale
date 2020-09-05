@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  confirmed: {
+    type: Boolean,
+    default: false
+  },
   hash: String,
 });
 const User = connection.model("User", UserSchema);

@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter(req, file, callback) { 
-    if (!file.originalname.match(/\.(doc|docs|pdf|jpg|zip|rar|svg|dwg|png|jpeg)$/)) {
+    if (!file.originalname.match(/\.(doc|docs|pdf|jpg|zip|rar|svg|dwg|png|jpeg|dat|dxf|txt|pdfa|tiff|sdxf|docx|odt|xls|tif|csv)$/)) {
       callback( new Error("File Non Supportato"))
       //return callback(null, false)
     } else {
