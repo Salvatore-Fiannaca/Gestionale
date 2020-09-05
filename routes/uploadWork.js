@@ -40,25 +40,21 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
 
 //          DELETE WORK UPLOAD
 router.post("/work-file_:id", async (req, res) => {
-  try {
-    const localfile = await UploadWork.findOneAndDelete({
-      _id: ObjectID(req.params.id),
-      owner: req.user._id,
-    });
+  const localfile = await UploadWork.findOneAndDelete({
+    _id: ObjectID(req.params.id),
+    owner: req.user._id,
+  })
+  if (localfile) {
     const env = process.env.PWD || process.env.INIT_CWD
     const path = env + "/" + localfile.path;
 
     fs.unlink(path, (err) => {
       if (err) {
         console.log(err);
-        res.redirect(req.header("Referer") || "/");
       }
     });
-  } catch (err) {
-    console.log(err);
-    res.redirect(req.header("Referer") || "/");
   }
-  res.redirect("/clients");
+  res.redirect(req.header("Referer") || "/");
 });
 
 /**
@@ -70,17 +66,16 @@ router.get("/work-upload_:code", auth, upload, async (req, res) => {
 });
 
 router.get("/work-show-upload_:code", auth, async (req, res) => {
-  try {
-    const clientList = await UploadWork.find({
-      client: req.params.code,
-      owner: req.user._id,
-    });
+  const clientList = await UploadWork.find({
+    client: req.params.code,
+    owner: req.user._id,
+  });
+  if (clientList) {
     res.render("pages/show-work-upload", {
       clientList: clientList,
       code: req.params.code,
     });
-  } catch (err) {
-    console.log(err);
+  } else {
     res.redirect(req.header("Referer") || "/");
   }
 });

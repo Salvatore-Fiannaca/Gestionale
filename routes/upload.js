@@ -6,6 +6,7 @@ const connection = require("../config/database");
 const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
+const { db } = require("../config/database");
 
 /**
  * -------------- POST ROUTES ----------------
@@ -40,23 +41,21 @@ router.post("/upload_:code", auth, upload, async (req, res) => {
 });
 
 router.post("/file_:id", async (req, res) => {
-  try {
-    const localfile = await Upload.findOneAndDelete({
-      _id: ObjectID(req.params.id),
-      owner: req.user._id,
-    });
-    const env = process.env.PWD || process.env.INIT_CWD
-    const path = env + "/" + localfile.path;
-
-    fs.unlink(path, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-  res.redirect(req.header("Referer") || "/");
+  const localfile = await Upload.findOneAndDelete({
+    _id: ObjectID(req.params.id),
+    owner: req.user._id,
+    })
+    if (localfile) {
+      const env = process.env.PWD || process.env.INIT_CWD
+      const path = env + "/" + localfile.path;
+  
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    } 
+    res.redirect(req.header("Referer") || "/");
 });
 
 /**
@@ -69,39 +68,42 @@ router.get("/upload_:code", auth, upload, async (req, res) => {
 });
 
 router.get("/show-upload_:code", auth, async (req, res) => {
-  try {
-    const clientList = await Upload.find({
-      client: req.params.code,
-      owner: req.user._id,
-    });
+  const clientList = await Upload.find({
+    client: req.params.code,
+    owner: req.user._id,
+  })
+
+  if (clientList) {
     res.render("pages/showUpload", {
       clientList: clientList,
       code: req.params.code,
     });
-  } catch (e) {
-    console.log(e);
-    res.send("User not found");
+  } else {
+    res.redirect(req.header("Referer") || "/")
   }
-});
+})
 
 router.get("/file_:id", async (req, res) => {
   const dbFile = await Upload.find({
     _id: ObjectID(req.params.id),
     owner: req.user._id,
   });
-  const env = process.env.PWD || process.env.INIT_CWD
-  const file = env + "/" + dbFile[0].path;
-  fs.access(file, fs.constants.F_OK, (err) => {
-    console.log(`${file} ${err ? "does not exist" : "exists"}`);
-  });
-  fs.readFile(file, (err, content) => {
-    if (err) {
-      res.writeHead(404, { "Content-type": "text/html" });
-    } else {
-      res.writeHead(200, { "Content-type": dbFile[0].mimetype });
-      res.end(content);
-    }
-  });
+  try {
+    const env = process.env.PWD || process.env.INIT_CWD
+    const file = env + "/" + dbFile[0].path;
+    fs.access(file, fs.constants.F_OK, (err) => { console.log(err); });
+    fs.readFile(file, (err, content) => {
+      if (err) {
+        res.redirect(req.header("Referer") || "/")
+      } else {
+        res.writeHead(200, { "Content-type": dbFile[0].mimetype });
+        res.end(content);
+      }
+    })
+  } catch (err) {
+    console.log(err);
+    res.redirect(req.header("Referer") || "/")
+  }
 });
 
 module.exports = router;
