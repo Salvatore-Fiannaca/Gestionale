@@ -34,6 +34,7 @@
                   <h1 class="h4 text-gray-900 mb-4">
                     Crea un account amministratore
                   </h1>
+           
                 </div>
                 <form class="user" method="POST" action="register" id="regForm">
                   <div class="form-group">
@@ -41,7 +42,7 @@
                       type="text"
                       class="form-control form-control-user"
                       name="username"
-                      placeholder="Username"
+                      placeholder="Utente *"
                       pattern="[A-Za-z0-9_-]{3,20}"
                       value=""
                       required
@@ -54,7 +55,7 @@
                         type="password"
                         class="form-control form-control-user"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Password *"
                         pattern="[A-Za-z0-9_-]{6,20}"
                         value=""
                         required
@@ -65,7 +66,7 @@
                         type="password"
                         class="form-control form-control-user"
                         name="password2"
-                        placeholder="Ripeti Password"
+                        placeholder="Ripeti Password *"
                         pattern="[A-Za-z0-9_-]{6,20}"
                         value=""
                         required
@@ -77,19 +78,59 @@
                       type="email"
                       class="form-control form-control-user"
                       name="mail"
-                      placeholder="Indirizzo email"
+                      placeholder="Indirizzo email *"
                       value=""
                       required
                     />
                   </div>
-                  <button
+                  <div class="form-group">
+                    <button
                     type="submit"
                     value="Submit"
-                    class="btn btn-primary btn-user btn-block"
+                    class="btn btn-primary btn-user col-sm-8"
                   >
                     Registrati
                   </button>
+                  <button 
+                  class="btn btn-info btn-user col-sm-3 " 
+                  type="button" 
+                  id="dropdownMenu2" 
+                  data-target="#staticBackdrop"
+                  data-toggle="modal" 
+                  aria-haspopup="true" 
+                  aria-expanded="false">
+                    Help
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Registrazione Guidata</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>
+                            -L'utente deve avere almeno 3 caratteri 
+                          </p>
+                          <p>
+                            -La password deve avere almeno 6 caratteri
+                          </p>
+                          <p>
+                            -L'email è serve per il recupero
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-info" data-dismiss="modal">Ho capito</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 
                 </form>
+  
                 <hr />
                 <div class="text-center">
                   <a class="small" href="/forgot"

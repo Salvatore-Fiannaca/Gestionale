@@ -136,6 +136,13 @@ router.post("/delete-me", auth, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 router.get("/", auth, async (req, res) => {
+  const user = await User.findOne({ _id: ObjectID(req.user._id) })
+  if (user.forgot == true) {
+    await User.findOneAndUpdate({ 
+      _id: ObjectID(req.user._id)},  
+      { $set: { forgot: false }
+    })
+  }
   const numberOfWork = await Work.find({ owner: req.user._id });
   const numberOfArchive = await Client.find({
     owner: req.user._id,

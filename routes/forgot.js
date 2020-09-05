@@ -17,7 +17,8 @@ router.post("/forgot", async (req, res) => {
     { $set: { hash: hash } }
   );
   // IF EXIST SEND MAIL
-  if (user) {
+  
+  if (user.forgot == false) {
     const mailOptions = {
       from: "Gestionale",
       to: req.body.mail,
@@ -36,6 +37,11 @@ router.post("/forgot", async (req, res) => {
       else console.log("Email sent: " + info.response);
     }) 
     res.redirect("/")
+  } else if (user.forgot == true)  {
+    res.render("pages/forgot", {
+      redMsg: true,
+      text: "Email di recupero invitata",
+    });
   } else {
     res.render("pages/forgot", {
       redMsg: true,

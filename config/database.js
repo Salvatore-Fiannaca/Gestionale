@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  forgot: {
+    type: Boolean,
+    default: false
+  },
   hash: String,
 });
 const User = connection.model("User", UserSchema);
