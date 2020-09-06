@@ -39,14 +39,15 @@
     <div class="form-group col-md-8">
       <textarea 
       name="comments" 
-      value="<%= clientList[0].comments %>" 
+      value="" 
       placeholder="Spazio per i commenti" 
       class="form-control" 
       id="exampleFormControlTextarea1" 
       rows="3"
       pattern="[A-Za-z0-9\s-_.]"
       maxlength="200"
-      ></textarea>
+      ><%= clientList[0].work.comments %>
+      </textarea>
     </div>
     <div class="form-group col-md-4">
       <select name="status" class="form-control">

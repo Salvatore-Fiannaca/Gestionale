@@ -141,6 +141,7 @@ const worksSchema = new mongoose.Schema(
         },
         number: {
           type: Number,
+          trim: true
         },
       },
       comments: {

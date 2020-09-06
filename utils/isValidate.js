@@ -62,7 +62,7 @@ const StatusPatt = (str) => {
     return true
 }
 const NumberPatt = (number) => {
-    const pattern = /^[0-9-]{3,12}$/
+    const pattern = /^[0-9-]{1,12}$/
 
     if (!pattern.test(number)) return false
     
@@ -85,7 +85,7 @@ const MongoPatt = (id) => {
 }
 
 const CommentPatt = (str) => {
-    const pattern = /^[A-Za-z0-9\s]{1,200}$/
+    const pattern = /^[A-Za-z0-9\s]{0,200}$/
 
     if (!pattern.test(str)) return false
     

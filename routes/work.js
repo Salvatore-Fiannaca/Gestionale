@@ -5,7 +5,7 @@ const connection = require("../config/database");
 const { Work, UploadWork } = connection.models;
 const { ObjectID } = require("mongodb");
 const fs = require("fs");
-const { CodePatt, InputPatt, WorkFolderPatt, NumberPatt, CommentPatt, StatusPatt} = require("../utils/isValidate");
+const { CodePatt, InputPatt, WorkFolderPatt, NumberPatt, CommentPatt, StatusPatt, MongoPatt} = require("../utils/isValidate");
 
 /**
  * -------------- POST ROUTES ----------------
@@ -19,7 +19,7 @@ router.post("/new-work_:code", auth, async (req, res) => {
        nFolder = req.body.nFolder, 
        comments = req.body.comments,
        wStatus = req.body.status
-
+  
   if (
     CodePatt(code) &
     InputPatt(title) &
@@ -42,63 +42,80 @@ router.post("/new-work_:code", auth, async (req, res) => {
       } catch (e) {
         console.log(e);
       }
-      
+
+      res.redirect(`/work-upload_${code}`); 
+    } else {
+      res.redirect(req.header("Referer") || "/") 
     }
-
-  res.redirect(`/work-upload_${code}`); 
-  })
+})
   
-
 // DELETE WORK + FILE
 router.post("/work_:id", async (req, res) => {
-  try {
-    const work = await Work.findOneAndDelete({
-      _id: ObjectID(req.params.id),
-      owner: req.user._id,
-    });
-    const find = await UploadWork.find({
-      client: work.client,
-      owner: req.user._id,
-    });
-    await UploadWork.deleteMany({ client: work.client, owner: req.user._id });
-
-    find.forEach((file) => {
-      let path = file.path;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.log(err);
-          res.redirect("/clients");
-        }
+  const id = req.params.id
+  if (MongoPatt(id)) {
+    try {
+      const work = await Work.findOneAndDelete({
+        _id: ObjectID(id),
+        owner: req.user._id,
       });
-    });
-  } catch (err) {
-    console.log(err);
+      const find = await UploadWork.find({
+        client: work.client,
+        owner: req.user._id,
+      });
+      await UploadWork.deleteMany({ client: work.client, owner: req.user._id });
+  
+      find.forEach((file) => {
+        let path = file.path;
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.log(err);
+            res.redirect("/clients");
+          }
+        });
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-
   res.redirect("/clients");
-});
-// UPDATE
-router.post("/update-work_:client", auth, async (req, res) => {
-  const client = req.params.client;
-  try {
-    await Work.findOneAndUpdate(
-      { client: client, owner: req.user._id },
-      {
-        $set: {
-          "work.title": req.body.title,
-          "work.folder.title": req.body.folder,
-          "work.folder.number": req.body.nFolder,
-          "work.status": req.body.status,
-          "work.comments": req.body.comments,
-        },
+})
+// UPDATE WORK
+router.post("/update-work_:code", auth, async (req, res) => {
+  const code = req.params.code,
+        title = req.body.title,
+      folder = req.body.folder,
+      nFolder = req.body.nFolder, 
+      comments = req.body.comments,
+      wStatus = req.body.status
+  if (
+    CodePatt(code) &
+    InputPatt(title) &
+    WorkFolderPatt(folder) &
+    NumberPatt(nFolder) &
+    CommentPatt(comments) &
+    StatusPatt(wStatus)
+    ) {
+      try {
+        await Work.findOneAndUpdate(
+          { client: code, owner: req.user._id },
+          {
+            $set: {
+              "work.title": title,
+              "work.folder.title": folder,
+              "work.folder.number": nFolder,
+              "work.status": wStatus,
+              "work.comments": comments,
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
       }
-    );
 
-    res.redirect(req.header("Referer") || "/");
-  } catch (err) {
-    console.log(err);
-    res.redirect(req.header("Referer") || "/");
-  }
+    }
+
+    res.redirect("/edit-work_" + code);
+  
 });
 
 /**
