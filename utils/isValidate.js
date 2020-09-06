@@ -47,6 +47,20 @@ const StatePatt = (str) => {
     
     return true
 }
+const WorkFolderPatt = (str) => {
+    const pattern = /VARIE|PROGETTI|SUCCESSIONI|DOCFA|PREGEO|APE|PERIZIE GIURATE/
+
+    if (!pattern.test(str)) return false
+    
+    return true
+}
+const StatusPatt = (str) => {
+    const pattern = /In corso|In attesa di pagamento|Sospeso|Concluso/
+
+    if (!pattern.test(str)) return false
+    
+    return true
+}
 const NumberPatt = (number) => {
     const pattern = /^[0-9-]{3,12}$/
 
@@ -66,6 +80,14 @@ const MongoPatt = (id) => {
     const pattern = /^[a-f\d]{24}$/
 
     if (!pattern.test(id)) return false
+    
+    return true
+}
+
+const CommentPatt = (str) => {
+    const pattern = /^[A-Za-z0-9\s]{1,200}$/
+
+    if (!pattern.test(str)) return false
     
     return true
 }
@@ -96,6 +118,9 @@ module.exports.StatePatt = StatePatt
 module.exports.NumberPatt = NumberPatt
 module.exports.ZipPatt = ZipPatt
 module.exports.MongoPatt = MongoPatt
+module.exports.WorkFolderPatt = WorkFolderPatt
+module.exports.CommentPatt = CommentPatt
+module.exports.StatusPatt = StatusPatt
 
 
 
