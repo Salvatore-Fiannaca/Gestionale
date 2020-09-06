@@ -6,7 +6,7 @@ const connection = require("../config/database");
 const { UploadWork } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
-const { CodePatt } = require("../utils/isValidate");
+const { CodePatt, MongoPatt } = require("../utils/isValidate");
 
 /**
  * -------------- POST ROUTES ----------------
@@ -14,48 +14,58 @@ const { CodePatt } = require("../utils/isValidate");
 
 // ADD NEW
 router.post("/work-upload_:code", auth, upload, async (req, res) => {
-  const files = req.files;
-  if (files) {
-    files.forEach((file) => {
-      const path = file.path;
-      try {
-        const newFile = new UploadWork({
-          client: req.params.code,
-          fieldname: file.fieldname,
-          originalname: file.originalname,
-          mimetype: file.mimetype,
-          destination: file.destination,
-          filename: file.filename,
-          path: path,
-          size: file.size,
-          owner: req.user._id,
-        });
-        newFile.save();
-      } catch (e) {
-        console.log(e);
-      }
-    });
+  const code = req.params.code
+  if (CodePatt(code)) {
+    const files = req.files;
+    if (files) {
+      files.forEach((file) => {
+        const path = file.path;
+        try {
+          const newFile = new UploadWork({
+            client: code,
+            fieldname: file.fieldname,
+            originalname: file.originalname,
+            mimetype: file.mimetype,
+            destination: file.destination,
+            filename: file.filename,
+            path: path,
+            size: file.size,
+            owner: req.user._id,
+          });
+          newFile.save();
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+    res.redirect(`/clients`);
+  } else {
+    req.redirect("/404")
   }
-  res.redirect(`/clients`);
 });
 
 //          DELETE WORK UPLOAD
 router.post("/work-file_:id", async (req, res) => {
-  const localfile = await UploadWork.findOneAndDelete({
-    _id: ObjectID(req.params.id),
-    owner: req.user._id,
-  })
-  if (localfile) {
-    const env = process.env.PWD || process.env.INIT_CWD
-    const path = env + "/" + localfile.path;
+  const id = req.params.id
+  if (MongoPatt(id)) {
+    const localfile = await UploadWork.findOneAndDelete({
+      _id: ObjectID(id),
+      owner: req.user._id,
+    })
+    if (localfile) {
+      const env = process.env.PWD || process.env.INIT_CWD
+      const path = env + "/" + localfile.path;
 
-    fs.unlink(path, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+    res.redirect(req.header("Referer") || "/");
+  }else {
+    res.redirect("/404")
   }
-  res.redirect(req.header("Referer") || "/");
 });
 
 /**
@@ -75,13 +85,13 @@ router.get("/work-show-upload_:code", auth, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     const clientList = await UploadWork.find({
-      client: req.params.code,
+      client: code,
       owner: req.user._id,
     });
     if (clientList) {
       res.render("pages/show-work-upload", {
         clientList: clientList,
-        code: req.params.code,
+        code: code,
       });
     } else {
       res.redirect(req.header("Referer") || "/");
@@ -92,27 +102,31 @@ router.get("/work-show-upload_:code", auth, async (req, res) => {
 });
 
 router.get("/work-file_:id", async (req, res) => {
-  const dbFile = await UploadWork.find({
-    _id: ObjectID(req.params.id),
-    owner: req.user._id,
-  });
-
-  const env = process.env.PWD || process.env.INIT_CWD
-  if (dbFile) {
-    const file = env + "/" + dbFile[0].path;
-    fs.access(file, fs.constants.F_OK, (err) => {
-      console.log(`${file} ${err ? "does not exist" : "exists"}`);
+  const id = req.params.id 
+  if (MongoPatt(id)) {
+    const dbFile = await UploadWork.find({
+      _id: ObjectID(req.params.id),
+      owner: req.user._id,
     });
-    fs.readFile(file, (err, content) => {
-      if (err) {
-        res.writeHead(404, { "Content-type": "text/html" });
-      } else {
-        res.writeHead(200, { "Content-type": dbFile[0].mimetype });
-        res.end(content);
-      }
-    });
+    const env = process.env.PWD || process.env.INIT_CWD
+    if (dbFile) {
+      const file = env + "/" + dbFile[0].path;
+      fs.access(file, fs.constants.F_OK, (err) => {
+        console.log(`${file} ${err ? "does not exist" : "exists"}`);
+      });
+      fs.readFile(file, (err, content) => {
+        if (err) {
+          res.writeHead(404, { "Content-type": "text/html" });
+        } else {
+          res.writeHead(200, { "Content-type": dbFile[0].mimetype });
+          res.end(content);
+        }
+      });
+    } else {
+      res.redirect(req.header("Referer") || "/");
+    }
   } else {
-    res.redirect(req.header("Referer") || "/");
+    res.redirect("/404")
   }
 });
 
