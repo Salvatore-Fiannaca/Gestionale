@@ -6,6 +6,7 @@ const connection = require("../config/database");
 const { UploadWork } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
+const { CodePatt } = require("../utils/isValidate");
 
 /**
  * -------------- POST ROUTES ----------------
@@ -62,21 +63,31 @@ router.post("/work-file_:id", async (req, res) => {
  */
 
 router.get("/work-upload_:code", auth, upload, async (req, res) => {
-  res.render("pages/upload-work", { code: req.params.code });
+  const code = req.params.code
+  if (CodePatt(code)) {
+    res.render("pages/upload-work", { code: code });
+  } else {
+    res.redirect("/404")
+  }
 });
 
 router.get("/work-show-upload_:code", auth, async (req, res) => {
-  const clientList = await UploadWork.find({
-    client: req.params.code,
-    owner: req.user._id,
-  });
-  if (clientList) {
-    res.render("pages/show-work-upload", {
-      clientList: clientList,
-      code: req.params.code,
+  const code = req.params.code
+  if (CodePatt(code)) {
+    const clientList = await UploadWork.find({
+      client: req.params.code,
+      owner: req.user._id,
     });
+    if (clientList) {
+      res.render("pages/show-work-upload", {
+        clientList: clientList,
+        code: req.params.code,
+      });
+    } else {
+      res.redirect(req.header("Referer") || "/");
+    }
   } else {
-    res.redirect(req.header("Referer") || "/");
+    res.redirect("/404")
   }
 });
 

@@ -126,18 +126,17 @@ router.get("/_:code", auth, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     try {
-      const clientList = await Work.find({
+      const work = await Work.find({
         owner: req.user._id,
         client: code,
       });
-      // IF USER
-      if (clientList[0].client) {
+      if (!work) {
+        res.redirect("/clients");
+      } else {
         res.render("pages/show-works", {
-          clientList: clientList,
+          clientList: work,
           code: code,
         });
-      } else {
-        res.redirect("/404");
       }
     } catch (e) {
       console.log(e);
@@ -190,7 +189,7 @@ router.get("/new-work_:code", auth, async (req, res) => {
       res.redirect("/404")      
     }
   } else {
-    res.render("404")
+    res.redirect("404")
   }
 });
 

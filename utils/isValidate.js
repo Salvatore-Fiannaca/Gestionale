@@ -8,7 +8,7 @@ const UserPatt = (str) => {
 }
 
 const CodePatt = (str) => {
-    const pattern = /^[a-zA-Z-0-9]{6,16}$/
+    const pattern = /^[a-zA-Z-0-9]{16}$/
     if (!pattern.test(str)) return false
     
     return true
@@ -135,5 +135,5 @@ module.exports.StatusPatt = StatusPatt
    console.log(ZipPatt(zipCode))
    console.log(MailPatt(email))
    console.log(NumberPatt(phone))
-   console.log(CodePatt('FNNSVT95R11A089J'))
+   console.log(CodePatt('FNNSVT95R13A089J'))
    */
