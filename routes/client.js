@@ -3,6 +3,7 @@ const connection = require("../config/database");
 const { Client, Work, Upload, UploadWork, Count } = connection.models;
 const auth = require("../config/auth");
 const fs = require("fs");
+const { MongoPatt, ZipPatt, MailPatt, CodePatt, InputPatt, StatePatt, NumberPatt } = require('../utils/isValidate')
 
 /**
  * -------------- POST ROUTES ----------------
@@ -10,69 +11,103 @@ const fs = require("fs");
 
 //      ADD NEW CLIENT
 router.post("/client", auth, async (req, res) => {
-  const code = req.body.fiscalCode;
-  const check = await Client.find({
-    owner: req.user._id,
-    "profile.fiscalCode": code,
-  });
+  const code = req.body.fiscalCode, 
+   firstName = req.body.firstName, 
+   lastName = req.body.lastName, 
+   address = req.body.address, 
+   city = req.body.city,
+   state = req.body.state,
+   zipCode = req.body.zipCode,
+   email = req.body.email,
+   phone = req.body.phone
 
-  // CHECK IF EXIST
-  if (!check[0]) {
-    const counter = await Count.findOneAndUpdate(
-      { owner: req.user._id },
-      { $inc: { count: +1 } }
-    );
-    try {
-      const newClient = await new Client({
-        "profile.firstName": req.body.firstName,
-        "profile.lastName": req.body.lastName,
-        "profile.fiscalCode": code,
-        "address.street": req.body.address,
-        "address.city": req.body.city,
-        "address.state": req.body.state,
-        "address.zipCode": req.body.zipCode,
-        "contacts.email": req.body.email,
-        "contacts.phone": req.body.phone,
-        owner: req.user._id,
-        count: counter.count,
-      });
-      await newClient.save();
-    } catch (e) {
-      console.log(e);
-    }
-    res.redirect(`/upload_${code}`);
-  } else {
-    res.render(`pages/new-client`, {
-      redMsg: true,
-      text: "Codice Fiscale già registrato",
+  if (
+    CodePatt(code) &
+    InputPatt(firstName) &
+    InputPatt(lastName) &
+    InputPatt(address) &
+    InputPatt(city) &
+    StatePatt(state) &
+    ZipPatt(zipCode) &
+    MailPatt(email) &
+    NumberPatt(phone) 
+  ) 
+  {
+    const check = await Client.find({
+      owner: req.user._id,
+      "profile.fiscalCode": code,
     });
+
+    // IF NOT EXIST
+    if (!check[0]) {
+      const counter = await Count.findOneAndUpdate(
+        { owner: req.user._id },
+        { $inc: { count: +1 } }
+      );
+      try {
+        const newClient = await new Client({
+          "profile.firstName": firstName,
+          "profile.lastName": lastName,
+          "profile.fiscalCode": code,
+          "address.street": address,
+          "address.city": city,
+          "address.zipCode": state,
+          "address.zipCode": zipCode,
+          "contacts.email": email,
+          "contacts.phone": phone,
+          owner: req.user._id,
+          count: counter.count,
+        });
+        await newClient.save();
+      } catch (e) {
+        console.log(e);
+      }
+      res.redirect(`/upload_${code}`);
+    } else {
+      res.render(`pages/new-client`, {
+        redMsg: true,
+        text: "Codice Fiscale già registrato",
+      });
+    }
+  } else {
+    res.render('pages/new-client', {
+      redMsg: true,
+      text: 'Dati inseriti non validi'
+    })
   }
+ 
+
+ 
 });
 
 //      UPDATE CLIENT
 router.post("/update_:id", auth, async (req, res) => {
   const id = req.params.id;
-  try {
-    await Client.findOneAndUpdate(
-      { _id: id, owner: req.user._id },
-      {
-        $set: {
-          "profile.firstName": req.body.firstName,
-          "profile.lastName": req.body.lastName,
-          "address.street": req.body.address,
-          "address.city": req.body.city,
-          "address.state": req.body.state,
-          "address.zipCode": req.body.zipCode,
-          "contacts.email": req.body.email,
-          "contacts.phone": req.body.phone,
-          archive: req.body.archive,
-        },
-      }
-    );
-    res.redirect("/clients");
-  } catch (err) {
-    console.log(err);
+  if (MongoPatt(id)) {
+    try {
+      await Client.findOneAndUpdate(
+        { _id: id, owner: req.user._id },
+        {
+          $set: {
+            "profile.firstName": req.body.firstName,
+            "profile.lastName": req.body.lastName,
+            "address.street": req.body.address,
+            "address.city": req.body.city,
+            "address.state": req.body.state,
+            "address.zipCode": req.body.zipCode,
+            "contacts.email": req.body.email,
+            "contacts.phone": req.body.phone,
+            archive: req.body.archive,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
+
+  res.redirect("/clients") 
+ 
 });
 
 // DELETE CLIENT
