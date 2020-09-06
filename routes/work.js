@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const auth = require("../config/auth");
 const connection = require("../config/database");
-const { Work, UploadWork } = connection.models;
+const { Work, UploadWork, Client } = connection.models;
 const { ObjectID } = require("mongodb");
 const fs = require("fs");
 const { CodePatt, InputPatt, WorkFolderPatt, NumberPatt, CommentPatt, StatusPatt, MongoPatt} = require("../utils/isValidate");
@@ -123,30 +123,75 @@ router.post("/update-work_:code", auth, async (req, res) => {
  */
 
 router.get("/_:code", auth, async (req, res) => {
-  try {
-    const clientList = await Work.find({
-      owner: req.user._id,
-      client: req.params.code,
-    });
-    res.render("pages/show-works", {
-      clientList: clientList,
-      code: req.params.code,
-    });
-  } catch (e) {
-    res.redirect("/clients");
+  const code = req.params.code
+  if (CodePatt(code)) {
+    try {
+      const clientList = await Work.find({
+        owner: req.user._id,
+        client: code,
+      });
+      // IF USER
+      if (clientList[0].client) {
+        res.render("pages/show-works", {
+          clientList: clientList,
+          code: code,
+        });
+      } else {
+        res.redirect("/404");
+      }
+    } catch (e) {
+      console.log(e);
+      res.redirect("/404");
+    }
+  } else {
+    res.redirect("/404");
   }
+  
 });
 
 router.get("/edit-work_:code", auth, async (req, res) => {
-  const clientList = await Work.find({
-    client: req.params.code,
-    owner: req.user._id,
-  });
-  res.render("pages/edit-work", { clientList: clientList });
-});
+  const code = req.params.code
+  if (CodePatt(code)) {
+    try {
+      const clientList = await Work.find({
+        client: code,
+        owner: req.user._id,
+      });
+      if (clientList[0].client) {
+        res.render("pages/edit-work", { clientList: clientList });
+      } else {
+        res.redirect("/404")      
+      }
+    } catch (err) {
+    console.log(err);
+    res.redirect("/404")      
+    } 
+  }else {
+    res.redirect("/404")      
+  }
+})
 
 router.get("/new-work_:code", auth, async (req, res) => {
-  res.render("pages/new-work", { fiscalCode: req.params.code });
+  const code = req.params.code
+  if (CodePatt(code)) {
+    try {
+      const clientList = await Client.find({
+        "profile.fiscalCode": code,
+        owner: req.user._id,
+      });
+      // IF EXIST
+      if (clientList[0].profile) {
+        res.render("pages/new-work", { fiscalCode: clientList[0].profile.fiscalCode })
+      } else {
+        res.redirect("/404")      
+      }
+    } catch (e) {
+      console.log(e);
+      res.redirect("/404")      
+    }
+  } else {
+    res.render("404")
+  }
 });
 
 module.exports = router;
