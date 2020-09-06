@@ -6,6 +6,7 @@ const { User, Work, Client, Count, Upload, UploadWork } = connection.models;
 const auth = require("../config/auth");
 const { ObjectID } = require("mongodb");
 const fs = require("fs");
+const { UserPatt, PswPatt, MailPatt } = require('../utils/isValidate')
 
 /**
  * -------------- POST ROUTES ----------------
@@ -20,17 +21,17 @@ router.post(
 );
 
 router.post("/register", async (req, res) => {
-  //  VALIDATION
   const psw = req.body.password;
   const psw2 = req.body.password2;
   const username = req.body.username;
   const mail = req.body.mail;
-
+  
+  //  VALIDATION
   if (
-    (psw.length > 6) &
     (psw == psw2) &
-    (username.length > 3) &
-    (mail.length > 6)
+    UserPatt(username) & 
+    PswPatt(psw) &
+    MailPatt(mail)
   ) {
     //  CHECK IF EXIST
     const slotUser = await User.find({ username: username });
@@ -72,7 +73,7 @@ router.post("/edit-user", auth, async (req, res) => {
   const newPass = req.body.newPass;
   const newPass2 = req.body.newPass2;
 
-  if ((newPass.length > 6) & (newPass == newPass2)) {
+  if ((PswPass(newPass)) & (newPass == newPass2)) {
     const hash = await genPassword(newPass);
     await User.findOneAndUpdate(
       { _id: req.user._id },
