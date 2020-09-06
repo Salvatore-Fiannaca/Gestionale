@@ -188,9 +188,15 @@ router.get("/client", auth, (req, res) => {
 });
 
 router.get("/edit-client_:id", auth, async (req, res) => {
-  owner = req.session.passport.user;
-  const client = await Client.find({ owner: owner, _id: req.params.id });
-  res.render("pages/edit-client", { clientList: client, n: 1 });
+  const id = req.params.id
+  if (MongoPatt(id)) {
+    owner = req.session.passport.user;
+    const client = await Client.find({ owner: owner, _id: id });
+    res.render("pages/edit-client", { clientList: client, n: 1 });
+  } 
+  else {
+    res.redirect("/404")
+  }
 });
 
 router.get("/clients", auth, async (req, res) => {
