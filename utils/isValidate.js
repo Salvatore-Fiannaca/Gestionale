@@ -8,7 +8,7 @@ const UserPatt = (str) => {
 }
 
 const CodePatt = (str) => {
-    const pattern = /^[a-zA-Z-0-9]{6,15}$/
+    const pattern = /^[a-zA-Z-0-9]{6,16}$/
     if (!pattern.test(str)) return false
     
     return true
@@ -70,6 +70,15 @@ const MongoPatt = (id) => {
     return true
 }
 
+//const ArchPatt = (archive) => {
+//    if ( archive ) 
+ //       return true
+
+   // return false
+//}
+
+
+
 
 
 
@@ -101,5 +110,5 @@ module.exports.MongoPatt = MongoPatt
    console.log(ZipPatt(zipCode))
    console.log(MailPatt(email))
    console.log(NumberPatt(phone))
-   console.log(CodePatt('))
+   console.log(CodePatt('FNNSVT95R11A089J'))
    */

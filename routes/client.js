@@ -82,22 +82,42 @@ router.post("/client", auth, async (req, res) => {
 
 //      UPDATE CLIENT
 router.post("/update_:id", auth, async (req, res) => {
-  const id = req.params.id;
-  if (MongoPatt(id)) {
+  const id = req.params.id,
+  firstName = req.body.firstName, 
+   lastName = req.body.lastName, 
+   address = req.body.address, 
+   city = req.body.city,
+   state = req.body.state,
+   zipCode = req.body.zipCode,
+   email = req.body.email,
+   phone = req.body.phone,
+   archive = req.body.archive
+  if (
+    MongoPatt(id) %
+    InputPatt(firstName) &
+    InputPatt(lastName) &
+    InputPatt(address) &
+    InputPatt(city) &
+    StatePatt(state) &
+    ZipPatt(zipCode) &
+    MailPatt(email) &
+    NumberPatt(phone) &
+    archive === false | true 
+    ) {
     try {
       await Client.findOneAndUpdate(
         { _id: id, owner: req.user._id },
         {
           $set: {
-            "profile.firstName": req.body.firstName,
-            "profile.lastName": req.body.lastName,
-            "address.street": req.body.address,
-            "address.city": req.body.city,
-            "address.state": req.body.state,
-            "address.zipCode": req.body.zipCode,
-            "contacts.email": req.body.email,
-            "contacts.phone": req.body.phone,
-            archive: req.body.archive,
+            "profile.firstName": firstName,
+            "profile.lastName": lastName,
+            "address.street": address,
+            "address.city": city,
+            "address.state": state,
+            "address.zipCode": zipCode,
+            "contacts.email": email,
+            "contacts.phone": phone,
+            archive: archive,
           },
         }
       );
@@ -113,44 +133,48 @@ router.post("/update_:id", auth, async (req, res) => {
 // DELETE CLIENT
 router.post("/client_:code", auth, async (req, res) => {
   owner = req.session.passport.user;
-  try {
-    await Client.findOneAndDelete({
-      "profile.fiscalCode": req.params.code,
-      owner: owner,
-    });
-    await Work.deleteMany({ client: req.params.code, owner: owner });
-    const findWork = await UploadWork.find({
-      client: req.params.code,
-      owner: owner,
-    });
-    const findUpload = await Upload.find({
-      client: req.params.code,
-      owner: owner,
-    });
-
-    // DELETE UPLOAD CLIENT
-    await Upload.deleteMany({ client: req.params.code, owner: owner });
-    findUpload.forEach((file) => {
-      let path = file.path;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.log(err);
-        }
+  const code = req.params.code
+  
+  if (CodePatt(code)) {
+    try {
+      await Client.findOneAndDelete({
+        "profile.fiscalCode": code,
+        owner: owner,
       });
-    });
-
-    // DELETE UPLOAD WORK CLIENT
-    await UploadWork.deleteMany({ client: req.params.code, owner: owner });
-    findWork.forEach((file) => {
-      let path = file.path;
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.log(err);
-        }
+      await Work.deleteMany({ client: code, owner: owner });
+      const findWork = await UploadWork.find({
+        client: code,
+        owner: owner,
       });
-    });
+      const findUpload = await Upload.find({
+        client: code,
+        owner: owner,
+      });
+
+      // DELETE UPLOAD CLIENT
+      await Upload.deleteMany({ client: code, owner: owner });
+      findUpload.forEach((file) => {
+        let path = file.path;
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      });
+
+      // DELETE UPLOAD WORK CLIENT
+      await UploadWork.deleteMany({ client: code, owner: owner });
+      findWork.forEach((file) => {
+        let path = file.path;
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      });
   } catch (err) {
     console.log(err);
+  }
   }
   res.redirect("/clients");
 });
