@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const { tree } = require("gulp");
 
 require("dotenv").config();
 
@@ -44,6 +43,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  links: [{
+    title: String, 
+    link: String
+  }],
   hash: String,
 });
 const User = connection.model("User", UserSchema);

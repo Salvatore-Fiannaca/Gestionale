@@ -183,6 +183,7 @@ router.post("/client_:code", auth, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 
+ // NEW CLIENT
 router.get("/client", auth, (req, res) => {
   res.render("pages/new-client", { redMsg: false });
 });
@@ -198,7 +199,7 @@ router.get("/edit-client_:id", auth, async (req, res) => {
     res.redirect("/404")
   }
 });
-
+// SHOW CLIENT
 router.get("/clients", auth, async (req, res) => {
   owner = req.session.passport.user;
   const filter = await Client.find({ owner: owner, archive: false });

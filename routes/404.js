@@ -46,5 +46,8 @@ router.get("/show-upload_:code/*", (req, res) => {
 router.get("/file_:id/*", (req, res) => {
   res.render("pages/404");
 });
+router.get("/links/*", (req, res) => {
+  res.render("pages/404");
+});
 
 module.exports = router;
