@@ -11,7 +11,7 @@ const { CodePatt, MongoPatt } = require("../utils/isValidate");
 /**
  * -------------- POST ROUTES ----------------
  */
-
+// ADD 
 router.post("/upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code;
   const files = req.files;
@@ -44,6 +44,7 @@ router.post("/upload_:code", auth, upload, async (req, res) => {
 
 });
 
+// DELETE 
 router.post("/file_:id", async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
