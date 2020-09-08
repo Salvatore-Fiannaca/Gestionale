@@ -92,18 +92,6 @@ const CommentPatt = (str) => {
     return true
 }
 
-//const ArchPatt = (archive) => {
-//    if ( archive ) 
- //       return true
-
-   // return false
-//}
-
-
-
-
-
-
 
 
 

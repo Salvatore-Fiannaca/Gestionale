@@ -1,0 +1,51 @@
+<h1 class="h3 mb-4 text-gray-800">Aggiungi link</h1>
+
+<% if (redMsg) { %>
+  <div
+    class="form-group col-md-6 alert alert-danger mx-auto text-center"
+    role="alert"
+    id="msg"
+  >
+    <%= text %>
+  </div>
+  <% } %>
+<% if (greenMsg) { %>
+  <div
+    class="form-group col-md-6 alert alert-success mx-auto text-center"
+    role="alert"
+    id="msg"
+  >
+    <%= text %>
+  </div>
+  <% } %>
+<!--   -->
+<!-- FORM REGISTRA LAVORO -->
+<form method="POST" action="new-link">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input
+        type="text"
+        name="title"
+        placeholder="Titolo "
+        class="form-control"
+        pattern="[A-Za-z0-9\s]{1,20}"
+        required
+      />
+    </div>
+    <div class="form-group col-md-10">
+      <input 
+      type="url"  
+      name="link"
+      pattern="https?://.+" 
+      title="http://"
+      placeholder="Incolla il link qui..."
+      maxlength="100"
+      class="form-control"
+      />
+    </div>
+  </div>
+  <button type="submit" value="Submit" class="btn btn-success">Salva</button>
+</form>
+<br />
+<br />
+<br />
