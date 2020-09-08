@@ -42,14 +42,16 @@
               </strong>
             </td>
             <td>
-              <a href="<%= link.link %>">
+              <a  target="__blank" href="<%= link.link %>">
                 <%= link.link %>
               </a>
             </td>
             <td>
-              <a href="#">
-                X
-              </a>
+              <form action ="unlink-<%= link.id %>" method="POST" id="btnDelete">
+                <button type="submit" class="btn btn-sm btn-danger" value="Submit">
+                  <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                </button>
+              </form>
             </td>
           </tr>
           <% }) %>

@@ -4,12 +4,13 @@ const auth = require("../config/auth");
 const connection = require("../config/database");
 const { User } = connection.models;
 const { ObjectID } = require("mongodb");
-const { InputPatt } = require('../utils/isValidate')
+const { InputPatt, MongoPatt } = require('../utils/isValidate')
 const validator = require('validator')
 
 
 
 // POST ROUTES
+// ADD
 router.post("/new-link", auth, async (req, res) => {
   const title = req.body.title
   const link = req.body.link
@@ -41,6 +42,29 @@ router.post("/new-link", auth, async (req, res) => {
   //res.redirect("/404")
 });
 
+// DELETE
+router.post("/unlink-:id", auth, async (req, res) => {
+  const user = req.user._id
+  const idUrl = req.params.id
+  if ( MongoPatt(idUrl) ) 
+    {
+      try {
+        await User.updateMany({ 
+          _id: ObjectID(user) 
+          },{ links : {
+            _id : idUrl
+          }})
+          res.redirect("/links")
+      } catch (err) {
+        console.log(err)
+        res.redirect("/404")
+      }
+  } else {
+    res.redirect("/404")
+  } 
+})
+
+
 
 // GET ROUTES
 
@@ -54,6 +78,7 @@ router.get("/new-link", auth, async (req, res) => {
 router.get("/links", auth, async (req, res) => {
     const links = await User.findOne({ _id: ObjectID(req.user._id) });
     res.render("pages/show-links", { links: links.links });
+    console.log(links.links)
   });
 
 module.exports = router;
