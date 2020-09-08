@@ -34,7 +34,8 @@
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB-->
-          <% links.forEach(link => { %>
+          <% links.forEach(link => { 
+            if (!link.title) {} else { %>
           <tr>
             <td>
               <strong>
@@ -52,6 +53,7 @@
                   <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
                 </button>
               </form>
+              <% } %> 
             </td>
           </tr>
           <% }) %>
