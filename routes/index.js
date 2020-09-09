@@ -220,6 +220,10 @@ router.get("/support", auth, async (req, res) => {
   res.render("pages/support");
 });
 
+router.get("/404", (req, res) => {
+  res.render("pages/404")
+})
+
 
 module.exports = router;
 
