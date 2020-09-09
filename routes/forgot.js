@@ -1,5 +1,4 @@
-const express = require("express");
-const router = new express.Router();
+const router = require("express").Router();
 const transporter = require("../config/send-email");
 const connection = require("../config/database");
 const { User } = connection.models;
