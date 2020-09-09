@@ -216,6 +216,10 @@ router.get("/edit-user", auth, async (req, res) => {
   });
 });
 
+router.get("/support", auth, async (req, res) => {
+  res.render("pages/support");
+});
+
 
 module.exports = router;
 

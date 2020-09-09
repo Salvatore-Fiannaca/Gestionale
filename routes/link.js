@@ -77,7 +77,6 @@ router.get("/new-link", auth, async (req, res) => {
 // SHOW ALL LINKS
 router.get("/links", auth, async (req, res) => {
     const links = await User.findOne({ _id: ObjectID(req.user._id) });
-    console.log(links)
     res.render("pages/show-links", { links: links.links });
   });
 
