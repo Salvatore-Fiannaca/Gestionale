@@ -24,8 +24,8 @@ const upload = multer({
     }
   },
   limits: {
-    fileSize: 100000000, //byte === 100mb
+    fileSize: 20000000, //byte = 20mb
   },
-}).array("files", 12);
+}).array("files", 10); // max 10 files
 
 module.exports = upload;

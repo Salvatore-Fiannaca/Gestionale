@@ -146,6 +146,19 @@ Content Row -->
 <div class="container align-items-center justify-content-center mt-4 text-center">
   <h1 class="mb-4 text-gray-800 mt-4">Link utili</h1>
 </div>
+
+<div class="card-deck container mx-auto mt-4 text-center">
+<% links.forEach(link => {  if (!link.title) { } else { %>
+  <div class="card border-bottom-secondary">
+    <div class="card-body">
+      <h6 class="card-title">
+        <a class="collapse-item" target="_blank" href="<%= link.link %>"><%= link.title %></a>
+      </h6>
+    </div>
+  </div>
+<% }}) %>
+</div>
+
 <div class="card-deck container mx-auto mt-4 text-center">
   <div class="card border-bottom-secondary">
     <div class="card-body">

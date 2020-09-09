@@ -49,11 +49,11 @@ router.post("/unlink-:id", auth, async (req, res) => {
   if ( MongoPatt(idUrl) ) 
     {
       try {
-        await User.updateMany({ 
+        await User.updateOne({ 
           _id: ObjectID(user) 
-          },{ links : {
+          },{ $pull: {links : {
             _id : idUrl
-          }})
+          }}})
           res.redirect("/links")
       } catch (err) {
         console.log(err)

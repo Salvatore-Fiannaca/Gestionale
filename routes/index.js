@@ -137,6 +137,7 @@ router.post("/delete-me", auth, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 router.get("/", auth, async (req, res) => {
+  // CHECK IF FORGOT & GET LINKS
   const user = await User.findOne({ _id: ObjectID(req.user._id) })
   if (user.forgot === true) {
     await User.findOneAndUpdate({ 
@@ -144,6 +145,8 @@ router.get("/", auth, async (req, res) => {
       { $set: { forgot: false }
     })
   }
+
+  //  STATISTICS
   const numberOfWork = await Work.find({ owner: req.user._id });
   const numberOfArchive = await Client.find({
     owner: req.user._id,
@@ -164,6 +167,7 @@ router.get("/", auth, async (req, res) => {
     numberOfArchive: numberOfArchive.length,
     numberInProgress: numberInProgress,
     numberOfCompleted: numberOfCompleted,
+    links: user.links
   });
 });
 
@@ -214,3 +218,4 @@ router.get("/edit-user", auth, async (req, res) => {
 
 
 module.exports = router;
+
