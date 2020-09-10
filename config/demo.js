@@ -1,16 +1,17 @@
-// ONLY FOR DEMO VERSION
+// DEMO VERSION
 const connection = require("../config/database");
 const { Upload } = connection.models;
 const { ObjectID } = require("mongodb");
 
-const limitUp = async ( req, res, next ) => {
-    const fileOnDisk = await Upload.find({ owner: ObjectID(req.user._id) })
+const limitUp = ( req, res, next ) => {
 
-    if (fileOnDisk.length < 2) { 
+    const fileOnDisk =  Upload.find({ owner: ObjectID(req.user._id) })
+
+    if (fileOnDisk.length < 2 ) { 
         next()
     } else {
-        res.send("DEMO VERSION");
+        res.redirect("/support");
         }   
-    } 
 
+      } 
 module.exports.limitUp = limitUp
