@@ -6,13 +6,13 @@ const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
-const { limitUp } = require("../config/demo");
+//const { limitUp } = require("../config/demo");
 
 /**
  * -------------- POST ROUTES ----------------
  */
 // ADD 
-router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
+router.post("/upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code;
   const files = req.files;
 
