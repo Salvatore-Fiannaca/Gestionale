@@ -24,9 +24,8 @@ const upload = multer({
     }
   },
   limits: {
-    fileSize: 100000000, // 100MB
-    //fileSize: 1000000, // 1MB DEMO VERSION
+    fileSize: 20000000, // 20MB
   },
-}).array("files", 3); // MAX 3 FILES (DEMO VERSION)
+}).array("files", 20); 
 
 module.exports = upload;
