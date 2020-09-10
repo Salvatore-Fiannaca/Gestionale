@@ -20,7 +20,6 @@ router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
     // VALIDATE INPUT 
     if ( CodePatt(code) ) {
     // SAVE FILES
-      const path = file.path;
       try {
         const newFile = new Upload({
           client: code,
@@ -29,7 +28,7 @@ router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
           mimetype: file.mimetype,
           destination: file.destination,
           filename: file.filename,
-          path: path,
+          path: file.path,
           size: file.size,
           owner: req.user._id,
         });
@@ -44,7 +43,7 @@ router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
 });
 
 // DELETE 
-router.post("/file_:id", async (req, res) => {
+router.post("/file_:id", auth, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {
@@ -109,7 +108,7 @@ router.get("/show-upload_:code", auth, async (req, res) => {
   }
 })
 
-router.get("/file_:id", async (req, res) => {
+router.get("/file_:id", auth, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {

@@ -49,7 +49,7 @@ router.post("/new-work_:code", auth, async (req, res) => {
 })
   
 // DELETE WORK + FILE
-router.post("/work_:id", async (req, res) => {
+router.post("/work_:id", auth, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {
