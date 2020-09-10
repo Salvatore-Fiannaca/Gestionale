@@ -44,7 +44,7 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
 });
 
 //          DELETE WORK UPLOAD
-router.post("/work-file_:id", async (req, res) => {
+router.post("/work-file_:id",  auth, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     const localfile = await UploadWork.findOneAndDelete({
@@ -100,7 +100,7 @@ router.get("/work-show-upload_:code", auth, async (req, res) => {
   }
 });
 
-router.get("/work-file_:id", async (req, res) => {
+router.get("/work-file_:id",  auth, async (req, res) => {
   const id = req.params.id 
   if (MongoPatt(id)) {
     const dbFile = await UploadWork.find({
