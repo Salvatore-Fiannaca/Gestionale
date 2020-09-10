@@ -6,13 +6,14 @@ const { UploadWork } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
+const limitUp = require("../config/demo");
 
 /**
  * -------------- POST ROUTES ----------------
  */
 
 // ADD NEW
-router.post("/work-upload_:code", auth, upload, async (req, res) => {
+router.post("/work-upload_:code", auth, limitUp, upload, async (req, res) => {
   const code = req.params.code
   // VALIDATE INPUT
   if (CodePatt(code)) {
