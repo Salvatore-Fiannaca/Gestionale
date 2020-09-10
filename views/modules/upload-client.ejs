@@ -7,9 +7,12 @@
 <hr>
 <br>
 
-<!-- UPLOAD FORM -->
-<form method="POST" action="upload_<%= code %>" enctype="multipart/form-data">
-  <input type="file" name="files" multiple/>
+<!-- UPLOAD FORM 
+  <form method="POST" action="upload_<%= code %>" enctype="multipart/form-data">
+    <input type="file" name="files" multiple/>
+-->
+<form method="POST" action="upload_<%= code %>">
+  <input type="file" name="file" />
   <button type="submit" value="Submit"class="btn btn-primary">Avanti</button>
 </form>
 <br>

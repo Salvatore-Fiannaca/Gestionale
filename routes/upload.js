@@ -6,45 +6,41 @@ const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
-//const { limitUp } = require("../config/demo")
+const  limitUp  = require("../config/demo")
 
 /**
  * -------------- POST ROUTES ----------------
  */
 // ADD 
-router.post("/upload_:code", auth, upload, async (req, res) => {
+router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
   const code = req.params.code;
-  const files = req.files;
   // DEMO VERSION
-  if ( files.length > 3) {
-    res.redirect("/support")
-  } else {
-    // NORMAL VERSION
-    if (CodePatt(code) ) {
-        files.forEach((file) => {
-          const path = file.path;
-          try {
-            const newFile = new Upload({
-              client: code,
-              fieldname: file.fieldname,
-              originalname: file.originalname,
-              mimetype: file.mimetype,
-              destination: file.destination,
-              filename: file.filename,
-              path: path,
-              size: file.size,
-              owner: req.user._id,
-            });
-            newFile.save();
-          } catch (e) {
-            console.log(e);
-          }
+  //file.forEach((file) => {
+  const file = req.file;
+    // VALIDATE INPUT 
+    if ( CodePatt(code) ) {
+    // SAVE FILES
+      const path = file.path;
+      try {
+        const newFile = new Upload({
+          client: code,
+          fieldname: file.fieldname,
+          originalname: file.originalname,
+          mimetype: file.mimetype,
+          destination: file.destination,
+          filename: file.filename,
+          path: path,
+          size: file.size,
+          owner: req.user._id,
         });
-        res.redirect("/clients");
+        newFile.save();
+      } catch (e) {
+        console.log(e);
+      }
+      res.redirect("/clients");
     } else {
       res.redirect("/404")
     }
-  }
 });
 
 // DELETE 
