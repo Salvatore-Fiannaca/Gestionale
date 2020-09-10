@@ -6,38 +6,36 @@ const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
-const  limitUp  = require("../config/demo")
 
 /**
  * -------------- POST ROUTES ----------------
  */
 // ADD 
-router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
+router.post("/upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code;
-  // DEMO VERSION
-  //file.forEach((file) => {
-  const file = req.file;
-    // VALIDATE INPUT 
-    if ( CodePatt(code) ) {
+  const files = req.files;
+  // VALIDATE INPUT 
+  if ( CodePatt(code) ) {
     // SAVE FILES
-      const path = file.path;
-      try {
-        const newFile = new Upload({
-          client: code,
-          fieldname: file.fieldname,
-          originalname: file.originalname,
-          mimetype: file.mimetype,
-          destination: file.destination,
-          filename: file.filename,
-          path: path,
-          size: file.size,
-          owner: req.user._id,
-        });
-        newFile.save();
-      } catch (e) {
-        console.log(e);
+    try {
+      files.forEach((file) => {
+      const newFile = new Upload({
+        client: code,
+        fieldname: file.fieldname,
+        originalname: file.originalname,
+        mimetype: file.mimetype,
+        destination: file.destination,
+        filename: file.filename,
+        path: file.path,
+        size: file.size,
+        owner: req.user._id,
+      });
+      newFile.save();
+    })
+    } catch (e) {
+      console.log(e);
       }
-      res.redirect("/clients");
+    res.redirect("/clients");
     } else {
       res.redirect("/404")
     }
