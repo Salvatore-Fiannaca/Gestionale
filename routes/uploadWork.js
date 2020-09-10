@@ -14,11 +14,10 @@ const { CodePatt, MongoPatt } = require("../utils/isValidate");
 // ADD NEW
 router.post("/work-upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code
+  // VALIDATE INPUT
   if (CodePatt(code)) {
-    const files = req.files;
-    if (files) {
-      files.forEach((file) => {
-        const path = file.path;
+    const file = req.file;
+    if (file) {
         try {
           const newFile = new UploadWork({
             client: code,
@@ -27,7 +26,7 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
             mimetype: file.mimetype,
             destination: file.destination,
             filename: file.filename,
-            path: path,
+            path: file.path,
             size: file.size,
             owner: req.user._id,
           });
@@ -35,9 +34,8 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
         } catch (e) {
           console.log(e);
         }
-      });
     }
-    res.redirect(`/clients`);
+    res.redirect(`/_${code}`);
   } else {
     req.redirect("/404")
   }
@@ -46,6 +44,7 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
 //          DELETE WORK UPLOAD
 router.post("/work-file_:id", auth, async (req, res) => {
   const id = req.params.id
+  // VALIDATE INPUT
   if (MongoPatt(id)) {
     const localfile = await UploadWork.findOneAndDelete({
       _id: ObjectID(id),

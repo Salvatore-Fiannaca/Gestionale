@@ -14,12 +14,9 @@ const  limitUp  = require("../config/demo")
 // ADD 
 router.post("/upload_:code", auth, limitUp, upload, async (req, res) => {
   const code = req.params.code;
-  // DEMO VERSION
-  //file.forEach((file) => {
-  const file = req.file;
-    // VALIDATE INPUT 
-    if ( CodePatt(code) ) {
-    // SAVE FILES
+  // VALIDATE INPUT 
+  if ( CodePatt(code) ) {
+    const file = req.file;
       try {
         const newFile = new Upload({
           client: code,
