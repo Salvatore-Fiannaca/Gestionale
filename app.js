@@ -39,7 +39,9 @@ app.use(linkRoutes);
 
 /**
  * -------------- SERVER ----------------
- */
+*/
+
+const port = process.env.PORT || 3000
 
 // setting view engine
 app.set("view engine", "ejs");
@@ -50,7 +52,7 @@ app.use(express.static("public"));
 // Favicon
 app.use(favicon(path.join(__dirname,'public','img','logo.png')));
 
-app.listen(3000, () => console.log("Link Server => http://localhost:3000/login"));
+app.listen(port, () => console.log(`Server is up on port ${port}`));
 
 app.use(function(req, res, next) {
   res.status(404).render('pages/404');
