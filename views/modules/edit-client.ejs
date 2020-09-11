@@ -8,14 +8,14 @@
 
 <br>
 <!-- FORM MODIFICA CLIENTI -->
-<form method="POST" action="update_<%= clientList[0]._id %>">
+<form action="#">
   <div class="row">
     <div class="col">
       <input 
       type="text" 
       name="firstName" 
       class="form-control" 
-      value="<%= clientList[0].profile.firstName %>" 
+      value="MARIO" 
       placeholder="Nome *"
       pattern="[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}"
       required
@@ -26,7 +26,7 @@
       type="text" 
       name="lastName" 
       class="form-control" 
-      value="<%= clientList[0].profile.lastName %>" 
+      value="ROSSI" 
       placeholder="Cognome *"
       pattern="[A-Za-z0-9\s]{3,20}[A-Za-z0-9\s]{3,20}"
       />
@@ -35,7 +35,7 @@
   <br />
   <div class="form-group">
     <label class="form-control" readonly >
-      <%= clientList[0].profile.fiscalCode %>
+      XXXXXXXXXXXX
     </label>
   </div>
   <div class="form-group">
@@ -44,7 +44,7 @@
     name="address" 
     placeholder="Indirizzo *" 
     class="form-control" 
-    value="<%= clientList[0].address.street %>"
+    value="VIA ROMA"
     pattern="[A-Za-z0-9\s]{2,20}[A-Za-z0-9\s]{2,20}"
     required
     />
@@ -56,14 +56,13 @@
       name="city" 
       placeholder="Città" 
       class="form-control" 
-      value="<%= clientList[0].address.city %>"
+      value="ROMA"
       pattern="[A-Za-z0-9\s]{2,20}"
       />
     </div>
     <div class="form-group col-md-4">
       <select name="state" class="form-control">
-        <option selected><%= clientList[0].address.state %></option>
-        <option value="Italia">Italia</option>
+        <option selected>Italia</option>
         <option value="Europa">Europa</option>
         <option value="Estero">Estero</option>
       </select>
@@ -74,7 +73,7 @@
       name="zipCode"
       placeholder="CAP" 
       class="form-control" 
-      value="<%= clientList[0].address.zipCode %>" 
+      value="91200" 
       pattern="[A-Za-z0-9_-]{1,20}"
       />
     </div>
@@ -85,7 +84,7 @@
       placeholder="Email"
       maxlength="30" 
       class="form-control"  
-      value="<%= clientList[0].contacts.email %>"
+      value="mail@example.com"
       />
     </div>
     <div class="form-group col-md-6"> 
@@ -94,7 +93,7 @@
       name="phone" 
       placeholder="Telefono" 
       class="form-control" 
-      value="<%= clientList[0].contacts.phone %>"
+      value="XXXXXXXXXXXX"
       pattern="[0-9\s]{3,10}[0-9\s]{3,10}"
       />
     </div>
@@ -112,17 +111,19 @@
     </div>
   </div>
     <div class="form-group mt-2">
-      <button type="submit" value="Submit"class="btn btn-primary mt-4">Aggiorna</button>
+      <a href="/clients">
+        <button type="button" class="btn btn-primary mt-4">Aggiorna</button>
+      </a>
     </div>
   </div>
 </form>
 
-<form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
+<form action="#" id="btnDelete">
   <!-- Button trigger modal -->
   <button type="button" class="btn btn-danger btn-icon-split ml-4 mb-4" data-toggle="modal" data-target="#staticBackdrop">
     <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
-    <span class="text">      
-      Cancella
+    <span class="text" >    
+      Cancella  
     </span>
   </button>
 
@@ -141,7 +142,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-          <button type="submit" class="btn btn-danger" value="Submit">Procedi</button>
+          <a href="/clients">
+            <button type="button" class="btn btn-danger" >Procedi</button>
+          </a>
         </div>
       </div>
     </div>

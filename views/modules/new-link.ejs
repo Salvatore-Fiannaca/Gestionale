@@ -1,23 +1,5 @@
 <h1 class="h3 mb-4 text-gray-800">Aggiungi link</h1>
 
-<% if (redMsg) { %>
-  <div
-    class="form-group col-md-6 alert alert-danger mx-auto text-center"
-    role="alert"
-    id="msg"
-  >
-    <%= text %>
-  </div>
-  <% } %>
-<% if (greenMsg) { %>
-  <div
-    class="form-group col-md-6 alert alert-success mx-auto text-center"
-    role="alert"
-    id="msg"
-  >
-    <%= text %>
-  </div>
-  <% } %>
 <!--   -->
 <!-- FORM REGISTRA LAVORO -->
 <form method="POST" action="new-link">
@@ -41,10 +23,13 @@
       placeholder="Incolla il link qui..."
       maxlength="100"
       class="form-control"
+      required
       />
     </div>
   </div>
-  <button type="submit" value="Submit" class="btn btn-success">Salva</button>
+  <a href="/links">
+    <button type="button" class="btn btn-success">Salva</button>
+  </a>
 </form>
 <br />
 <br />

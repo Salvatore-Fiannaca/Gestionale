@@ -4,7 +4,7 @@ const router = require("express").Router();
  * -------------- GET ROUTES ----------------
  */
 
-router.get("/_:code", (req, res) => {
+router.get("/_", (req, res) => {
   res.render("pages/show-works");
 });
 

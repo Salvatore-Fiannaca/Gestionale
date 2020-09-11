@@ -4,11 +4,11 @@ const router = require("express").Router();
  * -------------- GET ROUTES ----------------
  */
 
-router.get("/upload_:code", (req, res) => {
+router.get("/upload", (req, res) => {
     res.render("pages/upload-client");
 });
 
-router.get("/show-upload_:code", (req, res) => {
+router.get("/show-upload", (req, res) => {
   res.render("pages/showUpload")
 });
 /*
