@@ -1,5 +1,3 @@
-
-Gestionale per uffici e studi tecnici di media dimenzione.
 A breve sarà disponibile un'anteprima statica, il resto è in fase di sviluppo.
 
 Primo progetto con node js, express e con Mongodb.
