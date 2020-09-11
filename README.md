@@ -1,4 +1,4 @@
-A breve sarà disponibile un'anteprima statica, il resto è in fase di sviluppo.
+Anteprima statica https://demo-gestionale.herokuapp.com/
 
 Primo progetto con node js, express e con Mongodb.
 Ho iniziato questo progetto, semplicemente per far pratica con questo linguaggio
