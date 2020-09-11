@@ -1,9 +1,10 @@
 
-Gestionale per studi tecnici, in fase di costruzione.
+Gestionale per uffici e studi tecnici di media dimenzione.
+A breve sarà disponibile un'anteprima statica, il resto è in fase di sviluppo.
 
 Primo progetto con node js, express e con Mongodb.
-Per far pratica con questo linguaggio, sto sviluppando un gestionale per studi tecnici / uffici in generale.
-Principalmente girerà in locale, per questioni di sicurezza.
+Ho iniziato questo progetto, semplicemente per far pratica con questo linguaggio
+e per toccare con mano la struttura di una webapp. Mi sono aiutato con un tema open source e l'ho riscritto per le mie esigenze.
 
 Funzioni / Obiettivi del progetto:
   - Gestione clienti ( Dati anagrafici + Allegati Generali + Contatti )
@@ -11,11 +12,7 @@ Funzioni / Obiettivi del progetto:
   - Gestione quindi degli allegati ( Caricamento, Apertura e  Scaricamento )
   - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
   
-Per capire meglio come funziona nodejs (e i linguaggi back-end in generale), 
-ho voluto gestirmi le sessioni e l'intero "CMS" senza l'ausilio di alteriori altri CMS.
-Ho soltanto utilizzato un tema open source e l'ho adattato
-per le mie esigenze (con l'ausilio di bootstrap ).
-
+  
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
   - Mongodb
