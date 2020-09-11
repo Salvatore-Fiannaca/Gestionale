@@ -1,12 +1,6 @@
 <!--      MODULO EDITA UTENTE -->
-<h1 class="h3 text-gray-800 ml-2"><%= username %></h1>
+<h1 class="h3 text-gray-800 ml-2">Admin</h1>
 <br />
-
-<% if (redMsg) { %>
-<div class="alert alert-danger" role="alert" id="msg"><%= text %></div>
-<% } %> <% if (greenMsg) { %>
-<div class="alert alert-success" role="alert" id="msg"><%= text %></div>
-<% } %>
 
 <!-- FORM  -->
 <form method="POST" action="edit-user">
@@ -41,10 +35,7 @@
   </div>
 </form>
 
-<!-- 
-    <form action="" method="POST" id="btnDelete">
-  -->
-<form method="POST" id="btnDelete" action="delete-me">
+<form id="btnDelete" action="#">
   <!-- Button trigger modal -->
   <button
     type="button"
@@ -86,9 +77,6 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Annulla
           </button>
-          <!-- 
-            <button type="submit" class="btn btn-danger" value="Submit">Procedi</button>
-          -->
           <button type="submit" class="btn btn-danger" value="#">
             Cancellami
           </button>

@@ -34,29 +34,25 @@
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB-->
-          <% links.forEach(link => { 
-            if (!link.title) {} else { %>
           <tr>
             <td>
               <strong>
-                <%= link.title %>
+                Google
               </strong>
             </td>
             <td>
-              <a  target="__blank" href="<%= link.link %>">
-                <%= link.link %>
+              <a  target="__blank" href="https://google.it">
+                https://google.it
               </a>
             </td>
             <td>
-              <form action ="unlink-<%= link.id %>" method="POST" id="btnDelete">
+              <form action ="#" id="btnDelete">
                 <button type="submit" class="btn btn-sm btn-danger" value="Submit">
                   <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
                 </button>
               </form>
-              <% } %> 
             </td>
           </tr>
-          <% }) %>
         </tbody>
       </table>
     </div>
