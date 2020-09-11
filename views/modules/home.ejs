@@ -34,7 +34,7 @@ Content Row -->
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">TOTALE LAVORI</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"> <%= numberOfWork %> </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"> 20 </div>
             </div>
             <div class="col-auto">
               <i class="fas fa-clipboard fa-2x text-gray-300"></i>
@@ -52,7 +52,7 @@ Content Row -->
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TOTALE ARCHIVIATI</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  <%= numberOfArchive %>
+                  5
                 </div>
               </div>
               <div class="col-auto">
@@ -148,18 +148,6 @@ Content Row -->
 </div>
 
 <div class="card-deck container mx-auto mt-4 text-center">
-<%  if (!links) { } else { links.forEach(link => {   %>
-  <div class="card border-bottom-secondary">
-    <div class="card-body">
-      <h6 class="card-title">
-        <a class="collapse-item" target="_blank" href="<%= link.link %>"><%= link.title %></a>
-      </h6>
-    </div>
-  </div>
-<% })} %>
-</div>
-
-<div class="card-deck container mx-auto mt-4 text-center">
   <div class="card border-bottom-secondary">
     <div class="card-body">
       <h6 class="card-title">
@@ -206,14 +194,11 @@ Content Row -->
 
 
 <script>
-  var widthInProgress = "<%= numberInProgress %>";
-  if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
+  var widthInProgress = "50";
   document.getElementById("inProgress").style.width = widthInProgress + "%";
   document.getElementById("labelInProgress").innerText = widthInProgress + "%";
-
-
-  var widthCompleted = "<%= numberOfCompleted %>";
-  if ( isNaN( widthCompleted ) === true ) {widthCompleted = 0}
+  
+  var widthCompleted = "50";
   document.getElementById("complete").style.width =  widthCompleted + "%";
   document.getElementById("labelCompleted").innerText = widthCompleted + "%";
 </script>
