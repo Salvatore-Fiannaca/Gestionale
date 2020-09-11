@@ -11,6 +11,7 @@ router.get("/upload", (req, res) => {
 router.get("/show-upload", (req, res) => {
   res.render("pages/showUpload")
 });
+
 /*
 router.get("/file_:id", (req, res) => {
   fs.access(file, fs.constants.F_OK, (err) => { console.log(err); });

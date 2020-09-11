@@ -4,11 +4,11 @@ const router = require("express").Router();
  * -------------- GET ROUTES ----------------
  */
 
-router.get("/work-upload_:code", (req, res) => {
+router.get("/work-upload", (req, res) => {
     res.render("pages/upload-work");
 });
 
-router.get("/work-show-upload_:code", (req, res) => {
+router.get("/work-show-upload", (req, res) => {
   res.render("pages/show-work-upload", {
   });
 });

@@ -8,7 +8,10 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.redirect("/");
+    res.render("pages/login", {
+      redMsg: false,
+      greenMsg: false,
+    }) ;
 });
 
 router.get("/register", (req, res) => {

@@ -8,11 +8,11 @@ router.get("/_", (req, res) => {
   res.render("pages/show-works");
 });
 
-router.get("/edit-work_:code", (req, res) => {
+router.get("/edit-work", (req, res) => {
   res.render("pages/edit-work");
 })
 
-router.get("/new-work_:code", (req, res) => {
+router.get("/new-work", (req, res) => {
   res.render("pages/new-work")
 });
 
