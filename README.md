@@ -4,13 +4,20 @@ Primo progetto con node js, express e con Mongodb.
 Ho iniziato questo progetto, semplicemente per far pratica con questo linguaggio
 e per toccare con mano la struttura di una webapp. Mi sono aiutato con un tema open source e l'ho riscritto per le mie esigenze.
 
-Funzioni / Obiettivi del progetto:
-  - Gestione clienti ( Dati anagrafici + Allegati Generali + Contatti )
-  - Gestione dei lavori per ogni cliente ( Info sul lavoro + Allegati relativi ad ogni lavoro + Stato attuale ) 
-  - Gestione quindi degli allegati ( Caricamento, Apertura e  Scaricamento )
-  - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
+Problema risolto:
+  - Organizzare, catalogare e ordinare tutto ciò che serve a supporto di un archivio reale.
+
+Funzioni del progetto:
+  - Gestione clienti 
+    - Dati anagrafici + Allegati Generali + Contatti
+  - Gestione dei lavori per ogni cliente: 
+    - Info sul lavoro + Allegati relativi ad ogni lavoro + Stato attuale  
+  - Gestione quindi degli allegati:
+    - Caricamento, apertura e/o download 
+  - Tabelle funzionali con ricerca istantanea: 
+    - Dentro le rispettive tabelle 
   
-Ogni clienti viene organizzato in questa maniera:
+Ogni cliente viene quindi organizzato in questa maniera:
 
 <p align="center">
   <img width="460" height="400" src="/public/img/flow.svg">
