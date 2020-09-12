@@ -11,7 +11,12 @@ Funzioni / Obiettivi del progetto:
   - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
   
 Ogni clienti è organizzato e catalogato in questa maniera:
+
 ![Schema Clienti](/public/img/flow.svg)
+
+<p align="center">
+  <img width="460" height="400" src="/public/img/flow.svg">
+</p>
   
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
