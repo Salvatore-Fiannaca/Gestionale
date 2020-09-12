@@ -1,4 +1,4 @@
-Anteprima statica https://demo-gestionale.herokuapp.com/
+Disponibile la [demo statica](https://demo-gestionale.herokuapp.com/)
 
 Primo progetto con node js, express e con Mongodb.
 Ho iniziato questo progetto, semplicemente per far pratica con questo linguaggio
@@ -10,12 +10,11 @@ Funzioni / Obiettivi del progetto:
   - Gestione quindi degli allegati ( Caricamento, Apertura e  Scaricamento )
   - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
   
-  
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
   - Mongodb
 
-Si puo avviare il classico comando " npm install " dentro la relativa cartella.
+Si puo avviare il comando " npm install " dentro la relativa cartella per scaricare le dipendenze.
 Una volta scaricato tutte le dipendenze, si deve creare un file e una cartella:
   - File ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni, email e password per inviare la password di recupero. )
     È già settato per un dominio "gmail", inserire solo la prima parte della mail.  
