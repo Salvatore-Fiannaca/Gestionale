@@ -10,6 +10,10 @@ Funzioni / Obiettivi del progetto:
   - Gestione quindi degli allegati ( Caricamento, Apertura e  Scaricamento )
   - Tabelle funzionali con ricerca istantanea ( dentro le rispettive tabelle )
   
+Ogni clienti è organizzato e catalogato in questa maniera:
+![Schema Clienti](/public/img/flow.svg)
+Format: ![Alt Text](url)
+  
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
   - Mongodb
