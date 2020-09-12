@@ -12,7 +12,6 @@ Funzioni / Obiettivi del progetto:
   
 Ogni clienti è organizzato e catalogato in questa maniera:
 ![Schema Clienti](/public/img/flow.svg)
-Format: ![Alt Text](url)
   
 Una volta scaricato, presupponendo che si abbia già installato e configurato:
   - Nodejs
