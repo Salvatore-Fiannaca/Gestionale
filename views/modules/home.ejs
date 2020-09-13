@@ -7,6 +7,9 @@
 Content Row -->
 
 <style>
+  #widthInProgress{
+    display: none;
+  }
   #center{
     margin: auto;
     margin-bottom: 60vh;
@@ -204,19 +207,10 @@ Content Row -->
 </div>
 </section>
 
+<input id="widthInProgress" type="number" value="<%= numberInProgress %>">
+<input id="widthCompleted" type="number" value="<%= numberOfCompleted %>">
 
-<script>
-  const widthInProgress = "<%= numberInProgress %>";
-  if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
-  document.getElementById("inProgress").style.width = widthInProgress + "%";
-  document.getElementById("labelInProgress").innerText = widthInProgress + "%";
-
-
-  const widthCompleted = "<%= numberOfCompleted %>";
-  if ( isNaN( widthCompleted ) === true ) {widthCompleted = 0}
-  document.getElementById("complete").style.width =  widthCompleted + "%";
-  document.getElementById("labelCompleted").innerText = widthCompleted + "%";
-</script>
+<script src="js/home.js"></script>
 
 
 

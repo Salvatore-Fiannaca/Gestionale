@@ -158,15 +158,16 @@ router.get("/", auth, async (req, res) => {
     owner: req.user._id,
     "work.status": "Concluso",
   });
-  const numberOfCompleted =
+  var numberOfCompleted =
     (checkNumberOfCompleted.length * 100) / numberOfWork.length;
 
-  const numberInProgress =
-    ((numberOfWork.length - checkNumberOfCompleted.length * 100)) /
+  var numberInProgress =
+    ((numberOfWork.length - checkNumberOfCompleted.length) * 100) /
     numberOfWork.length;
 
-  console.log(numberInProgress);
-  console.log(numberOfCompleted);
+  if ( isNaN( numberInProgress ) === true) {numberInProgress = 0}
+  if ( isNaN( numberOfCompleted ) === true) {numberOfCompleted = 0}
+
 
   res.render("pages/index", {
     numberOfWork: numberOfWork.length,
