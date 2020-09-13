@@ -25,11 +25,11 @@ router.post("/register", async (req, res) => {
   const psw2 = req.body.password2;
   const username = req.body.username;
   const mail = req.body.mail;
-  
+
   //  VALIDATION
   if (
     (psw == psw2) &
-    UserPatt(username) & 
+    UserPatt(username) &
     PswPatt(psw) &
     MailPatt(mail)
   ) {
@@ -105,7 +105,7 @@ router.post("/delete-me", auth, async (req, res) => {
     await Client.deleteMany({ owner: owner })
     await Work.deleteMany({ owner: owner })
     // DELETE UPLOAD CLIENT
-    await Upload.deleteMany({owner: owner });
+    await Upload.deleteMany({ owner: owner });
     findUpload.forEach((file) => {
       let path = file.path;
       fs.unlink(path, (err) => {
@@ -127,8 +127,8 @@ router.post("/delete-me", auth, async (req, res) => {
   } catch (err) {
     console.log(err)
   }
-  await User.findOneAndDelete({ "_id": ObjectID(owner)})
-  await Count.findOneAndDelete({ owner: ObjectID(owner)})
+  await User.findOneAndDelete({ "_id": ObjectID(owner) })
+  await Count.findOneAndDelete({ owner: ObjectID(owner) })
   res.redirect("/register")
 
 })
@@ -140,10 +140,12 @@ router.get("/", auth, async (req, res) => {
   // CHECK IF FORGOT & GET LINKS
   const user = await User.findOne({ _id: ObjectID(req.user._id) })
   if (user.forgot === true) {
-    await User.findOneAndUpdate({ 
-      _id: ObjectID(req.user._id)},  
-      { $set: { forgot: false }
-    })
+    await User.findOneAndUpdate({
+      _id: ObjectID(req.user._id)
+    },
+      {
+        $set: { forgot: false }
+      })
   }
 
   //  STATISTICS
@@ -158,9 +160,13 @@ router.get("/", auth, async (req, res) => {
   });
   const numberOfCompleted =
     (checkNumberOfCompleted.length * 100) / numberOfWork.length;
+
   const numberInProgress =
-    ((numberOfWork.length - checkNumberOfCompleted.length) * 100) /
+    ((numberOfWork.length - checkNumberOfCompleted.length * 100)) /
     numberOfWork.length;
+
+  console.log(numberInProgress);
+  console.log(numberOfCompleted);
 
   res.render("pages/index", {
     numberOfWork: numberOfWork.length,

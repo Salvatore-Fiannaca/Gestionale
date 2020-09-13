@@ -206,13 +206,13 @@ Content Row -->
 
 
 <script>
-  var widthInProgress = "<%= numberInProgress %>";
+  const widthInProgress = "<%= numberInProgress %>";
   if ( isNaN( widthInProgress ) === true) {widthInProgress = 0}
   document.getElementById("inProgress").style.width = widthInProgress + "%";
   document.getElementById("labelInProgress").innerText = widthInProgress + "%";
 
 
-  var widthCompleted = "<%= numberOfCompleted %>";
+  const widthCompleted = "<%= numberOfCompleted %>";
   if ( isNaN( widthCompleted ) === true ) {widthCompleted = 0}
   document.getElementById("complete").style.width =  widthCompleted + "%";
   document.getElementById("labelCompleted").innerText = widthCompleted + "%";
