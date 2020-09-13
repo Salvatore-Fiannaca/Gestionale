@@ -14,6 +14,7 @@ const { CodePatt, MongoPatt } = require("../utils/isValidate");
 router.post("/upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code;
   const files = req.files;
+
   // VALIDATE INPUT 
   if ( CodePatt(code) ) {
     // SAVE FILES
@@ -32,10 +33,10 @@ router.post("/upload_:code", auth, upload, async (req, res) => {
       });
       newFile.save();
     })
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
       }
-    res.redirect("/clients");
+    res.redirect('/show-upload_' + code);
     } else {
       res.redirect("/404")
     }
@@ -82,6 +83,7 @@ router.get("/upload_:code", auth, upload, async (req, res) => {
     res.redirect("/404")
   }
 });
+
 router.get("/show-upload_:code", auth, async (req, res) => {
   const code = req.params.code;
   if (CodePatt(code)) {

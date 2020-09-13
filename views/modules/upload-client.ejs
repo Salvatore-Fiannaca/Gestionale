@@ -3,7 +3,9 @@
 
 <!--      MODULO MODIFICA CLIENTI-->
 <h1 class="h3 text-gray-800"> Inserisci allegati</h1> 
-<small class=" mb-4">Allegati riferiti al cliente: <%= code %></small>
+<% if (code) { %>
+  <small class=" mb-4">Allegati riferiti al cliente: <%= code %> </small>
+<% } %>
 <hr>
 <br>
 

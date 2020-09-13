@@ -14,8 +14,8 @@ const { CodePatt, MongoPatt } = require("../utils/isValidate");
 // ADD NEW
 router.post("/work-upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code
-  if (CodePatt(code)) {
-    const files = req.files;
+  const files = req.files;
+  if (CodePatt(code)) {  
     if (files) {
       files.forEach((file) => {
         const path = file.path;
@@ -37,7 +37,7 @@ router.post("/work-upload_:code", auth, upload, async (req, res) => {
         }
       });
     }
-    res.redirect(`/clients`);
+    res.redirect('/work-show-upload_' + code);;
   } else {
     req.redirect("/404")
   }
@@ -74,7 +74,10 @@ router.post("/work-file_:id",  auth, async (req, res) => {
 router.get("/work-upload_:code", auth, upload, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
-    res.render("pages/upload-work", { code: code });
+    res.render("pages/upload-work", { 
+      code: code,
+      redMsg: false 
+    });
   } else {
     res.redirect("/404")
   }
