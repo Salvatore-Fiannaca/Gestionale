@@ -43,6 +43,14 @@ app.use(
   })
 );
 
+//  CSRF PROTECTION
+/*
+const cookieParser = require('cookie-parser')
+const csrf = require("csurf")
+const csrfProtection = csrf({ cookie: true });
+app.use(cookieParser())
+*/
+
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------
  */
@@ -61,6 +69,7 @@ const uploadRoutes = require("./routes/upload");
 const uploadWorkRoutes = require("./routes/uploadWork");
 const forgotRoutes = require("./routes/forgot");
 const linkRoutes = require("./routes/link");
+const invalidCsrfToken = require("./config/csrf");
 
 app.use(routes);
 app.use(clientRoutes);
@@ -69,7 +78,6 @@ app.use(uploadRoutes);
 app.use(uploadWorkRoutes);
 app.use(forgotRoutes);
 app.use(linkRoutes);
-
 
 
 /**
@@ -90,3 +98,5 @@ app.listen(3000, () => console.log("Link Server => http://localhost:3000/login")
 app.use(function(req, res, next) {
   res.status(404).render('pages/404');
 });
+
+//app.use(invalidCsrfToken)
