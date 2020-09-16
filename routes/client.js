@@ -5,6 +5,11 @@ const auth = require("../config/auth");
 const fs = require("fs");
 const { MongoPatt, ZipPatt, MailPatt, CodePatt, InputPatt, StatePatt, NumberPatt } = require('../utils/isValidate')
 
+// CSRF PROTECTION
+const csrf = require("csurf")
+const csrfProtection = csrf({cookie: true})
+const parseForm = express.urlencoded(({extended: false}))
+
 /**
  * -------------- POST ROUTES ----------------
  */

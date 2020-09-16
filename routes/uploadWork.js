@@ -7,6 +7,11 @@ const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
 
+// CSRF PROTECTION
+const csrf = require("csurf")
+const csrfProtection = csrf({cookie: true})
+const parseForm = express.urlencoded(({extended: false}))
+
 /**
  * -------------- POST ROUTES ----------------
  */

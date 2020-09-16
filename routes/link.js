@@ -6,6 +6,10 @@ const { ObjectID } = require("mongodb");
 const { InputPatt, MongoPatt } = require('../utils/isValidate')
 const validator = require('validator')
 
+// CSRF PROTECTION
+const csrf = require("csurf")
+const csrfProtection = csrf({cookie: true})
+const parseForm = express.urlencoded(({extended: false}))
 
 
 // POST ROUTES

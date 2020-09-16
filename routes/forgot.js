@@ -4,6 +4,8 @@ const connection = require("../config/database");
 const { User } = connection.models;
 const { tmpPass, genPassword } = require("../utils/passwordUtils")
 const express = require("express")
+
+// CSRF PROTECTION
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
