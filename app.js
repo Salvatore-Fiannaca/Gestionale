@@ -24,7 +24,7 @@ const app = express();
 app.use(helmet())
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 /**
  * -------------- SESSION SETUP ----------------
@@ -47,13 +47,9 @@ app.use(
   })
 );
 
-//  CSRF PROTECTION
-/*
-const cookieParser = require('cookie-parser')
-const csrf = require("csurf")
-const csrfProtection = csrf({ cookie: true });
+//  PARSE COOKIE 
+const cookieParser = require("cookie-parser")
 app.use(cookieParser())
-*/
 
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------

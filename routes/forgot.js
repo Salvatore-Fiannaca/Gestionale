@@ -3,8 +3,12 @@ const transporter = require("../config/send-email");
 const connection = require("../config/database");
 const { User } = connection.models;
 const { tmpPass, genPassword } = require("../utils/passwordUtils")
+const express = require("express")
+const csrf = require("csurf")
+const csrfProtection = csrf({cookie: true})
+const parseForm = express.urlencoded(({extended: false}))
 
-router.post("/forgot", async (req, res) => {
+router.post("/forgot", parseForm, csrfProtection, async (req, res) => {
   const mail = req.body.mail;
   const user = await User.findOne({ mail: mail });
   console.log(user.forgot)
@@ -40,18 +44,23 @@ router.post("/forgot", async (req, res) => {
     res.render("pages/forgot", {
       redMsg: true,
       text: "Email di recupero invitata",
+      csrfToken: req.csrfToken()
     });
   } else {
     res.render("pages/forgot", {
       redMsg: true,
       text: "Email non valida",
+      csrfToken: req.csrfToken()
     });
   }
 
 })
 
-router.get("/forgot", (req, res) => {
-  res.render("pages/forgot", {redMsg: false});
+router.get("/forgot", csrfProtection, (req, res) => {
+  res.render("pages/forgot", {
+    redMsg: false,
+    csrfToken: req.csrfToken()
+  });
 });
 
 module.exports = router;
