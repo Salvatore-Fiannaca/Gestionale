@@ -44,4 +44,4 @@ si puo dare il comando " npm run dev "  o  " npm run start " per far partire la 
 
 Una volta fatto, visitare dal browser "http://localhost:3000/register" o "http://YOUR-LOCAL-IP:3000/register" e creare un account amministratore.
 
-Chiaramente  non è completo ne completamente sicuro e affidabile, accetto comunque consigli o collaborazioni.
+Accetto richieste o collaborazioni.
