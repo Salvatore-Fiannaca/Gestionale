@@ -73,7 +73,7 @@ router.post("/edit-user", auth, async (req, res) => {
   const newPass = req.body.newPass;
   const newPass2 = req.body.newPass2;
 
-  if ((PswPass(newPass)) & (newPass == newPass2)) {
+  if ((PswPatt(newPass)) & (newPass == newPass2)) {
     const hash = await genPassword(newPass);
     await User.findOneAndUpdate(
       { _id: req.user._id },
