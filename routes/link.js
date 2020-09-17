@@ -8,15 +8,13 @@ const { InputPatt, MongoPatt } = require('../utils/isValidate')
 const validator = require('validator')
 
 // CSRF PROTECTION
-/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
-*/
 
 // POST ROUTES
 // ADD
-router.post("/new-link", auth, async (req, res) => {
+router.post("/new-link", auth, parseForm, csrfProtection, async (req, res) => {
   const title = req.body.title
   const link = req.body.link
   if (
@@ -36,19 +34,29 @@ router.post("/new-link", auth, async (req, res) => {
           }
         }
       })
-      res.render("pages/new-link", {greenMsg: true, redMsg: false, text: 'Inserito correttamente'});
+      res.render("pages/new-link", {
+        greenMsg: true, 
+        redMsg: false, 
+        text: 'Inserito correttamente',
+        csrfToken: req.csrfToken()
+      });
     } catch (err) {
       console.log(err);
       res.redirect("/404")
     }
   } else {
-    res.render("pages/new-link", {redMsg: true, greenMsg: false, text: 'Caratteri invalidi, riprova'});
+    res.render("pages/new-link", {
+      redMsg: true, 
+      greenMsg: false, 
+      text: 'Caratteri invalidi, riprova',
+      csrfToken: req.csrfToken()
+    });
   }
   //res.redirect("/404")
 });
 
 // DELETE
-router.post("/unlink-:id", auth, async (req, res) => {
+router.post("/unlink-:id", auth, parseForm, csrfProtection, async (req, res) => {
   const user = req.user._id
   const idUrl = req.params.id
   if ( MongoPatt(idUrl) ) 
@@ -74,15 +82,22 @@ router.post("/unlink-:id", auth, async (req, res) => {
 // GET ROUTES
 
 // ADD NEW LINK
-router.get("/new-link", auth, async (req, res) => {
+router.get("/new-link", auth, csrfProtection, async (req, res) => {
   //res.redirect("/404")
-  res.render("pages/new-link", {redMsg: false, greenMsg: false});
+  res.render("pages/new-link", {
+    redMsg: false, 
+    greenMsg: false,
+    csrfToken: req.csrfToken()
+  });
 });
 
 // SHOW ALL LINKS
-router.get("/links", auth, async (req, res) => {
+router.get("/links", auth, csrfProtection, async (req, res) => {
     const links = await User.findOne({ _id: ObjectID(req.user._id) });
-    res.render("pages/show-links", { links: links.links });
+    res.render("pages/show-links", { 
+      links: links.links,
+      csrfToken: req.csrfToken()
+    });
   });
 
 module.exports = router;
