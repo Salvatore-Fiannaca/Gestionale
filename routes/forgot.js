@@ -1,9 +1,9 @@
 const router = require("express").Router();
+const express = require("express")
 const transporter = require("../config/send-email");
 const connection = require("../config/database");
 const { User } = connection.models;
 const { tmpPass, genPassword } = require("../utils/passwordUtils")
-const express = require("express")
 
 // CSRF PROTECTION
 const csrf = require("csurf")

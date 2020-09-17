@@ -6,11 +6,15 @@ const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");
 const { CodePatt, MongoPatt } = require("../utils/isValidate");
+const express= require("express")
 
 // CSRF PROTECTION
+/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
+*/
+
 /**
  * -------------- POST ROUTES ----------------
  */

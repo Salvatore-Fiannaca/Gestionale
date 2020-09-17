@@ -39,6 +39,7 @@
       Aggiorna
     </button>
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form>
 
 <!-- 
@@ -86,9 +87,6 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Annulla
           </button>
-          <!-- 
-            <button type="submit" class="btn btn-danger" value="Submit">Procedi</button>
-          -->
           <button type="submit" class="btn btn-danger" value="#">
             Cancellami
           </button>
@@ -96,4 +94,5 @@
       </div>
     </div>
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form>

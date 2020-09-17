@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const express= require("express")
 const auth = require("../config/auth");
 const connection = require("../config/database");
 const { Work, UploadWork, Client } = connection.models;
@@ -7,9 +8,11 @@ const fs = require("fs");
 const { CodePatt, InputPatt, WorkFolderPatt, NumberPatt, CommentPatt, StatusPatt, MongoPatt} = require("../utils/isValidate");
 
 // CSRF PROTECTION
+/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
+*/
 
 /**
  * -------------- POST ROUTES ----------------

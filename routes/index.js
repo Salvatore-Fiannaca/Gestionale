@@ -7,6 +7,7 @@ const auth = require("../config/auth");
 const { ObjectID } = require("mongodb");
 const fs = require("fs");
 const { UserPatt, PswPatt, MailPatt } = require('../utils/isValidate')
+const express= require("express")
 
 // CSRF PROTECTION
 const csrf = require("csurf")
@@ -19,13 +20,15 @@ const parseForm = express.urlencoded(({extended: false}))
 
 router.post(
   "/login",
+  parseForm,
+  csrfProtection,
   passport.authenticate("local", {
     failureRedirect: "/login-",
     successRedirect: "/",
   })
 );
 
-router.post("/register", async (req, res) => {
+router.post("/register", parseForm, csrfProtection, async (req, res) => {
   const psw = req.body.password;
   const psw2 = req.body.password2;
   const username = req.body.username;
@@ -57,12 +60,14 @@ router.post("/register", async (req, res) => {
         redMsg: false,
         greenMsg: true,
         text: "Account creato con successo",
+        csrfToken: req.csrfToken()
       });
     } else {
       res.render("pages/register", {
         redMsg: true,
         greenMsg: false,
         text: "Riprova con altre credenziali",
+        csrfToken: req.csrfToken()
       });
     }
   } else {
@@ -70,15 +75,16 @@ router.post("/register", async (req, res) => {
       redMsg: true,
       greenMsg: false,
       text: "Dati inseriti non validi",
+      csrfToken: req.csrfToken()
     });
   }
 });
 
-router.post("/edit-user", auth, async (req, res) => {
+router.post("/edit-user", auth, parseForm, csrfProtection, async (req, res) => {
   const newPass = req.body.newPass;
   const newPass2 = req.body.newPass2;
 
-  if ((PswPass(newPass)) & (newPass == newPass2)) {
+  if ((PswPatt(newPass)) & (newPass == newPass2)) {
     const hash = await genPassword(newPass);
     await User.findOneAndUpdate(
       { _id: req.user._id },
@@ -90,6 +96,7 @@ router.post("/edit-user", auth, async (req, res) => {
       redMsg: false,
       greenMsg: true,
       text: "Password aggiornata con successo",
+      csrfToken: req.csrfToken()
     });
   } else {
     const user = await User.find({ _id: ObjectID(req.user._id) });
@@ -98,11 +105,12 @@ router.post("/edit-user", auth, async (req, res) => {
       greenMsg: false,
       redMsg: true,
       text: "Riprova con altre credenziali",
+      csrfToken: req.csrfToken()
     });
   }
 });
 
-router.post("/delete-me", auth, async (req, res) => {
+router.post("/delete-me", auth, parseForm, csrfProtection, async (req, res) => {
   const owner = req.session.passport.user;
   try {
     const findWork = await UploadWork.find({ owner: owner })
@@ -183,58 +191,56 @@ router.get("/", auth, async (req, res) => {
   });
 });
 
-router.get("/login", (req, res) => {
-  if (req.isAuthenticated()) {
+router.get("/login", csrfProtection, async (req, res) => {
+  if ( req.isAuthenticated()) {
     res.redirect("/");
   } else {
     res.render("pages/login", {
       redMsg: false,
       greenMsg: false,
+      csrfToken: req.csrfToken()
     });
   }
 });
-
-// LOGIN FAIL
-router.get("/login-", (req, res) => {
+// duplicate login for passport redirect
+router.get("/login-", csrfProtection, (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/");
   } else {
     res.render("pages/login", {
       redMsg: true,
+      text: "Utente o password non validi",
       greenMsg: false,
-      text: "Dati inseriti non validi",
+      csrfToken: req.csrfToken()
     });
   }
 });
 
-router.get("/register", (req, res) => {
+router.get("/register", csrfProtection, (req, res) => {
   res.render("pages/register", {
     redMsg: false,
     greenMsg: false,
+    csrfToken: req.csrfToken()
   });
 });
 
-router.get("/logout", auth, async (req, res) => {
+router.get("/logout", auth, (req, res) => {
   req.logout();
   res.redirect("/login");
 });
 
-router.get("/edit-user", auth, async (req, res) => {
+router.get("/edit-user", auth, csrfProtection, async (req, res) => {
   const user = await User.find({ _id: ObjectID(req.user._id) });
   res.render("pages/edit-user", {
     username: user[0].username,
     redMsg: false,
     greenMsg: false,
+    csrfToken: req.csrfToken()
   });
 });
 
-router.get("/support", auth, async (req, res) => {
-  res.render("pages/support");
-});
-
-router.get("/404", (req, res) => {
-  res.render("pages/404")
-})
+router.get("/support", auth, (req, res) => res.render("pages/support"));
+router.get("/404", (req, res) => res.render("pages/404"))
 
 
 module.exports = router;
