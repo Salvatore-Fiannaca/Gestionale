@@ -41,6 +41,7 @@
               <td>
                 <form action ="file_<%= file._id %>" method="POST" id="btnDelete">
                   <button type="submit" class="btn btn-sm btn-danger" value="Submit"> X </button>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 </form>
               </td>
             </tr>

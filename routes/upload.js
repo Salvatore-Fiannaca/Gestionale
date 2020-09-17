@@ -9,17 +9,15 @@ const { CodePatt, MongoPatt } = require("../utils/isValidate");
 const express= require("express")
 
 // CSRF PROTECTION
-/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
-*/
 
 /**
  * -------------- POST ROUTES ----------------
  */
 // ADD 
-router.post("/upload_:code", auth, upload, async (req, res) => {
+router.post("/upload_:code", auth, upload, parseForm, csrfProtection, async (req, res) => {
   const code = req.params.code;
   const files = req.files;
 
@@ -51,7 +49,7 @@ router.post("/upload_:code", auth, upload, async (req, res) => {
 });
 
 // DELETE 
-router.post("/file_:id",  auth, async (req, res) => {
+router.post("/file_:id",  auth, parseForm, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {
@@ -82,17 +80,20 @@ router.post("/file_:id",  auth, async (req, res) => {
 /**
  * -------------- GET ROUTES ----------------
  */
-
-router.get("/upload_:code", auth, upload, async (req, res) => {
+// ADD  
+router.get("/upload_:code", auth, upload, csrfProtection, async (req, res) => {
   const code = req.params.code;
   if (CodePatt(code)) {
-    res.render("pages/upload-client", { code: code });
+    res.render("pages/upload-client", { 
+      code: code,
+      csrfToken: req.csrfToken()
+    });
   } else {
     res.redirect("/404")
   }
 });
-
-router.get("/show-upload_:code", auth, async (req, res) => {
+// SHOW
+router.get("/show-upload_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code;
   if (CodePatt(code)) {
     try {
@@ -104,6 +105,7 @@ router.get("/show-upload_:code", auth, async (req, res) => {
         res.render("pages/showUpload", {
           clientList: clientList,
           code: code,
+          csrfToken: req.csrfToken()
         });
       } else {
         res.redirect(req.header("Referer") || "/")
@@ -116,8 +118,8 @@ router.get("/show-upload_:code", auth, async (req, res) => {
     res.redirect("/404")
   }
 })
-
-router.get("/file_:id",  auth, async (req, res) => {
+// VIEW / DOWNLOAD
+router.get("/file_:id",  auth, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {
