@@ -126,8 +126,8 @@ router.post("/update-work_:code", auth, parseForm, csrfProtection, async (req, r
 /**
  * -------------- GET ROUTES ----------------
  */
-
-router.get("/_:code", auth, async (req, res) => {
+// SHOW WORK FOR FISCAL CODE
+router.get("/_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     try {
@@ -141,6 +141,7 @@ router.get("/_:code", auth, async (req, res) => {
         res.render("pages/show-works", {
           clientList: work,
           code: code,
+          csrfToken: req.csrfToken()
         });
       }
     } catch (e) {
@@ -152,7 +153,7 @@ router.get("/_:code", auth, async (req, res) => {
   }
   
 });
-
+// EDIT WORK
 router.get("/edit-work_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
@@ -177,7 +178,7 @@ router.get("/edit-work_:code", auth, csrfProtection, async (req, res) => {
     res.redirect("/404")      
   }
 })
-
+// NEW WORK 
 router.get("/new-work_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {

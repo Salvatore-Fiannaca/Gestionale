@@ -190,7 +190,7 @@ router.post("/client_:code", auth, parseForm, csrfProtection, async (req, res) =
  * -------------- GET ROUTES ----------------
  */
 
- // NEW CLIENT
+ // NEW 
 router.get("/client", auth, csrfProtection, (req, res) => {
   res.render("pages/new-client", { 
     redMsg: false,
@@ -198,6 +198,10 @@ router.get("/client", auth, csrfProtection, (req, res) => {
   });
 });
 
+/**
+ * -------------- GET ROUTES ----------------
+ */
+ // EDIT 
 router.get("/edit-client_:id", auth, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
@@ -212,7 +216,7 @@ router.get("/edit-client_:id", auth, csrfProtection, async (req, res) => {
     res.redirect("/404")
   }
 });
-// SHOW CLIENT
+// SHOW 
 router.get("/clients", auth, async (req, res) => {
   owner = req.session.passport.user;
   const filter = await Client.find({ owner: owner, archive: false });
@@ -222,7 +226,7 @@ router.get("/clients", auth, async (req, res) => {
     count: counter[0].count
   });
 });
-
+// SHOW OLD
 router.get("/old-clients", auth, async (req, res) => {
   owner = req.session.passport.user;
   const filter = await Client.find({ owner: owner, archive: true });
