@@ -115,6 +115,7 @@
       <button type="submit" value="Submit"class="btn btn-primary mt-4">Aggiorna</button>
     </div>
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form>
 
 <form action="client_<%= clientList[0].profile.fiscalCode %>" method="POST" id="btnDelete">
@@ -146,4 +147,5 @@
       </div>
     </div>
   </div>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form> 

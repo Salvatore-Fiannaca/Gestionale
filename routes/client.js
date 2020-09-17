@@ -7,18 +7,17 @@ const fs = require("fs");
 const { MongoPatt, ZipPatt, MailPatt, CodePatt, InputPatt, StatePatt, NumberPatt } = require('../utils/isValidate')
 
 // CSRF PROTECTION
-/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
-*/
+
 
 /**
  * -------------- POST ROUTES ----------------
  */
 
 //      ADD NEW CLIENT
-router.post("/client", auth, async (req, res) => {
+router.post("/client", auth, parseForm, csrfProtection,  async (req, res) => {
   const code = req.body.fiscalCode, 
    firstName = req.body.firstName, 
    lastName = req.body.lastName, 
@@ -89,7 +88,7 @@ router.post("/client", auth, async (req, res) => {
 });
 
 //      UPDATE CLIENT
-router.post("/update_:id", auth, async (req, res) => {
+router.post("/update_:id", auth, parseForm, csrfProtection, async (req, res) => {
   const id = req.params.id,
   firstName = req.body.firstName, 
    lastName = req.body.lastName, 
@@ -139,7 +138,7 @@ router.post("/update_:id", auth, async (req, res) => {
 });
 
 // DELETE CLIENT
-router.post("/client_:code", auth, async (req, res) => {
+router.post("/client_:code", auth, parseForm, csrfProtection, async (req, res) => {
   owner = req.session.passport.user;
   const code = req.params.code
   
@@ -192,16 +191,22 @@ router.post("/client_:code", auth, async (req, res) => {
  */
 
  // NEW CLIENT
-router.get("/client", auth, (req, res) => {
-  res.render("pages/new-client", { redMsg: false });
+router.get("/client", auth, csrfProtection, (req, res) => {
+  res.render("pages/new-client", { 
+    redMsg: false,
+    csrfToken: req.csrfToken() 
+  });
 });
 
-router.get("/edit-client_:id", auth, async (req, res) => {
+router.get("/edit-client_:id", auth, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     owner = req.session.passport.user;
     const client = await Client.find({ owner: owner, _id: id });
-    res.render("pages/edit-client", { clientList: client, n: 1 });
+    res.render("pages/edit-client", { 
+      clientList: client,
+      csrfToken: req.csrfToken() 
+    });
   } 
   else {
     res.redirect("/404")
@@ -214,7 +219,7 @@ router.get("/clients", auth, async (req, res) => {
   const counter = await Count.find({ owner: req.user._id });
   res.render("pages/show-clients", {
     clientList: filter,
-    count: counter[0].count,
+    count: counter[0].count
   });
 });
 
