@@ -20,8 +20,7 @@
       />
     </div>
     <div class="form-group col-md-4">
-      <select name="folder" class="form-control" required>
-        <option selected>Cartella...</option>
+      <select name="folder" class="form-control"  value="PROGETTI" required>
         <option value="PROGETTI">PROGETTI</option>
         <option value="DOCFA">DOCFA</option>
         <option value="PREGEO">PREGEO</option>
@@ -53,7 +52,7 @@
       ></textarea>
     </div>
     <div class="form-group col-md-4">
-      <select name="status" class="form-control" aria-placeholder="Stato Attuale" required>
+      <select name="status" class="form-control" value="In corso" required>
         <option value="In corso">In corso</option>
         <option value="In attesa di pagamento">In attesa di pagamento</option>
         <option value="Sospeso">Sospeso</option>
@@ -62,7 +61,7 @@
     </div>
   </div>
   <button type="submit" value="Submit" class="btn btn-success">Salva</button>
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form>
 <br />
 <br />

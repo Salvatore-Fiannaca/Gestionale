@@ -16,13 +16,11 @@
       required />
     </div>
     <div class="form-group col-md-4">
-      <select name="folder" class="form-control">
-        <option selected><%= clientList[0].work.folder.title %></option>
+      <select name="folder" class="form-control" value="<%= clientList[0].work.folder.title %>">
         <option value="PROGETTI">PROGETTI</option>
         <option value="DOCFA">DOCFA</option>
         <option value="PREGEO">PREGEO</option>
         <option value="VARIE">VARIE</option>
-        <option value="">...</option>
       </select>
     </div>
     <div class="form-group col-md-2">
@@ -50,8 +48,7 @@
       </textarea>
     </div>
     <div class="form-group col-md-4">
-      <select name="status" class="form-control">
-        <option selected><%= clientList[0].work.status %></option>
+      <select name="status" class="form-control" value="<%= clientList[0].work.status %>">
         <option value="Concluso">Concluso</option>
         <option value="In corso">In Corso</option>
         <option value="In attesa di pagamento">In attesa di pagamento</option>

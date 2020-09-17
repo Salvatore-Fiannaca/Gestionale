@@ -43,7 +43,7 @@ router.post("/new-work_:code", auth, parseForm, csrfProtection, async (req, res)
         owner: req.user._id,
       })
       try {
-        await newWork.save();
+        newWork.save();
       } catch (e) {
         console.log(e);
       }
