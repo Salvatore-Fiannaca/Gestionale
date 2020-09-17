@@ -8,18 +8,16 @@ const fs = require("fs");
 const { CodePatt, InputPatt, WorkFolderPatt, NumberPatt, CommentPatt, StatusPatt, MongoPatt} = require("../utils/isValidate");
 
 // CSRF PROTECTION
-/*
 const csrf = require("csurf")
 const csrfProtection = csrf({cookie: true})
 const parseForm = express.urlencoded(({extended: false}))
-*/
 
 /**
  * -------------- POST ROUTES ----------------
  */
 
 // ADD
-router.post("/new-work_:code", auth, async (req, res) => {
+router.post("/new-work_:code", auth, parseForm, csrfProtection, async (req, res) => {
   const code = req.params.code,
        title = req.body.title,
        folder = req.body.folder, 
@@ -57,7 +55,7 @@ router.post("/new-work_:code", auth, async (req, res) => {
 })
   
 // DELETE WORK + FILE
-router.post("/work_:id", async (req, res) => {
+router.post("/work_:id", parseForm, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     try {
@@ -87,7 +85,7 @@ router.post("/work_:id", async (req, res) => {
   res.redirect("/clients");
 })
 // UPDATE WORK
-router.post("/update-work_:code", auth, async (req, res) => {
+router.post("/update-work_:code", auth, parseForm, csrfProtection, async (req, res) => {
   const code = req.params.code,
         title = req.body.title,
       folder = req.body.folder,
@@ -155,7 +153,7 @@ router.get("/_:code", auth, async (req, res) => {
   
 });
 
-router.get("/edit-work_:code", auth, async (req, res) => {
+router.get("/edit-work_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     try {
@@ -164,7 +162,10 @@ router.get("/edit-work_:code", auth, async (req, res) => {
         owner: req.user._id,
       });
       if (clientList[0].client) {
-        res.render("pages/edit-work", { clientList: clientList });
+        res.render("pages/edit-work", { 
+          clientList: clientList,
+          csrfToken: req.csrfToken() 
+        });
       } else {
         res.redirect("/404")      
       }
@@ -177,7 +178,7 @@ router.get("/edit-work_:code", auth, async (req, res) => {
   }
 })
 
-router.get("/new-work_:code", auth, async (req, res) => {
+router.get("/new-work_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     try {
@@ -187,7 +188,10 @@ router.get("/new-work_:code", auth, async (req, res) => {
       });
       // IF EXIST
       if (clientList[0].profile) {
-        res.render("pages/new-work", { fiscalCode: clientList[0].profile.fiscalCode })
+        res.render("pages/new-work", { 
+          fiscalCode: clientList[0].profile.fiscalCode,
+          csrfToken: req.csrfToken() 
+        })
       } else {
         res.redirect("/404")      
       }
