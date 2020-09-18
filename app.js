@@ -6,7 +6,7 @@ const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon")
 const path = require('path')
 //const helmet = require('helmet')
-//const cors = require("cors")
+const cors = require("cors")
 
 // Need to require the entire Passport config module so app.js knows about it
 require("./config/passport");
@@ -25,7 +25,7 @@ const app = express();
 //app.use(helmet())
 
 // cors 
-//app.use(cors())
+app.use(cors())
 
 
 
