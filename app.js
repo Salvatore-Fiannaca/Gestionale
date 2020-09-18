@@ -21,11 +21,12 @@ require("dotenv").config();
 // Create the Express application
 const app = express();
 
+// enable corse 
+app.use(cors())
+
 // Basic protection
 app.use(helmet())
 
-// cors 
-app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
