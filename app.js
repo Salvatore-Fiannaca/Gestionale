@@ -6,6 +6,7 @@ const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon")
 const path = require('path')
 const helmet = require('helmet')
+const cors = require("cors")
 
 // Need to require the entire Passport config module so app.js knows about it
 require("./config/passport");
@@ -22,6 +23,9 @@ const app = express();
 
 // Basic protection
 app.use(helmet())
+
+// cors 
+app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -69,7 +73,6 @@ const uploadRoutes = require("./routes/upload");
 const uploadWorkRoutes = require("./routes/uploadWork");
 const forgotRoutes = require("./routes/forgot");
 const linkRoutes = require("./routes/link");
-//const invalidCsrfToken = require("./config/csrf");
 
 app.use(routes);
 app.use(clientRoutes);
@@ -98,5 +101,3 @@ app.listen(3000, () => console.log("Link Server => http://localhost:3000/login")
 app.use(function(req, res, next) {
   res.status(404).render('pages/404');
 });
-
-//app.use(invalidCsrfToken)
