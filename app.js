@@ -5,7 +5,7 @@ const connection = require("./config/database");
 const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon")
 const path = require('path')
-//const helmet = require('helmet')
+const helmet = require('helmet')
 const cors = require("cors")
 
 // Need to require the entire Passport config module so app.js knows about it
@@ -22,7 +22,7 @@ require("dotenv").config();
 const app = express();
 
 // Basic protection
-//app.use(helmet())
+app.use(helmet())
 
 // cors 
 app.use(cors())
