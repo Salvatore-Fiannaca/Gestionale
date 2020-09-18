@@ -22,8 +22,10 @@ require("dotenv").config();
 const app = express();
 
 // Basic protection
-app.use(helmet({
-  hsts: false
+app.use(
+  helmet({
+  hsts: false,
+  contentSecurityPolicy: false
 }))
 
 // cors 
