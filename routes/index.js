@@ -42,15 +42,10 @@ router.post("/register", parseForm, csrfProtection, async (req, res) => {
     MailPatt(mail)
   ) {
     //  CHECK IF EXIST
-    const slotUser = await User.find({ username: username });
-    const slotMail = await User.find({ mail: mail });
-    if (slotUser.length === 0 & slotMail.length === 0) {
+    const slot = await User.exists({ $or: [{ username }, { mail }] })
+    if (!slot) {
       const hash = await genPassword(psw);
-      const newUser = await new User({
-        username: username,
-        hash: hash,
-        mail: mail,
-      });
+      const newUser = await new User({ username, hash, mail });
       await newUser.save();
       // INIT COUNT CLIENTS FOR NEW USER
       const count = await new Count({ owner: newUser._id });
@@ -150,9 +145,9 @@ router.post("/delete-me", auth, parseForm, csrfProtection, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 router.get("/", auth, async (req, res) => {
-  // CHECK IF FORGOT & GET LINKS
-  const user = await User.findOne({ _id: ObjectID(req.user._id) })
-  if (user.forgot === true) {
+  // CHECK IF FORGOT 
+  const user = await User.findOne({ _id: ObjectID( req.user._id ) }).lean()
+  if ( user.forgot === true ) {
     await User.findOneAndUpdate({
       _id: ObjectID(req.user._id)
     },
@@ -162,31 +157,25 @@ router.get("/", auth, async (req, res) => {
   }
 
   //  STATISTICS
-  const numberOfWork = await Work.find({ owner: req.user._id });
-  const numberOfArchive = await Client.find({
-    owner: req.user._id,
-    archive: true,
-  });
-  const checkNumberOfCompleted = await Work.find({
-    owner: req.user._id,
-    "work.status": "Concluso",
-  });
+  const numberOfWork = await Work.estimatedDocumentCount({ owner: req.user._id })
+  const numberOfArchive = await Client.countDocuments({ owner: req.user._id, archive: true })
+  const checkNumberOfCompleted = await Work.countDocuments({ owner: req.user._id, "work.status": "Concluso" })
   var numberOfCompleted =
-    (checkNumberOfCompleted.length * 100) / numberOfWork.length;
+    (checkNumberOfCompleted * 100) / numberOfWork;
 
   var numberInProgress =
-    ((numberOfWork.length - checkNumberOfCompleted.length) * 100) /
-    numberOfWork.length;
+    ((numberOfWork - checkNumberOfCompleted) * 100) /
+    numberOfWork;
 
   if ( isNaN( numberInProgress ) === true) {numberInProgress = 0}
   if ( isNaN( numberOfCompleted ) === true) {numberOfCompleted = 0}
 
 
   res.render("pages/index", {
-    numberOfWork: numberOfWork.length,
-    numberOfArchive: numberOfArchive.length,
-    numberInProgress: numberInProgress,
-    numberOfCompleted: numberOfCompleted,
+    numberOfWork,
+    numberOfArchive,
+    numberInProgress,
+    numberOfCompleted,
     links: user.links
   });
 });
@@ -230,7 +219,7 @@ router.get("/logout", auth, (req, res) => {
 });
 
 router.get("/edit-user", auth, csrfProtection, async (req, res) => {
-  const user = await User.find({ _id: ObjectID(req.user._id) });
+  const user = await User.find({ _id: ObjectID(req.user._id) }).lean();
   res.render("pages/edit-user", {
     username: user[0].username,
     redMsg: false,
