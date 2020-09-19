@@ -1,8 +1,8 @@
 <!-- form ricerca cliente -->
 
 <h1 class="h3 mb-2 text-gray-800">Lista Allegati</h1>
-<p>Relativi al cliente: <%= code %> 
-  <a type="button" class="btn btn-sm btn-success float-right" href="/upload_<%= code %>">
+<p>Relativi al cliente: MARIO ROSSI
+  <a type="button" class="btn btn-sm btn-success float-right" href="/upload">
     Inserisci nuovo
   </a>
 </p>
@@ -29,22 +29,20 @@
         </tfoot>
         <tbody>
           <!-- LIST FROM DB--> 
-            <% clientList.forEach(file => { %>
             <tr>
               <td>
-                <a href="file_<%= file._id %>">
+                <a href="/file">
                   <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title=" ">
-                    <%= file.originalname %>
+                    Nome File
                   </button>
                 </a>
               </td>
               <td>
-                <form action ="file_<%= file._id %>" method="POST" id="btnDelete">
-                  <button type="submit" class="btn btn-sm btn-danger" value="Submit"> X </button>
+                <form action ="" id="btnDelete">
+                  <button type="button" class="btn btn-sm btn-danger" value="Submit"> X </button>
                 </form>
               </td>
             </tr>
-            <% }) %> 
         </tbody>
       </table>
     </div>

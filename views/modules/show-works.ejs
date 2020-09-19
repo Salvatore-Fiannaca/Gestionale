@@ -1,8 +1,8 @@
 <!-- form ricerca cliente -->
 <h1 class="h3 mb-2 text-gray-800"> Elenco Lavori</h1>
-<p><%= code %> 
+<p>MARIO ROSSI
   <span>
-    <a type="button" class="btn btn-sm btn-success float-right" href="new-work_<%= code %>">
+    <a type="button" class="btn btn-sm btn-success float-right" href="/new-work">
       Inserisci nuovo 
     </a>  
   </span>
@@ -34,31 +34,52 @@
         </tfoot>
         <tbody>
           <!-- LIST CLIENT FROM DB--> 
-            <% clientList.forEach(client => { %>
             <tr>
               <td> 
-                <a href="/edit-work_<%= code %>">
-                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="<%= client.work.comments %>">
-                    <%= client.work.title %>
+                <a href="/edit-work">
+                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="commento">
+                    Primo lavoro
                   </button>
                 </a>
               </td>
               <td> 
                 <label class="mr-2">
-                  <%= client.work.folder.title %>
+                  VARIE
                 </label>
                 <label class="">
-                  N°: <%= client.work.folder.number %>
+                  N°: 
                 </label>
               </td>
               <td>
-                <a href="/work-show-upload_<%= client.client %>">
+                <a href="/work-show-upload">
                   <img width="30rem" height="40rem" src="img/clientFile.svg">
                 </a>
               </td>
-              <td> <%= client.work.status %> </td>
+              <td> Completato </td>
             </tr>
-            <% }) %> 
+            <tr>
+              <td> 
+                <a href="/edit-work">
+                  <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="commento">
+                    Secondo lavoro
+                  </button>
+                </a>
+              </td>
+              <td> 
+                <label class="mr-2">
+                  VARIE
+                </label>
+                <label class="">
+                  N°: 
+                </label>
+              </td>
+              <td>
+                <a href="/work-show-upload">
+                  <img width="30rem" height="40rem" src="img/clientFile.svg">
+                </a>
+              </td>
+              <td> In corso </td>
+            </tr>
         </tbody>
       </table>
     </div>

@@ -1,13 +1,6 @@
 const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
-const connection = require("./config/database");
-const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon")
 const path = require('path')
-
-// Need to require the entire Passport config module so app.js knows about it
-require("./config/passport");
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -21,34 +14,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-/**
- * -------------- SESSION SETUP ----------------
- */
-
-const sessionStore = new MongoStore({
-  mongooseConnection: connection,
-  collection: "sessions",
-});
-
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // Equals 1 day * 24/hr/1day * 60min/1 hr
-    },
-  })
-);
-
-/**
- * -------------- PASSPORT AUTHENTICATION ----------------
- */
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 /**
  * -------------- ROUTES ----------------
@@ -74,7 +39,9 @@ app.use(linkRoutes);
 
 /**
  * -------------- SERVER ----------------
- */
+*/
+
+const port = process.env.PORT || 3000
 
 // setting view engine
 app.set("view engine", "ejs");
@@ -85,7 +52,7 @@ app.use(express.static("public"));
 // Favicon
 app.use(favicon(path.join(__dirname,'public','img','logo.png')));
 
-app.listen(3000, () => console.log("Link Server => http://localhost:3000/login"));
+app.listen(port, () => console.log(`Server is up on port ${port}`));
 
 app.use(function(req, res, next) {
   res.status(404).render('pages/404');
