@@ -3,7 +3,7 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "upload",
   filename: function (req, file, callback) {
-    const nameFile = file.originalname.replace(/\s/g, '');
+    const nameFile = file.originalname.replace(/\s/g, '-');
     const parts = nameFile.split(".");
     if (!/^[A-Za-z0-9-_]+$/.test(parts[0])) {
       callback(null, false)
