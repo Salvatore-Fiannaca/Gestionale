@@ -66,7 +66,7 @@ router.post("/work_:id", parseForm, csrfProtection, async (req, res) => {
       const find = await UploadWork.find({
         client: work.client,
         owner: req.user._id,
-      });
+      }).lean();
       await UploadWork.deleteMany({ client: work.client, owner: req.user._id });
   
       find.forEach((file) => {

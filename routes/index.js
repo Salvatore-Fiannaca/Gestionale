@@ -47,10 +47,6 @@ router.post("/register", parseForm, csrfProtection, async (req, res) => {
       const hash = await genPassword(psw);
       const newUser = await new User({ username, hash, mail });
       await newUser.save();
-      // INIT COUNT CLIENTS FOR NEW USER
-      const count = await new Count({ owner: newUser._id });
-      await count.save();
-
       res.render("pages/login", {
         redMsg: false,
         greenMsg: true,
@@ -233,4 +229,3 @@ router.get("/404", (req, res) => res.render("pages/404"))
 
 
 module.exports = router;
-

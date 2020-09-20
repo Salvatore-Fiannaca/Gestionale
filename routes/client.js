@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const express= require("express")
 const connection = require("../config/database");
-const { Client, Work, Upload, UploadWork, Count } = connection.models;
+const { Client, Work, Upload, UploadWork, User } = connection.models;
 const auth = require("../config/auth");
 const fs = require("fs");
+const { ObjectID } = require("mongodb");
 const { MongoPatt, ZipPatt, MailPatt, CodePatt, InputPatt, StatePatt, NumberPatt } = require('../utils/isValidate')
 
 // CSRF PROTECTION
@@ -40,15 +41,15 @@ router.post("/client", auth, parseForm, csrfProtection,  async (req, res) => {
     NumberPatt(phone) 
   ) 
   {
-    const check = await Client.find({
+    const check = await Client.exists({
       owner: req.user._id,
       "profile.fiscalCode": code,
     });
 
     // IF NOT EXIST
-    if (!check[0]) {
-      const counter = await Count.findOneAndUpdate(
-        { owner: req.user._id },
+    if (!check) {
+      const counter = await User.findOneAndUpdate(
+        { _id: ObjectID(req.user._id) },
         { $inc: { count: +1 } }
       );
       try {
@@ -74,12 +75,14 @@ router.post("/client", auth, parseForm, csrfProtection,  async (req, res) => {
       res.render(`pages/new-client`, {
         redMsg: true,
         text: "Codice Fiscale già registrato",
+        csrfToken: req.csrfToken()
       });
     }
   } else {
     res.render('pages/new-client', {
       redMsg: true,
-      text: 'Dati inseriti non validi'
+      text: 'Dati inseriti non validi',
+      csrfToken: req.csrfToken()
     })
   }
  
@@ -144,22 +147,13 @@ router.post("/client_:code", auth, parseForm, csrfProtection, async (req, res) =
   
   if (CodePatt(code)) {
     try {
-      await Client.findOneAndDelete({
-        "profile.fiscalCode": code,
-        owner: owner,
-      });
-      await Work.deleteMany({ client: code, owner: owner });
-      const findWork = await UploadWork.find({
-        client: code,
-        owner: owner,
-      });
-      const findUpload = await Upload.find({
-        client: code,
-        owner: owner,
-      });
+      await Client.findOneAndDelete({ "profile.fiscalCode": code, owner });
+      await Work.deleteMany({ client: code, owner });
+      const findWork = await UploadWork.find({ client: code, owner });
+      const findUpload = await Upload.find({ client: code, owner });
 
       // DELETE UPLOAD CLIENT
-      await Upload.deleteMany({ client: code, owner: owner });
+      await Upload.deleteMany({ client: code, owner });
       findUpload.forEach((file) => {
         let path = file.path;
         fs.unlink(path, (err) => {
@@ -170,7 +164,7 @@ router.post("/client_:code", auth, parseForm, csrfProtection, async (req, res) =
       });
 
       // DELETE UPLOAD WORK CLIENT
-      await UploadWork.deleteMany({ client: code, owner: owner });
+      await UploadWork.deleteMany({ client: code, owner });
       findWork.forEach((file) => {
         let path = file.path;
         fs.unlink(path, (err) => {
@@ -206,7 +200,7 @@ router.get("/edit-client_:id", auth, csrfProtection, async (req, res) => {
   const id = req.params.id
   if (MongoPatt(id)) {
     owner = req.session.passport.user;
-    const client = await Client.find({ owner: owner, _id: id });
+    const client = await Client.find({ owner, _id: ObjectID(id) });
     res.render("pages/edit-client", { 
       clientList: client,
       csrfToken: req.csrfToken() 
@@ -219,17 +213,13 @@ router.get("/edit-client_:id", auth, csrfProtection, async (req, res) => {
 // SHOW 
 router.get("/clients", auth, async (req, res) => {
   owner = req.session.passport.user;
-  const filter = await Client.find({ owner: owner, archive: false });
-  const counter = await Count.find({ owner: req.user._id });
-  res.render("pages/show-clients", {
-    clientList: filter,
-    count: counter[0].count
-  });
+  const filter = await Client.find({ owner, archive: false }).lean();
+  res.render("pages/show-clients", { clientList: filter });
 });
 // SHOW OLD
 router.get("/old-clients", auth, async (req, res) => {
   owner = req.session.passport.user;
-  const filter = await Client.find({ owner: owner, archive: true });
+  const filter = await Client.find({ owner: owner, archive: true }).lean();
   res.render("pages/show-old-clients", { clientList: filter, n: 1 });
 });
 

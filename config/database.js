@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  count: {
+    type: Number,
+    default: 1
+  },
   mail: {
     type: String,
     unique: true,
@@ -202,19 +206,6 @@ const UploadForWork = new mongoose.Schema({
   },
 });
 const UploadWork = connection.model("UploadWork", UploadForWork);
-
-const CounterSchema = new mongoose.Schema({
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "User",
-  },
-  count: {
-    type: Number,
-    default: 1,
-  },
-});
-const Count = connection.model("Count", CounterSchema);
 
 // Expose the connection
 module.exports = connection;

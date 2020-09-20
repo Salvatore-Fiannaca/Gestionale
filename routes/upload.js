@@ -65,13 +65,14 @@ router.post("/file_:id",  auth, parseForm, csrfProtection, async (req, res) => {
             if (err) {
               console.log(err);
             }
+             res.redirect("/show-upload_" + localfile.client )
           });
         } 
     } catch (err) {
       console.log(err)
+      res.redirect("/client")
     }
-    
-    res.redirect(req.header("Referer") || "/");
+
   } else {
     res.redirect("/404");
   }

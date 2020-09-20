@@ -65,9 +65,10 @@ router.post("/work-file_:id",  auth, parseForm, csrfProtection, async (req, res)
         if (err) {
           console.log(err);
         }
+        res.redirect("/work-show-upload_" + localfile.client);
+     
       });
-    }
-    res.redirect(req.header("Referer") || "/");
+    } else res.redirect("/404")
   }else {
     res.redirect("/404")
   }

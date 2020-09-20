@@ -12,42 +12,50 @@ const parseForm = express.urlencoded(({extended: false}))
 
 router.post("/forgot", parseForm, csrfProtection, async (req, res) => {
   const mail = req.body.mail;
-  const user = await User.findOne({ mail: mail });
-  console.log(user.forgot)
+  const check = await User.exists({ mail });
   
-  // IF EXIST SEND MAIL
-  if (user.forgot === false) {
-    // GENERATE NEW PASS
-    let newPass = await tmpPass();
-    const hash = await genPassword(newPass);
-    await User.findOneAndUpdate(
-      { mail: mail },
-      { $set: { hash: hash, forgot: true } }
-    );
-    const mailOptions = {
-      from: "Gestionale",
-      to: req.body.mail,
-      subject: "Recupera Password",
-      text: `
-      Username: 
-      ${user.username} 
-
-      Password temporanea: 
-      ${newPass}
-      `
-    // html: "<h1></h1><p></p>",
-    };
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) console.log(err);
-      else console.log("Email sent: " + info.response);
-    }) 
-    res.redirect("/")
-  } else if (user.forgot === true)  {
-    res.render("pages/forgot", {
-      redMsg: true,
-      text: "Email di recupero invitata",
-      csrfToken: req.csrfToken()
-    });
+  // IF EXIST => IF FORGOT
+  if (check) {
+    const user = await User.findOne({ mail });
+    if (user.forgot === false) {
+      const user = await User.findOne({ mail });
+      // GENERATE NEW PASS
+      let newPass = await tmpPass();
+      const hash = await genPassword(newPass);
+      await User.findOneAndUpdate(
+        { mail: mail },
+        { $set: { hash: hash, forgot: true } }
+      );
+      const mailOptions = {
+        from: "Gestionale",
+        to: mail,
+        subject: "Recupera Password",
+        text: `
+        Username: 
+        ${user.username} 
+  
+        Password temporanea: 
+        ${newPass}
+        `
+      // html: "<h1></h1><p></p>",
+      };
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) console.log(err);
+        else console.log("Email sent: " + info.response);
+      }) 
+      res.render("pages/login", {
+        redMsg: false, 
+        greenMsg: true,
+        text: "Inserisci i dati di accesso ricevuti via email",
+        csrfToken: req.csrfToken()
+      })
+    } else if (user.forgot === true)  {
+      res.render("pages/forgot", {
+        redMsg: true,
+        text: "Email di recupero già invitata",
+        csrfToken: req.csrfToken()
+      });
+    }
   } else {
     res.render("pages/forgot", {
       redMsg: true,
@@ -55,7 +63,6 @@ router.post("/forgot", parseForm, csrfProtection, async (req, res) => {
       csrfToken: req.csrfToken()
     });
   }
-
 })
 
 router.get("/forgot", csrfProtection, (req, res) => {
