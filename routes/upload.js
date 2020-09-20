@@ -39,13 +39,11 @@ router.post("/upload_:code", auth, upload, parseForm, csrfProtection, async (req
       });
       newFile.save();
     })
-    } catch (err) {
-      console.log(err);
-      }
-    res.redirect('/show-upload_' + code);
-    } else {
-      res.redirect("/404")
-    }
+  } catch (err) {
+    console.log(err);
+  }
+  res.redirect('/show-upload_' + code);
+  }
 });
 
 // DELETE 
@@ -82,7 +80,7 @@ router.post("/file_:id",  auth, parseForm, csrfProtection, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 // ADD  
-router.get("/upload_:code", auth, upload, csrfProtection, async (req, res) => {
+router.get("/upload_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code;
   if (CodePatt(code)) {
     res.render("pages/upload-client", { 

@@ -77,8 +77,8 @@ router.post("/work-file_:id",  auth, parseForm, csrfProtection, async (req, res)
 /**
  * -------------- GET ROUTES ----------------
  */
-
-router.get("/work-upload_:code", auth, upload, csrfProtection, async (req, res) => {
+// ADD
+router.get("/work-upload_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
     res.render("pages/upload-work", { 
@@ -90,7 +90,7 @@ router.get("/work-upload_:code", auth, upload, csrfProtection, async (req, res) 
     res.redirect("/404")
   }
 });
-
+// LIST
 router.get("/work-show-upload_:code", auth, csrfProtection, async (req, res) => {
   const code = req.params.code
   if (CodePatt(code)) {
@@ -111,7 +111,7 @@ router.get("/work-show-upload_:code", auth, csrfProtection, async (req, res) => 
     res.redirect("/404")
   }
 });
-
+// VIEW
 router.get("/work-file_:id",  auth, csrfProtection, async (req, res) => {
   const id = req.params.id 
   if (MongoPatt(id)) {
