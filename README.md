@@ -1,8 +1,5 @@
-Disponibile la [demo statica](https://demo-gestionale.herokuapp.com/)
-
 Primo progetto con node js, express e con Mongodb.
-Ho iniziato questo progetto, semplicemente per far pratica con questo linguaggio
-e per toccare con mano la struttura di una webapp. Mi sono aiutato con un tema open source e l'ho riscritto per le mie esigenze.
+[Demo statica](https://demo-gestionale.herokuapp.com/)
 
 Problema risolto:
   - Organizzare, catalogare e ordinare tutto ciò che serve a supporto di un archivio reale.
@@ -17,31 +14,31 @@ Funzioni del progetto:
   - Tabelle funzionali con ricerca istantanea: 
     - Dentro le rispettive tabelle 
   
-Ogni cliente viene quindi organizzato in questa maniera:
+Ogni cliente viene organizzato in questa maniera:
 
 <p align="center">
   <img width="460" height="400" src="/public/img/flow.svg">
 </p>
   
-Una volta scaricato, presupponendo che si abbia già installato e configurato:
+Requisiti:
   - Nodejs
   - Mongodb
+  - Una "GMAIL" valida per la gestione del recupero password
 
-Si puo avviare il comando " npm install " dentro la relativa cartella per scaricare le dipendenze.
-Una volta scaricato tutte le dipendenze, si deve creare un file e una cartella:
-  - File ".env" dove verranno indicate le variabili d'ambiente ( indirizzo del database + chiave segreta criptare le sessioni, email e password per inviare la password di recupero. )
-    È già settato per un dominio "gmail", inserire solo la prima parte della mail.  
-    Esempio contenuto file " .env "
+Installazione:
+-Avviare il comando npm install per scaricare le dipendenze.
+-Creare un file ".env" dove verranno indicate le variabili d'ambiente
+    Esempio contenuto del file
       DB_STRING=mongodb://127.0.0.1:27017/Gestionale
       SECRET=ChiaveSuperSegreta
       MAIL=LaTuaMailDiProva
       PSW=PasswordDellaMailDiProva
       
-  - Creare una cartella (sempre all'interno del progetto) rinominandola "upload" (ovviamente senza virgolette)
+- Creare una cartella "upload" 
 
-Fatto il tutto e dopo essersi assicurato che il servizio mongodb è in funzione,
-si puo dare il comando " npm run dev "  o  " npm run start " per far partire la webapp.
+-Dopo essersi assicurato che il servizio mongodb è in funzione,
+ avviare la webapp con il comando "npm run dev"
 
-Una volta fatto, visitare dal browser "http://localhost:3000/register" o "http://YOUR-LOCAL-IP:3000/register" e creare un account amministratore.
-
-Accetto richieste o collaborazioni.
+ -Creare un account amministratore
+   -"http://localhost:3000/register" 
+   -"http://YOUR-LOCAL-IP:3000/register" 
