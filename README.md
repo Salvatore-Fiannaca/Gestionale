@@ -23,16 +23,16 @@ Ogni cliente viene organizzato in questa maniera:
 Requisiti:
   - Nodejs
   - Mongodb
-  - Una "GMAIL" valida per la gestione del recupero password
+  - Una "GMAIL" valida per il recupero password
 
 Installazione:
--Avviare il comando npm install per scaricare le dipendenze.
--Creare un file ".env" dove verranno indicate le variabili d'ambiente
+  - Avviare il comando npm install per scaricare le dipendenze.
+  - Creare un file ".env" dove verranno indicate le variabili d'ambiente
     Esempio contenuto del file
       DB_STRING=mongodb://127.0.0.1:27017/Gestionale
       SECRET=ChiaveSuperSegreta
       MAIL=LaTuaMailDiProva
       PSW=PasswordDellaMailDiProva
       
-- Lanciare il comando "npm run dev"
-- Creare il tuo primo account su "http://localhost:3000/register" o su "http://YOUR-LOCAL-IP:3000/register" 
+  - Lanciare il comando "npm run dev"
+  - Creare il tuo primo account su "http://localhost:3000/register" 
