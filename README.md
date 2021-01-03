@@ -27,12 +27,11 @@ Requisiti:
 
 Installazione:
   - Avviare il comando npm install per scaricare le dipendenze.
-  - Creare un file ".env" dove verranno indicate le variabili d'ambiente
-    Esempio contenuto del file
-      DB_STRING=mongodb://127.0.0.1:27017/Gestionale
-      SECRET=ChiaveSuperSegreta
-      MAIL=LaTuaMailDiProva
-      PSW=PasswordDellaMailDiProva
+  - Creare un file ".env" dove verranno indicate le variabili d'ambiente. Esempio:
+      - DB_STRING=mongodb://127.0.0.1:27017/Gestionale
+      - SECRET=ChiaveSuperSegreta
+      - MAIL=LaTuaMailDiProva
+      - PSW=PasswordDellaMailDiProva
       
   - Lanciare il comando "npm run dev"
   - Creare il tuo primo account su "http://localhost:3000/register" 
