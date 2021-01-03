@@ -34,11 +34,5 @@ Installazione:
       MAIL=LaTuaMailDiProva
       PSW=PasswordDellaMailDiProva
       
-- Creare una cartella "upload" 
-
--Dopo essersi assicurato che il servizio mongodb è in funzione,
- avviare la webapp con il comando "npm run dev"
-
- -Creare un account amministratore
-   -"http://localhost:3000/register" 
-   -"http://YOUR-LOCAL-IP:3000/register" 
+- Lanciare il comando "npm run dev"
+- Creare il tuo primo account su "http://localhost:3000/register" o su "http://YOUR-LOCAL-IP:3000/register" 
