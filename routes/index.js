@@ -150,16 +150,7 @@ router.post("/delete-me", auth, parseForm, csrfProtection, async (req, res) => {
  * -------------- GET ROUTES ----------------
  */
 router.get("/", auth, async (req, res) => {
-  // CHECK IF FORGOT & GET LINKS
   const user = await User.findOne({ _id: ObjectID(req.user._id) })
-  if (user.forgot === true) {
-    await User.findOneAndUpdate({
-      _id: ObjectID(req.user._id)
-    },
-      {
-        $set: { forgot: false }
-      })
-  }
 
   //  STATISTICS
   const numberOfWork = await Work.find({ owner: req.user._id });
