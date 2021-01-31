@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const express= require("express")
 const auth = require("../config/auth");
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { Work, UploadWork, Client } = connection.models;
 const { ObjectID } = require("mongodb");
 const fs = require("fs");

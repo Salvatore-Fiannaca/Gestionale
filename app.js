@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const connection = require("./config/database");
+const connection = require("./models/index");
 const MongoStore = require("connect-mongo")(session);
 const favicon = require("serve-favicon")
 const path = require('path')
@@ -30,7 +30,6 @@ app.use(
 
 // cors 
 app.use(cors())
-
 
 
 app.use(express.json());
@@ -102,7 +101,7 @@ app.use(express.static("public"));
 // Favicon
 app.use(favicon(path.join(__dirname,'public','img','logo.png')));
 
-app.listen(3000, () => console.log("Link Server => http://localhost:3000/login"));
+app.listen(3000, () => console.info("Link Server => http://localhost:3000/login"));
 
 app.use(function(req, res, next) {
   res.status(404).render('pages/404');

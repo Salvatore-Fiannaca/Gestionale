@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const { genPassword } = require("../utils/passwordUtils");
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { User, Work, Client, Count, Upload, UploadWork } = connection.models;
 const auth = require("../config/auth");
 const { ObjectID } = require("mongodb");

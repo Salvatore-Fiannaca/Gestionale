@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const express= require("express")
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { Client, Work, Upload, UploadWork, Count } = connection.models;
 const auth = require("../config/auth");
 const fs = require("fs");

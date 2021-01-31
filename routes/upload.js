@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const auth = require("../config/auth");
 const upload = require("../config/multer");
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { Upload } = connection.models;
 const fs = require("fs");
 const { ObjectID } = require("mongodb");

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const express = require("express");
 const transporter = require("../config/send-email");
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { User } = connection.models;
 const { tmpPass, genPassword } = require("../utils/passwordUtils");
 

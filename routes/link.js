@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const express= require("express")
 const auth = require("../config/auth");
-const connection = require("../config/database");
+const connection = require("../models/index");
 const { User } = connection.models;
 const { ObjectID } = require("mongodb");
 const { InputPatt, MongoPatt } = require('../utils/isValidate')
