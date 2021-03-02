@@ -18,9 +18,10 @@ Primo progetto con node js, express e con Mongodb.
   -  Prima registrazione "http://localhost:3000/register" 
 
 
-Obiettivo del progetto:
+### Obiettivo del progetto:
   - Organizzare, catalogare e ordinare tutto ciò che serve a supporto di un archivio reale.
 
+### Flusso dei dati:
 <p align="center">
   <img width="460" height="400" src="/public/img/flow.svg">
 </p>
